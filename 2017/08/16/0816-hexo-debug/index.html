@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20170816/001.png">
 <meta property="og:image" content="http://yoursite.com/image/20170816/002.png">
 <meta property="og:image" content="http://yoursite.com/image/20170816/003.png">
-<meta property="og:updated_time" content="2017-08-16T14:15:08.490Z">
+<meta property="og:updated_time" content="2017-08-16T14:18:05.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置使用hexo+github的填坑行动">
 <meta name="twitter:description" content="1 前言最近了解到hexo支持的博客系统很不错，界面简介大方，是众多程序员的标配，所以就想上手一个。听小伙伴说大概一个小时就能搞定，而我却画了整整一天的时间（包括设置主题）。中间主要因为一些bug浪费了一些时间，这也是程序员小白经常遇到的问题。所以，在我的第一篇博客中，就把这些贴出来，大家一起讨论学习。">
@@ -381,12 +381,11 @@
 <p>并不是我们hexo项目的源文件，为了实现源代码的托管，我们可以再设立一个仓库，然后把我们的源代码强推上去。</p>
 <p><img src="/image/20170816/003.png" alt="源代码仓库"></p>
 <p>这样就可以在github上管理你的代码啦！</p>
-<p>###4.2 hexo部署配置<br>hexo 为我们提供了便捷的<a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="external">部署功能</a>。我们完成hexo关于git的相关配置。</p>
+<h3 id="4-2-hexo部署配置"><a href="#4-2-hexo部署配置" class="headerlink" title="4.2 hexo部署配置"></a>4.2 hexo部署配置</h3><p>hexo 为我们提供了便捷的<a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="external">部署功能</a>。我们完成hexo关于git的相关配置。</p>
 <p>我们的配置为：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span>  </div><div class="line"><span class="attr">    type:</span> <span class="string">git</span>  </div><div class="line"><span class="attr">    repo:</span> <span class="attr">https://github.com/li-zemin/li-zemin.github.io.git</span>  </div><div class="line"><span class="attr">    branch:</span> <span class="string">master</span></div></pre></td></tr></table></figure></p>
-<p>###4.3 hexo部署</p>
-<p> 最后就是部署，一共需要三条命令，分别是：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean  </div><div class="line">$ hexo generate  </div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure></p>
+<h3 id="4-3-hexo部署"><a href="#4-3-hexo部署" class="headerlink" title="4.3 hexo部署"></a>4.3 hexo部署</h3><p> 最后就是部署，一共需要三条命令，分别是：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean  </div><div class="line">$ hexo generate  </div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure></p>
 <p> 通常我们会使用一些IDE工具，在里面的终端窗口中执行命令，这样往往会出现意想不到的问题。所以，我建议大家，<strong>一定要在git bash中执行三条指令（windows环境下）</strong>。这样最大可能避免由于 <em>git</em> 的设置而引发的问题。</p>
-<p> ##5 总结<br> 总而言之我们要注意的有两点：</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5 总结"></a>5 总结</h2><p> 总而言之我们要注意的有两点：</p>
 <ol>
 <li>github上仓库的设置，按照规则，只有一种设置方式。</li>
 <li>执行部署指令时，尽量在 <em>git bash</em> 中进行。</li>
@@ -580,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-hexo安装配置"><span class="nav-number">2.</span> <span class="nav-text">2 hexo安装配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-github设置"><span class="nav-number">3.</span> <span class="nav-text">3 github设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-hexo在github上的部署"><span class="nav-number">4.</span> <span class="nav-text">4 hexo在github上的部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-github仓库设置"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 github仓库设置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-hexo安装配置"><span class="nav-number">2.</span> <span class="nav-text">2 hexo安装配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-github设置"><span class="nav-number">3.</span> <span class="nav-text">3 github设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-hexo在github上的部署"><span class="nav-number">4.</span> <span class="nav-text">4 hexo在github上的部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-github仓库设置"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 github仓库设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-hexo部署配置"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 hexo部署配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-hexo部署"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 hexo部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5 总结</span></a></li></ol></div>
             
 
           </div>
