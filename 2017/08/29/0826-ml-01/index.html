@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="JUST DO IT!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lizemin&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="1. 前言​    前段时间学习了斯坦福大学 Andrew Ng 的机器学习课程，借完成博客的机会，对前面的课程进行一个简单的梳理。 2. 监督学习​    在机器学习中，对一组已知类别的样本进行学习的过程称为监督学习。根据样本的标签（类别）类型可将监督学习问题分为分类问题和回归问题。">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性回归">
+<meta property="og:url" content="http://yoursite.com/2017/08/29/0826-ml-01/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="JUST DO IT!">
+<meta property="og:description" content="1. 前言​    前段时间学习了斯坦福大学 Andrew Ng 的机器学习课程，借完成博客的机会，对前面的课程进行一个简单的梳理。 2. 监督学习​    在机器学习中，对一组已知类别的样本进行学习的过程称为监督学习。根据样本的标签（类别）类型可将监督学习问题分为分类问题和回归问题。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-03T12:54:24.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lizemin&#39;s Blog">
-<meta name="twitter:description" content="JUST DO IT!">
+<meta name="twitter:title" content="线性回归">
+<meta name="twitter:description" content="1. 前言​    前段时间学习了斯坦福大学 Andrew Ng 的机器学习课程，借完成博客的机会，对前面的课程进行一个简单的梳理。 2. 监督学习​    在机器学习中，对一组已知类别的样本进行学习的过程称为监督学习。根据样本的标签（类别）类型可将监督学习问题分为分类问题和回归问题。">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/29/0826-ml-01/"/>
 
 
 
 
 
-  <title>Lizemin's Blog</title>
+  <title>线性回归 | Lizemin's Blog</title>
   
 
 
@@ -157,9 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -252,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -284,9 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/29/0826-ml-01/" itemprop="url">线性回归</a></h1>
+          <h1 class="post-title" itemprop="name headline">线性回归</h1>
         
 
         <div class="post-meta">
@@ -367,17 +365,56 @@
       
 
       
-        
-          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>​    前段时间学习了斯坦福大学 Andrew Ng 的<strong>机器学习</strong>课程，借完成博客的机会，对前面的课程进行一个简单的梳理。</p>
-<h2 id="2-监督学习"><a href="#2-监督学习" class="headerlink" title="2. 监督学习"></a>2. 监督学习</h2><p>​    在机器学习中，对一组已知类别的样本进行学习的过程称为<strong>监督学习</strong>。根据样本的标签（类别）类型可将监督学习问题分为<strong>分类问题</strong>和<strong>回归问题</strong>。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/29/0826-ml-01/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>​    前段时间学习了斯坦福大学 Andrew Ng 的<strong>机器学习</strong>课程，借完成博客的机会，对前面的课程进行一个简单的梳理。</p>
+<h2 id="2-监督学习"><a href="#2-监督学习" class="headerlink" title="2. 监督学习"></a>2. 监督学习</h2><p>​    在机器学习中，对一组已知类别的样本进行学习的过程称为<strong>监督学习</strong>。根据样本的标签（类别）类型可将监督学习问题分为<strong>分类问题</strong>和<strong>回归问题</strong>。<br><a id="more"></a></p>
+<ul>
+<li>分类问题： 若样本的标签数据是离散的。比如，要预测建筑是公寓还是House。预测的结果只有两种。</li>
+<li>回归问题： 若样本的标签数据是连续的。比如，对房间价格的预测。预测的结果是连续的。</li>
+</ul>
+<h2 id="3-线性回归"><a href="#3-线性回归" class="headerlink" title="3. 线性回归"></a>3. 线性回归</h2><p>​    在房屋价格的预测中，给定样本的两个特征：居住面积，卧室间数；预测标签为房屋价格（连续型变量）。在这个问题中特征空间 \({\rm{x}}\) 为二维空间。例如 \({\rm{x}}_1^{(i)}\) 表示第 i 个训练集样本的居住面积； \({\rm{x}}_2^{(i)}\) 表示卧室间数。为了得到对价格的假设（预测）<em>h</em> 。我们假设样本标签（房屋价格） y 和特征空间 x 之间为线性关系：<br>$$<br>{h_\theta }(x) = {\theta _0} + {\theta _1}{x_1} + {\theta _2}{x_2} \tag{1}<br>$$<br>​    当特征空间维数为n时，我们可以将<strong>假设公式</strong>写为：<br>$$<br>h(x) = \sum_{i=0}^{n}\theta _{i}x_{i} \tag{2}<br>$$</p>
+<p>​    给定一个训练集，我们如何选择或者学习参数\(\theta \)。一个可取的方式似乎时让h(x)更靠近样本标签y。我们可以定义一个<strong>估价函数</strong>：<br>$$<br>J(\theta )=\frac{1}{2}\sum_{i=1}^{m}(h_{\theta }(x^{(i)})-y^{(i)})^{2} \tag{3}<br>$$</p>
+<p>​    m： 样本个数。</p>
+<h3 id="3-1-LMS算法"><a href="#3-1-LMS算法" class="headerlink" title="3.1 LMS算法"></a>3.1 LMS算法</h3><p>​    LMS算法： <strong>最小均方算法（least mean squres）</strong>。</p>
+<p>​    为了得到估价函数(3)最小时的\(\theta \)，可以通过<strong>梯度下降算法</strong>。给定一个初始的\(\theta \)值，通过式(4)更新\(\theta \)值。<br>$$<br>\theta _{j}:=\theta _{j}-\alpha \frac{\partial }{\partial \theta _{j}}J(\theta ) \tag{4}<br>$$<br>​    式中，α为学习率。梯度下降算法可以使 <em>J</em> 逐步到达最小值。</p>
+<p>​    计算估价函数对\(\theta _{j}\)的偏导，可以得到，对于单个训练样本，\(\theta _{j}\)的更新式子为：</p>
+<blockquote>
+<p>$$<br>\theta _{j}:=\theta _{j}+\alpha (y^{(i)}-h_{\theta}(x^ {(i)}))x_ {j}^{(i)} \tag{5}<br>$$</p>
+</blockquote>
+<p>​    该公式叫做最小均方算法更新公式，也被称为<strong>Widrow-Hoff</strong>学习公式。由该公式得，\(\theta _{j}\)值的变化量级与误差项\((y^{i}-h _{\theta}(x^{(i)}))\)成比例；因此，对于随机出现的某一个样本，如果我们的预测接近于实际值\(y^{i}\)，则没有必要更新参数\(\theta \)，反之，若预测误差较大，则参数也会有比较大的变化。</p>
+<p>​    得到LMS对单个样本的更新规则之后，我们可以修改这个方式以使其适用于含有多个样本的训练集。第一个方法如下：</p>
+<blockquote>
+<p>重复以下过程直到收敛{<br>$$\theta _{j}:=\theta _{j}+\alpha\sum_{i=1}^{m}(y^{(i)}-h _{\theta}(x^{(i)}))x _{j}^{(i)}\qquad(for\, every\, i)\tag{6}$$<br>}</p>
+</blockquote>
+<p>​    由该方法得，在整个训练集中的每个样本都会参与在参数的每次更新计算中，因此我们把这个方法叫做<strong>批处理梯度算法(batch gradient descent)</strong>。因为估价函数是一个二次凸优化函数，所以我们在这里提出的线性回归问题有且只有一个全局最优解，而没有其他的局部最优解。</p>
+<p>​    第二个方法为<strong>随机梯度算法(stochastic gradient descent)</strong>，算法如下：</p>
+<blockquote>
+<p>Loop{<br>​    for i=1 to m, {<br>$$\theta _{j}:=\theta _{j}+\alpha(y^{(i)}-h _{\theta}(x^{(i)}))x _{j}^{(i)} \qquad(for\, every\, i)\tag{7}$$<br>​    }<br>}</p>
+</blockquote>
+<p>​    由该方法得，循环遍历每个样本，每次取出一个样本都更新参数。相比较与批处理梯度算法需要在每次更新中都遍历整个数据集（样本数量m较大时，会使计算量较大），随机梯度下降算法可以很好地优化该为题。因此，随机梯度下降算法的收敛速度更快。</p>
+<h3 id="3-2-最小二乘法"><a href="#3-2-最小二乘法" class="headerlink" title="3.2 最小二乘法"></a>3.2 最小二乘法</h3><p>​    梯度下降法提供了一种极小化估价函数的方法。除此之外，还有一种不需要迭代就求得极小值的方法。我们可以通过求导极小化估价函数。Andrew Ng的讲义中，为我们提供了矩阵求导的知识补充。</p>
+<p>​    对\(J(\theta)\)矩阵求导，使导数为0。可得到下式：<br>$$<br>X^{T}X\theta=X^{T}\vec{y} \tag{8}<br>$$<br>​    求得：</p>
+<blockquote>
+<p>$$<br>\theta=(X^{T}X)^{-1}X^{T}\vec{y}\tag{9}<br>$$</p>
+</blockquote>
+<h3 id="3-3-概率解释"><a href="#3-3-概率解释" class="headerlink" title="3.3 概率解释"></a>3.3 概率解释</h3><p>​    在本节中，Andrew Ng从概率角度解释了对选择该估价函数的原因。</p>
+<p>​    假设目标变量和输入满足以下等式：<br>$$<br>y^{(i)}=\theta^{T}x^{(i)}+\epsilon ^{(i)}\tag{10}<br>$$<br>​    \(\epsilon^{(i)}\)表示预测值和实际值的误差项，误差可能来源于模型误差，或者一些随机噪声。我们可以更多地假设误差满足<strong>独立同分布(IID, independently and identically distributed)</strong>，满足均值为0，方差为\(\delta ^{2}\)的高斯分布：假设”\(\epsilon^{(i)}\sim N(0,\delta ^{2})\)“。因此\(\epsilon^{(i)}\)的概率密度为：<br>$$<br>p(\epsilon^{(i)})=\frac{1}{\sqrt{2\pi }\delta}exp(-\frac{(\epsilon^{(i)})^{2}}{2\delta^{2}})\tag{11}<br>$$<br>​    可以写为：<br>$$<br>p(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi }\delta}exp(-\frac{(y^{(i)}-\theta^{T}x^{(i)})^{2}}{2\delta^{2}})\tag{12}<br>$$<br>​    由此，可以得到关于\(\theta\)的似然函数：<br>$$<br>L(\theta)=L(\theta;X,\vec{y})=p(\vec{y}|X;\theta)\tag{13}<br>$$<br>​    根据\(\epsilon^{(i)}\)的独立性假设，上式可写为：<br>$$<br>L(\theta)=\prod_{i=1}^{m}p(y^{(i)}|x^{(i)};\theta)=\prod_ {i=1}^{m}\frac{1}{\sqrt{2\pi }\delta}exp(-\frac{(y^{(i)}-\theta^{T}x^{(i)})^{2}}{2\delta^{2}})\tag{14}<br>$$<br>​    为了使似然函数最大化，可以对似然函数求对数。可以得到：<br>$$<br>\frac{1}{2}\sum_{i=1}^{m}(h_{\theta }(x^{(i)})-y^{(i)})^{2} \tag{15}<br>$$<br>​    上式最小时，似然函数最大。这就是我们上面提出的估价函数。</p>
+<h3 id="3-4-局部加权线性回归"><a href="#3-4-局部加权线性回归" class="headerlink" title="3.4 局部加权线性回归"></a>3.4 局部加权线性回归</h3><p>​    在线性拟合过程中，存在<strong>过拟合</strong>和<strong>欠拟合</strong>的情况。因此，我们可以使用<strong>局部加权线性回归算法(LWR)</strong>。</p>
+<p>​    在传统的回归算法中，我们完成的工作为：</p>
+<blockquote>
+<ol>
+<li>调整\(\theta\)使估价函数最小化；</li>
+<li>输出\(\theta^{T}x\)。</li>
+</ol>
+</blockquote>
+<p>​    相比之下，局部加权回归算法完成的工作为：</p>
+<blockquote>
+<ol>
+<li>调整\(\theta\)使\(\sum_{i}^{m}\omega ^{(i)}(y^{(i)}-\theta^{T}x^{(i)}))^{2}\)最小化；</li>
+<li>输出\(\theta^{T}x\)。</li>
+</ol>
+</blockquote>
+<p>​    在加权回归算法下，可以求得\(\theta\)为：<br>$$<br>\theta=(X^{T}\omega X)^{-1}X^{T}\omega \vec{y}\tag{16}<br>$$<br>​    对于加权因子\(\omega^{(i)}\)的选择，一般选择：<br>$$<br>\omega^{(i)}=exp(-\frac{(x^{(i)}-x)^{2}}{2\tau ^{2}})\tag{17}<br>$$<br>​    局部加权线性回归是一种<strong>非参数化</strong>的学习算法，加权线性回归是<strong>参数化</strong>的学习算法，因为它由一个固定的，有限数量的参数\(\theta\)。将这些参数确定后，就不需要通过训练集做更多的预测。相反，对局部于加权线性回归，我们每次预测都需要全部的训练数据，每次预测得到不同的参数\(\theta\)。</p>
+
       
     </div>
     
@@ -392,308 +429,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/16/0816-hexo-debug/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lizemin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizemin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/16/0816-hexo-debug/" itemprop="url">配置使用hexo+github的填坑行动</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T17:09:42+08:00">
-                2017-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
-
-          
-
-          
-          
-             <span id="/2017/08/16/0816-hexo-debug/" class="leancloud_visitors" data-flag-title="配置使用hexo+github的填坑行动">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><p>最近了解到<a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo</a>支持的博客系统很不错，界面简介大方，是众多程序员的标配，所以就想上手一个。听小伙伴说大概一个小时就能搞定，而我却画了整整一天的时间（包括设置主题）。中间主要因为一些bug浪费了一些时间，这也是程序员小白经常遇到的问题。所以，在我的第一篇博客中，就把这些贴出来，大家一起讨论学习。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/0816-hexo-debug/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/16/0816-hexo-debug/" rel="next" title="配置使用hexo+github的填坑行动">
+                <i class="fa fa-chevron-left"></i> 配置使用hexo+github的填坑行动
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lizemin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizemin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/16/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T17:04:04+08:00">
-                2017-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/08/16/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -703,10 +468,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -734,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -810,6 +585,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-监督学习"><span class="nav-number">2.</span> <span class="nav-text">2. 监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-线性回归"><span class="nav-number">3.</span> <span class="nav-text">3. 线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-LMS算法"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 LMS算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-最小二乘法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 最小二乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-概率解释"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 概率解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-局部加权线性回归"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 局部加权线性回归</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -945,10 +736,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
