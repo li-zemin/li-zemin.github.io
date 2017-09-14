@@ -94,13 +94,13 @@
 
 
 
-<meta name="description" content="1 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
+<meta name="description" content="1. 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生成学习算法">
 <meta property="og:url" content="http://yoursite.com/2017/09/08/0908-ml-04/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="1 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
+<meta property="og:description" content="1. 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/image/20170908/001.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/002.png">
@@ -114,10 +114,16 @@
 <meta property="og:image" content="http://yoursite.com/image/20170908/010.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/011.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/012.png">
-<meta property="og:updated_time" content="2017-09-13T01:03:17.822Z">
+<meta property="og:image" content="http://yoursite.com/image/20170908/013.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/014.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/015.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/016.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/017.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/018.png">
+<meta property="og:updated_time" content="2017-09-14T08:36:08.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成学习算法">
-<meta name="twitter:description" content="1 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
+<meta name="twitter:description" content="1. 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
 <meta name="twitter:image" content="http://yoursite.com/image/20170908/001.png">
 
 
@@ -378,7 +384,7 @@
       
 
       
-        <h2 id="1-生成学习算法"><a href="#1-生成学习算法" class="headerlink" title="1 生成学习算法"></a>1 生成学习算法</h2><p>​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。</p>
+        <h2 id="1-生成学习算法"><a href="#1-生成学习算法" class="headerlink" title="1. 生成学习算法"></a>1. 生成学习算法</h2><p>​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。</p>
 <p>​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。<br><a id="more"></a><br>​    也有另一种不同的方法。首先，通过观察大象，我们可以建立大象的模型。然后，观察狗，我们建立狗的模型。最后，为了对一个新的动物进行分类，我们可以将这个动物与两个模型匹配比较。去对比发现这个动物更像大象还是更像狗。以此得到最后的预测结果。</p>
 <p>​    直接学习得到|\(p(y|x)\)结果的算法（例如Logistic回归）或者试图学习得到从输入空间X到样本标签{0，1}的算法被称为<strong>判别学习算法(discriminative learning algorithms)</strong>。在本节中，我们将讨论对\(p(x|y)\)和\(p(y)\)进行建模。这种算法被称为<strong>生成学习算法(generative learning algorithms)</strong>。例如，如果y表示一个样本是狗(0)还是大象(1)，那么\(p(x|y)=0\)表示狗的特征的模型分布，而\(p(x|y)=1\)表示大象的特征的模型分布。</p>
 <p>​    之后对\(p(y)\)(被称为<strong>先验概率</strong>)进行建模，有一种被称为<strong>贝叶斯法则</strong>可以得到给定x下的y的分类：</p>
@@ -392,7 +398,7 @@
 <p>​    对于一个满足\(N(\mu,\Sigma)\)分布的变量X，平均值为μ：</p>
 <p>​    <img src="/image/20170908/004.png" alt="004"></p>
 <p>​    随机向量Z的协方差定义为\(Cov(Z)=E[(Z-E[Z])(Z-E[Z]) ^{T}]\)。也可以被定义为\(Cov(Z)=E[ZZ^{T}]-(E[Z])(E[Z])^{T}\)。如果\(X\SimN(\mu, \Sigma)\)，则<br>$$<br>Cov(X)=\Sigma<br>$$</p>
-<p>​    对随机变量Z的协方差定义做一个转换解释：<br>$$<br>Cov(Z)=E[(Z-E(X)) ^{2}]\ ;<br>=E[X^{2}-2E[X]X+E[X] ^{2}]\ ;<br>=E[X^{2}]-2E[X]E[X]+E[X] ^{2}\\;<br>=E[X^{2}]-E[X] ^{2}<br>$$</p>
+<p>​    对随机变量Z的协方差定义做一个转换解释：<br>$$<br>Cov(Z)=E[(Z-E(X)) ^{2}]\\<br>=E[X^{2}-2E[X]X+E[X] ^{2}]\ <br>=E[X^{2}]-2E[X]E[X]+E[X] ^{2}\\<br>=E[X^{2}]-E[X] ^{2}<br>$$</p>
 <p>​    对于如下所示的高斯密度分布：</p>
 <p>​    <img src="/image/20170908/005.png" alt="005"></p>
 <p>​    最左边的图展示了一个均值为0(\(2\times1\)的0向量)协方差矩阵为单位矩阵(\(2\times2\)的单位矩阵)的高斯分布，这样的高斯分布也被成为<strong>标准分布</strong>。中间的图展示了一种协方差为0.6I，均值为0的高斯分布，右边的图展示了协方差矩阵为2I的高斯分布。我们可以看到：<strong>协方差矩阵越大，高斯分布的图像越扁平，协方差矩阵越小，高斯分布的图像越瘦长</strong>。</p>
@@ -411,6 +417,30 @@
 <p>​    <img src="/image/20170908/011.png" alt="011"></p>
 <p>​    对应的μ为：</p>
 <p>​    <img src="/image/20170908/012.png" alt="012"></p>
+<h3 id="2-2-高斯判别分析模型"><a href="#2-2-高斯判别分析模型" class="headerlink" title="2.2 高斯判别分析模型"></a>2.2 高斯判别分析模型</h3><p>​    对于输入特征 <em>x</em> 为连续变量的分类问题，我们可以使用高斯判别分析（GDA）模型，就是使用一个多维正太分布对<em>p(x|y)</em> 进行建模，对应的模型为：</p>
+<p>​    <img src="/image/20170908/013.png" alt="013"></p>
+<p>​    即，</p>
+<p>​    <img src="/image/20170908/014.png" alt="014"></p>
+<p>​    模型的参数为Φ，Σ，\(\mu _{0}\)以及\(\mu _{1}\)。（注意，当有两个不同的均值向量\(\mu _{0}\)和\(\mu _{1}\)时，模型通常只有一个协方差矩阵Σ）。这些参数的极大似然对数估计为，</p>
+<p>​    <img src="/image/20170908/015.png" alt="015"></p>
+<p>​    对于该式极大化推导，可以<strong>参考博文：</strong></p>
+<p>​    <strong> 1. <a href="http://blog.csdn.net/zhulf0804/article/details/52474339" target="_blank" rel="external">朴素贝叶斯算法参数的最大似然估计</a></strong></p>
+<p>​    <strong> 2. <a href="http://blog.csdn.net/sz464759898/article/details/44342923" target="_blank" rel="external">高斯判别分析和朴素贝叶斯</a></strong></p>
+<p>​    极大化似然函数后，我们得到了对参数的极大似然评估，</p>
+<p>​    <img src="/image/20170908/016.png" alt="016"></p>
+<blockquote>
+<p>这些结果是通过似然函数求导得出的，同样我们可以根据对实际问题的分析得到这样的式子。例如，<br>Φ表示样本为1的概率，即为标签为1的样本个数除以总样本数；<br>\(\mu _{0}, \mu _{1}\)分别表示标签为0，1的样本特征x的平均值；<br>Σ表示样本的协方差矩阵。</p>
+</blockquote>
+<p>​    该算法完成的工作可以从下图中体现：</p>
+<p>​    <img src="/image/20170908/017.png" alt="017"></p>
+<p>​    图中的×和O表示两种标签的样本分布，在每种样本分布区域中都有一个表示高斯分布的椭圆。注意，两个高斯分布有相同形状和方向的椭圆，因为他们有相同的协方差矩阵Σ，但是有不同的均值\(\mu _{0}, \mu _{1}\)。图中的直线表示了在p(y=1|x)=0.5时的分类边界。在边界一边，我们预测输出更可能为y=1，在另一边，输出更可能为y=0。</p>
+<h3 id="2-3-GDA与-Logistic分布"><a href="#2-3-GDA与-Logistic分布" class="headerlink" title="2.3 GDA与 Logistic分布"></a>2.3 GDA与 Logistic分布</h3><p>​    GDA模型与Logistic分布之间的联系很有趣。如果我们将\(p(y=1|x;\phi,\mu _{0},\mu_{1},\Sigma)\)看成x的函数，可以表示为（经证明后成立，特征分布为泊松分布时也成立），</p>
+<p>​    <img src="/image/20170908/018.png" alt="018"></p>
+<p>​     p(y=1|x)可以通过下式求出：<br>$$<br>p(y=1|x)=\frac{p(x|y=1)p(y=1)}{p(x)}\\<br>p(x)=p(x|y=0)p(y=0)+p(x|y=1)p(y=1)<br>$$<br>​    这里，θ可以看成Φ，Σ，μ0，μ1的函数。我们就得到了逻辑斯特回归，一种判别算法，建立了p(y=1|x)的模型。</p>
+<p>​    在相同的训练集上进行训练，<strong>GDA和Losigtic会得到不同的决策边界，哪一个更优呢？</strong></p>
+<p>​    刚刚证明了，<strong>如果p(x|y)是为多维高斯分布（同一个Σ），那么必然地p(y|x)符合逻辑斯特回归函数。然而，反过来是不成立的。p(y|x)为逻辑斯特函数时，并不能推出p(x|y)为高斯分布</strong>。这说明，GDA模型比逻辑斯特回归模型对数据有更强的假设要求。在模型假设时正确的情况下，GDA可以找到更好地匹配数据地模型。特别地，当p(x|y)的确满足高斯分布时，GDA时<strong>渐进有效</strong>的。也可以这么说，这意味着在较大数据集的限制下，没有比GDA严格更好的算法。特别地，在这种情况下，GDA是比逻辑斯特更好的算法。</p>
+<p>​    相比之下，在更弱的加沙下，逻辑斯特回归鲁棒性更好，对错误的模型假设敏感度更低。有不同的假设情况，使p(y|x)符合逻辑斯特函数。例如，当x|y 满足泊松分布时，p(y|x)就是一个逻辑斯特函数。逻辑斯特回归在泊松数据集上也表现地很好。但是，如果我们在这样地数据上应用GDA模型，将高斯分布假设置于一个非高斯分布地数据集上，结果是不可预估地，也许GDA可以取得很好地效果。</p>
+<p>​    总而言之：<strong>GDA需要更强的假设，当模型假设正确或至少大体上正确时，训练效率更高（需要较少的数据就可以取得很好地训练效果）。逻辑斯特回归的假设更弱，鲁棒性更好。特别得，当数据是非高斯的并且数据集较大，逻辑斯特回归比GDA的效果更好。正因如此，事实上，逻辑斯特回归比高斯回归更常用</strong>。</p>
 
       
     </div>
@@ -592,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-生成学习算法"><span class="nav-number">1.</span> <span class="nav-text">1 生成学习算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高斯判别分析"><span class="nav-number">2.</span> <span class="nav-text">2. 高斯判别分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-多元正态分布"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 多元正态分布</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-生成学习算法"><span class="nav-number">1.</span> <span class="nav-text">1. 生成学习算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高斯判别分析"><span class="nav-number">2.</span> <span class="nav-text">2. 高斯判别分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-多元正态分布"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 多元正态分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-高斯判别分析模型"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 高斯判别分析模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-GDA与-Logistic分布"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 GDA与 Logistic分布</span></a></li></ol></li></ol></div>
             
 
           </div>
