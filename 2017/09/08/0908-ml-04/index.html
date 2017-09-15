@@ -120,7 +120,13 @@
 <meta property="og:image" content="http://yoursite.com/image/20170908/016.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/017.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/018.png">
-<meta property="og:updated_time" content="2017-09-14T08:36:08.140Z">
+<meta property="og:image" content="http://yoursite.com/image/20170908/019.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/020.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/021.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/022.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/023.png">
+<meta property="og:image" content="http://yoursite.com/image/20170908/024.png">
+<meta property="og:updated_time" content="2017-09-15T00:44:52.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成学习算法">
 <meta name="twitter:description" content="1. 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
@@ -441,6 +447,27 @@
 <p>​    刚刚证明了，<strong>如果p(x|y)是为多维高斯分布（同一个Σ），那么必然地p(y|x)符合逻辑斯特回归函数。然而，反过来是不成立的。p(y|x)为逻辑斯特函数时，并不能推出p(x|y)为高斯分布</strong>。这说明，GDA模型比逻辑斯特回归模型对数据有更强的假设要求。在模型假设时正确的情况下，GDA可以找到更好地匹配数据地模型。特别地，当p(x|y)的确满足高斯分布时，GDA时<strong>渐进有效</strong>的。也可以这么说，这意味着在较大数据集的限制下，没有比GDA严格更好的算法。特别地，在这种情况下，GDA是比逻辑斯特更好的算法。</p>
 <p>​    相比之下，在更弱的加沙下，逻辑斯特回归鲁棒性更好，对错误的模型假设敏感度更低。有不同的假设情况，使p(y|x)符合逻辑斯特函数。例如，当x|y 满足泊松分布时，p(y|x)就是一个逻辑斯特函数。逻辑斯特回归在泊松数据集上也表现地很好。但是，如果我们在这样地数据上应用GDA模型，将高斯分布假设置于一个非高斯分布地数据集上，结果是不可预估地，也许GDA可以取得很好地效果。</p>
 <p>​    总而言之：<strong>GDA需要更强的假设，当模型假设正确或至少大体上正确时，训练效率更高（需要较少的数据就可以取得很好地训练效果）。逻辑斯特回归的假设更弱，鲁棒性更好。特别得，当数据是非高斯的并且数据集较大，逻辑斯特回归比GDA的效果更好。正因如此，事实上，逻辑斯特回归比高斯回归更常用</strong>。</p>
+<h2 id="3-朴素贝叶斯"><a href="#3-朴素贝叶斯" class="headerlink" title="3. 朴素贝叶斯"></a>3. 朴素贝叶斯</h2><p>​    在高斯判别分析（GDA）中，特征向量x是连续的实数向量。我们接下来讨论一种对于x是离散值的学习算法。</p>
+<p>​    垃圾邮件分类是<strong>文本分类</strong>中的典型问题。我们将一封邮件用长度为字典中的词数目的向量来表示。具体讲，如果一封邮件中包含字典中的第i个词，我们就使\(x _{i}=1\)；否则，\(x _{i}=0\)。例如，如下向量：</p>
+<p>​    <img src="/image/20170908/019.png" alt="019"></p>
+<p>​    表示一封邮件中，包含单词“a”，“buy”，但是不包含“aardvark”，”aardwolf“。这样就构造出了一个<strong>词汇表</strong>。</p>
+<p>​    在选择好特征向量之后，我们要建立判别模型。所以，我们要对p(x|y)进行建模。但是，如果我们有一个包含50000个单词的词汇表，即\(x\in \left \{ 0,1 \right \} ^{50000}\)（x是一个50000维的向量，只有元素0和1）。并且，如果我们明确使用多维分布对\(2 ^{50000}\)个输出进行建模，那么我们就会得到一个\(2 ^{50000}-1\)维的参数向量。参数数目确实十分巨大。</p>
+<p>​    为了对p(x|y)进行建模，我们要做一个很强的假设。我们假设\(x _{i}\)是在y条件下的独立分布。这个假设被称为<strong>朴素贝叶斯假设(Naive Bayes assumption)</strong>，由此得出的算法成为<strong>朴素贝叶斯分类器(Naive Bayes classifier)</strong>。例如，如果y=1表示垃圾邮件；”buy“为单词2087以及”price“为单词39831；然后我们假设，如果已知y=1，那么\(x _{2087}\)的概率对\(x _{39831}\)的概率没有影响。正式来讲，可以写为\(p(x _{2087}|y)=p(x _{2087}|y,x _{39831})\)。（注意，这并不是意味着\(x _{2087}\)与\(x _{39831}\)是独立的，可以被写为\(p(x _{2087}|y)=p(x _{2087}|x _{39831}))；而我们指示假设\(x _{2087}\)与\(x _{39831}\)在y给定条件下是条件独立的）</p>
+<p>​    现在，我们有：</p>
+<p>​    <img src="/image/20170908/020.png" alt="020"></p>
+<p>​    第一个等式由概率的基本特性得出，第二个等式来源于朴素贝叶斯假设。即使朴素贝叶斯假设是一个很强的设定，但是算法最后的效果依然很好。</p>
+<p>​    我们的模型可以参数化为\(\phi _{i|y=1}=p(x _{i}=1|y=1),\phi _{i|y=0}=p(x _{i}=1|y=0),\phi _{y}=p(y=1)\)。通常，给定训练集\(\left \{ (x ^{(i)}, y ^{(i)});i=1,…,m\right\}\)，可以写出这些参数的联合似然估计：</p>
+<p>​    <img src="/image/20170908/021.png" alt="021"></p>
+<p>​    最大化似然估计，可以得到参数为：</p>
+<p>​    <img src="/image/20170908/022.png" alt="022"></p>
+<p>​    在上式中，\(\wedge \)表示”与“。这些参数由非常自然的假设，例如\(\phi _{j|y=1}\)表示在垃圾邮件中单词j出现的概率。</p>
+<p>​    找到每个合适的参数后，对于一个新样本的预测，我们可以简单计算，</p>
+<p>​    <img src="/image/20170908/023.png" alt="023"></p>
+<p>​    然后判断该样本属于哪个类别的概率更大。</p>
+<p>​    最后，我们注意到，当我们推导对特征x只有两种取值的贝叶斯算法问题时，也会考虑\(x _{i}\)可以由k个取值。这里，我们对多值情况下的p(x _i|y)进行简单建模。确实，即使原始输入参数时连续值，我们也可以将其离散化。例如，对于房屋面积是连续值这一情况，我们可以将其离散化为：</p>
+<p>​    <img src="/image/20170908/024.png" alt="024"></p>
+<p>​    然后使用多项式分布对p(x|y)进行建模（正如前面所推导的）。连续分布的输入用多维正太分布并不一定可以很好建模，而将特征离散化并且使用朴素贝叶斯（而不是GDA）通常效果更好。</p>
+<p>​    </p>
 
       
     </div>
@@ -622,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-生成学习算法"><span class="nav-number">1.</span> <span class="nav-text">1. 生成学习算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高斯判别分析"><span class="nav-number">2.</span> <span class="nav-text">2. 高斯判别分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-多元正态分布"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 多元正态分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-高斯判别分析模型"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 高斯判别分析模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-GDA与-Logistic分布"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 GDA与 Logistic分布</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-生成学习算法"><span class="nav-number">1.</span> <span class="nav-text">1. 生成学习算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高斯判别分析"><span class="nav-number">2.</span> <span class="nav-text">2. 高斯判别分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-多元正态分布"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 多元正态分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-高斯判别分析模型"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 高斯判别分析模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-GDA与-Logistic分布"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 GDA与 Logistic分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-朴素贝叶斯"><span class="nav-number">3.</span> <span class="nav-text">3. 朴素贝叶斯</span></a></li></ol></div>
             
 
           </div>
