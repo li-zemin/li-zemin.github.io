@@ -134,7 +134,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20170908/030.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/031.png">
 <meta property="og:image" content="http://yoursite.com/image/20170908/032.png">
-<meta property="og:updated_time" content="2017-09-16T01:37:48.300Z">
+<meta property="og:updated_time" content="2017-09-16T01:41:15.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成学习算法">
 <meta name="twitter:description" content="1. 生成学习算法​    到目前未知，我们主要讨论了对于模型\(p(y|x;\theta)\)的学习算法，表示给定x情况下y的条件分布。在本节中，我们讨论一种不同的学习算法。 ​    假设我们要根据特征预测一只动物是狗还是大象。一种方法是，我们可以根据训练集，得到一个逻辑斯特回归模型或者感知机模型，这样就可以通过一个分类边界预测该动物是狗或者是大象。">
@@ -448,7 +448,7 @@
 <p>​    在文本分类这种特殊环境下，朴素贝叶斯可以提供一种<strong>多元莫努力事件模型(multi-variate Bernoulli event model)</strong>。在这个模型中，我们假设有限邮件是随机确定是否为垃圾邮件，然后会发给你一个消息。然后，将客户发送的邮件在字典中进行扫描，然后决定是否在这个邮件中包含单词i，并且得到概率\(p(x_{i}=1|y)=\phi _{i|y}\)。因此，这个消息给出的概率为\(p(y)\prod _{i=1}^{n}p(x _{i}|y)\)。</p>
 <p>​    这里介绍一种不同的模型，称为<strong>多元事件模型（multinomial event model）</strong>。为了描述这个模型， 我们使用一种对已有邮件特征不同的描述标记。\(x _{i}\)表示第i个单词在邮件中的身份。因此，\(x _{i}\)为整型数取值为\(\left \{ 1,…,\left | V \right | \right \}\)，\(\left | V \right |\)表示词汇表的大小。一封包含n个单词的邮件可以通过一个长度为n的向量\((x _{1},x _{2},…,x _{n})\)表示，n会随着邮件的长短变化。</p>
 <p>​    在多维事件模型中，我们假设首先有件事随机确定是否为垃圾邮件。然后，发件方通过从单词的多维随机分布\(p(x _{1}|y)\)中得到第一个单词\(x _{1}\)。接着，\(x _{2}\)独立与\(x _{1}\)，从多维随机分布中得出，(x _{3}\)，\(x _{4}\)类似得出，直到得到n个残次。因此，这个消息的概率为，\(p(x _{i}=1|y)=\phi _{i|y}\)。注意到，这个公式看起来类似与我们在多元伯努利事件模型中得到的式子，但是，它们的含义是不一样的。尤其是，\(x _{x}|y\)现在是一个多维分布，而不是伯努利分布。</p>
-<p>​    新模型的参数\(\phi _{y}=p(y)\)和原先一致，\(\phi _{i|y=1}=p(x _{j}=i|y=1)\)以及\(\phi _{i|y=0}=p(x _{j}=i|y=0)\)。注意，我们已经假设\(\p(x _{j}=i|y)\)对于所有的j都是相同的。</p>
+<p>​    新模型的参数\(\phi _{y}=p(y)\)和原先一致，\(\phi _{i|y=1}=p(x _{j}=i|y=1)\)以及\(\phi _{i|y=0}=p(x _{j}=i|y=0)\)。注意，我们已经假设\(p(x _{j}=i|y)\)对于所有的j都是相同的。</p>
 <p>​    如果我们给定一个训练集\(\left \{ (x ^{(i)},y ^{(i)});i=1,…,m \right \}\)，\(x ^{(i)}=\left ( x _{1} ^{(i)}, x _{2} ^{(i)},…, x _{n _{i}} ^{(i)} \right )\)。则参数的似然估计为，<br>​    <img src="/image/20170908/030.png" alt="030"></p>
 <p>​    最大化似然估计可以得到参数，<br>​    <img src="/image/20170908/031.png" alt="031"></p>
 <p>​    对比与原先模型推出的参数，可以看到，多元伯努利事件模型不考虑没个词出现的次数。新模型考虑了每个单词在文本中出现的次数。因此某个单词在有一类样本中出现的概率为：该类样本中该词出现的总次数/该类样本中的总次数。</p>
@@ -496,6 +496,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/17/0917-ml-05/" rel="prev" title="0917-ml-05">
+                0917-ml-05 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -568,7 +572,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
