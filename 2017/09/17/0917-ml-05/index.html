@@ -124,7 +124,12 @@
 <meta property="og:image" content="http://yoursite.com/image/20170917/020.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/021.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/022.png">
-<meta property="og:updated_time" content="2017-09-20T02:11:28.439Z">
+<meta property="og:image" content="http://yoursite.com/image/20170917/023.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/024.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/025.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/026.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/027.png">
+<meta property="og:updated_time" content="2017-09-20T09:18:20.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
 <meta name="twitter:description" content="1. 支持向量机​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。 2.">
@@ -389,8 +394,7 @@
 
       
         <h2 id="1-支持向量机"><a href="#1-支持向量机" class="headerlink" title="1. 支持向量机"></a>1. 支持向量机</h2><p>​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。</p>
-<h2 id="2-边界"><a href="#2-边界" class="headerlink" title="2. 边界"></a>2. 边界</h2><p>​    本节内容将简单引入边界问题并讨论预测的“信任度”问题，这些概念将在第三部分正式讨论。<br><a id="more"></a><br>​    在下面这幅图中，x表示正训练样本，O表示负驯良样本，并且还有一个<strong>分类超平面（separating hyperplane）</strong>,三个点被标记为A,B,C,<br>​    <img src="/image/20170917/001.png" alt="001"></p>
-<p>​    A距离边界最远，所以对y=1的预测更加自信。相反，C距离分类边界更近，只需要一点的变化，就可能被预测为负样本。因此，我们预测A比预测C为为正样本的信任度更大。因此，我们要找到一个边界，使我们的预测是自信的并且信任度较高。</p>
+<h2 id="2-边界"><a href="#2-边界" class="headerlink" title="2. 边界"></a>2. 边界</h2><p>​    本节内容将简单引入边界问题并讨论预测的“信任度”问题，这些概念将在第三部分正式讨论。<br><a id="more"></a><br>​    在下面这幅图中，x表示正训练样本，O表示负驯良样本，并且还有一个<strong>分类超平面（separating hyperplane）</strong>,三个点被标记为A,B,C,<br>​    <img src="/image/20170917/001.png" alt="001"><br>​    A距离边界最远，所以对y=1的预测更加自信。相反，C距离分类边界更近，只需要一点的变化，就可能被预测为负样本。因此，我们预测A比预测C为为正样本的信任度更大。因此，我们要找到一个边界，使我们的预测是自信的并且信任度较高。</p>
 <h2 id="3-符号标记"><a href="#3-符号标记" class="headerlink" title="3. 符号标记"></a>3. 符号标记</h2><p>​    接下来，我们介绍一种关于分类的新的符号标记。对于一个有标签y和特征x的二值化问题线性分类器。从现在开始，我们使用\(y \in \left \{ -1,1\right \}\)（而不是\( \left \{ -1,1\right \}\)）表示类别标签。同时，不试用线性分类器的参数向量θ，我们试用参数ω，可以将分类器写为，<br>​    <img src="/image/20170917/002.png" alt="002"></p>
 <p>​    这里，当z≥0时g(z)=1，否则g(z)=-1。这里的“ω，b”的符号表示允许我们将b与其他参数区别开老驴。因此，b相当于原先的\(\theta _{0}\)，ω相当于\(\left [ \theta _{1}…\theta _{n} \right ] ^{T}\)。</p>
 <p>​    注意到，从上面对g的定义得知，我们的分类器直接预测结果时1或者是-1，没有经过预测y=1的概率这一中间步骤（在逻辑斯特回归中我们时那样做的）。</p>
@@ -421,10 +425,23 @@
 <p>​    对于下面的原始优化问题：<br>​    <img src="/image/20170917/017.png" alt="017"></p>
 <p>​    为了解决这个问题，我们可以定义一个生成拉格朗日函数，<br>​    <img src="/image/20170917/018.png" alt="018"></p>
 <p>​    该式中，α和β都为拉格朗日乘子，对于下面的等式，<br>​    <img src="/image/20170917/019.png" alt="019"></p>
-<p>​    该式中，下标p表示“primal”，假设ω是给定的，如果ω违反任一原始的限制条件（g _i(ω)&gt;0 或者h _i(ω)≠0）会得到，<br>​    <img src="/image/20170917/020.png" alt="020"></p>
+<p>​    该式中，下标p表示“原始”，假设ω是给定的，如果ω违反任一原始的限制条件（g _i(ω)&gt;0 或者h _i(ω)≠0）会得到，<br>​    <img src="/image/20170917/020.png" alt="020"></p>
 <p>​    相反，如果ω的取值使限制条件满足，则\(\theta _{p}(\omega)=f(\omega)\)，因此，<br>​    <img src="/image/20170917/021.png" alt="021"></p>
 <p>​    这样，我们就可以考虑最小化问题，<br>​    <img src="/image/20170917/022.png" alt="022"></p>
 <p>​    我们发现，这个问题与我们最初的优化问题是相同的。为了后面的说明，我们将这个式子的最优值定义为\(p ^{\star }= min _{\omega}\theta _{p}(\omega)\)；称其为最优问题的值。</p>
+<p>​    现在，我们看一个不同的问题。我们定义<br><img src="/image/20170917/023.png" alt="023"></p>
+<p>​    这里，下标“D”表示“对偶”。注意，在\(\theta _{p}\)的定义中，是关于α，β的最优化问题，这里是关于ω的最优化问题。</p>
+<p>​    我们可以提出对偶优化问题：<br>​    <img src="/image/20170917/024.png" alt="024"></p>
+<p>​    这与上面展示的原始优化问题式子一样，除了“max”和“min”的位置改变了。我们也可以定义对偶问题的最优值为\(d ^{\star}=max _{\alpha,\beta: \alpha _{i}\geqslant 0}\theta _{D}(\omega)\)。</p>
+<p>​    原始问题和对偶问题如何联系起来呢？可以很容易写为，<br><img src="/image/20170917/025.png" alt="025"></p>
+<p>​    （已经被证明，一个函数的“最大最小值”一定小于等于它的“最小最大值”），然而， 在特定条件下，我们有<br>​    <img src="/image/20170917/026.png" alt="026"></p>
+<p>​    所以，我们可以通过解对偶问题来解决原始问题（强对偶条件下）,这些条件如下。</p>
+<p>​    假设f和\(g _{i}\)是凸函数并且\(h _{i}\)是射线函数，更多地，假设\(g _{i}\)是严格约束的：这意味着对所有的i都存在ω使\(g _{i}(\omega)&lt;0\)。</p>
+<p>​    在上述假设条件下，一定存在\(\omega ^{\star},\alpha ^{\star}, \beta ^{\star}\)，\(\omega ^{\star}\)就是原始问题的解，\(\alpha ^{\star}, \beta ^{\star}\)是对偶问题的解，并且(p ^{\star}=d ^{\star}=L(\omega ^{\star},\alpha ^{\star}, \beta ^{\star})\)。更多地，\omega ^{\star},\alpha ^{\star}, \beta ^{\star}满足<strong>KKT, Karush-Kuhn-Tucker 条件</strong>，<br>​    <img src="/image/20170917/027.png" alt="027"></p>
+<p>​    公式(5)北城为KKT<strong>对偶互补条件</strong>。可以得到如果\(\alpha ^{\star} _{i}&gt;0\)，则\(g _{i}(\omega ^{\star})=0\)。后面，这会成为说明SVM只有较少数量的支持向量的关键条件；同时也给我们讨论SMO算法提供了收敛测试条件。</p>
+<blockquote>
+<p>对于拉格朗日对偶方法以及KKT条件的理解，建议大家参考博客：<br><a href="http://www.cnblogs.com/mo-wang/p/4775548.html" target="_blank" rel="external">【整理】深入理解拉格朗日乘子法（Lagrange Multiplier) 和KKT条件</a><br><a href="http://www.cnblogs.com/ooon/p/5723725.html" target="_blank" rel="external">拉格朗日对偶</a></p>
+</blockquote>
 
       
     </div>
