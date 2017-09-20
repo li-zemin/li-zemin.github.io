@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20170917/020.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/021.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/022.png">
-<meta property="og:updated_time" content="2017-09-20T02:08:43.313Z">
+<meta property="og:updated_time" content="2017-09-20T02:11:28.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
 <meta name="twitter:description" content="1. 支持向量机​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。 2.">
@@ -389,8 +389,7 @@
 
       
         <h2 id="1-支持向量机"><a href="#1-支持向量机" class="headerlink" title="1. 支持向量机"></a>1. 支持向量机</h2><p>​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。</p>
-<h2 id="2-边界"><a href="#2-边界" class="headerlink" title="2. 边界"></a>2. 边界</h2><p>​    本节内容将简单引入边界问题并讨论预测的“信任度”问题，这些概念将在第三部分正式讨论。</p>
-<p>​    在下面这幅图中，x表示正训练样本，O表示负驯良样本，并且还有一个<strong>分类超平面（separating hyperplane）</strong>,三个点被标记为A,B,C,<br>​    <img src="/image/20170917/001.png" alt="001"></p>
+<h2 id="2-边界"><a href="#2-边界" class="headerlink" title="2. 边界"></a>2. 边界</h2><p>​    本节内容将简单引入边界问题并讨论预测的“信任度”问题，这些概念将在第三部分正式讨论。<br><a id="more"></a><br>​    在下面这幅图中，x表示正训练样本，O表示负驯良样本，并且还有一个<strong>分类超平面（separating hyperplane）</strong>,三个点被标记为A,B,C,<br>​    <img src="/image/20170917/001.png" alt="001"></p>
 <p>​    A距离边界最远，所以对y=1的预测更加自信。相反，C距离分类边界更近，只需要一点的变化，就可能被预测为负样本。因此，我们预测A比预测C为为正样本的信任度更大。因此，我们要找到一个边界，使我们的预测是自信的并且信任度较高。</p>
 <h2 id="3-符号标记"><a href="#3-符号标记" class="headerlink" title="3. 符号标记"></a>3. 符号标记</h2><p>​    接下来，我们介绍一种关于分类的新的符号标记。对于一个有标签y和特征x的二值化问题线性分类器。从现在开始，我们使用\(y \in \left \{ -1,1\right \}\)（而不是\( \left \{ -1,1\right \}\)）表示类别标签。同时，不试用线性分类器的参数向量θ，我们试用参数ω，可以将分类器写为，<br>​    <img src="/image/20170917/002.png" alt="002"></p>
 <p>​    这里，当z≥0时g(z)=1，否则g(z)=-1。这里的“ω，b”的符号表示允许我们将b与其他参数区别开老驴。因此，b相当于原先的\(\theta _{0}\)，ω相当于\(\left [ \theta _{1}…\theta _{n} \right ] ^{T}\)。</p>
