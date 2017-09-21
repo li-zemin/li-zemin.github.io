@@ -141,7 +141,11 @@
 <meta property="og:image" content="http://yoursite.com/image/20170917/037.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/038.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/039.png">
-<meta property="og:updated_time" content="2017-09-21T00:24:15.822Z">
+<meta property="og:image" content="http://yoursite.com/image/20170917/040.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/041.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/042.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/043.png">
+<meta property="og:updated_time" content="2017-09-21T00:58:14.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
 <meta name="twitter:description" content="1. 支持向量机​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。 2.">
@@ -436,6 +440,9 @@
 <p>​    对b求偏导，可以得到<br><img src="/image/20170917/034.png" alt="034"><br>​    我们将等式(9)代入等式(8)中，简化之后，可以得到<br><img src="/image/20170917/035.png" alt="035"><br>​    但是根据等式(10)，最后一项必须为0，可以得到<br><img src="/image/20170917/036.png" alt="036"><br>​    刚刚得到了关于ω和b最小化L后的等式。加入之前推导得到的限制条件\(\alpha _{i}≥0\)以及等式(10)，可以得到对偶优化问题如下：<br><img src="/image/20170917/037.png" alt="037"><br>​    因此，我们可以通过解对偶问题来解原始优化问题。在上面的对偶问题中，我们有一个包含α的极大化问题。我们后面讲讨论解决这个对偶问题的特殊算法，这样就可以将α代入公式(9)以得到最优的ω。得到\(\omega ^{\star}\)后，在原始优化问题中，就可以直接得到b的最优值，<br>​    <img src="/image/20170917/038.png" alt="038"><br>​    在这里，可以理解为，距离分类边界最近的正样本和最近的负样本决定了b的大小。</p>
 <p>​    我们先观察一下式(9)，给出了在α给定条件下的最优的ω值。假设我们已经得到了模型的参数，现在希望对输入x进行预测。要计算\(\omega x ^{T}+b\)，并且如果计算到的值大于0时预测y=1。但是，通过(9)式，这个计算可以写成，<br><img src="/image/20170917/039.png" alt="039"><br>​    因此，我们要计算x和训练集中的点的内积。更多的，我们之前得到了除了支持向量对应的α，其余都是0。因此，我们只需要找到x和支持向量之间的内积就可以计算出(13)式。</p>
 <p>​    通过优化问题的对偶形式，我们得到了对该问题的深层认识，并且也得到了输入向量之间的内积表示形式。在下一部分，我们将探索将核技巧的特性应用到分类问题中，这样支持向量机算法就可以在更高维度中进行学习。</p>
+<h2 id="8-核技巧"><a href="#8-核技巧" class="headerlink" title="8. 核技巧"></a>8. 核技巧</h2><p>​    回顾我们之前对线性回归的讨论，对于房屋居住面积x，我们会使用特征\(x,x ^{2},x ^{3}\)以得到一个三次函数。为了区分两组不同的变量，我们将原始的输入称为<strong>属性</strong>（在该问题中，是居住面积x）。在学习算法中，要将输入属性映射到变量集中，我们将这些新的变量称为输入<strong>特征</strong>。用φ表示从输入属性到特征的<strong>特征映射</strong>，例如，在上面的例子中有，<br><img src="/image/20170917/040.png" alt="040"><br>​    我们可能需要使用特征\(\phi(x)\)而不是输入属性x训练SVM算法模型。因此，我们需要将特征\(\phi(x)\)应用到之前推导出的算法中。</p>
+<p>​    现在，给定φ，计算\(\phi(x)\)和\(\phi(z)\)后，可以通过内积运算很容易得到K(x, z)。但比较有意思的是，更多时候，即使\(\phi(x)\)本身计算代价很高（因为可能是比较高维度的向量），K(x, z)的计算也比较容易。在这种情况下，可以将高效的计算K(x, z)应用到我们的算法中，通过映射φ使SVM在更高维度特征空间中学习，而不需要明确得到向量\(\phi(x)\)。</p>
+<p>​    对于下面这个例子，假设\(x,z \in \mathbb{R}^{n}\)，并且对下式<br>​    <img src="/image/20170917/041.png" alt="041"><br>​    我们可以写成<br>​    <img src="/image/20170917/042.png" alt="042"><br>​    因此，我们可以得到\(K(x,z)=\phi(x) ^{T}\phi(z) ^{T}\)，特征映射（n=3时）为，<br><img src="/image/20170917/043.png" alt="043"><br>​    计算高维度的\(\phi(x)\))的复杂度为\(O(n ^{2})\\，计算K(x, z)的复杂度为\(O(n)\)。</p>
 
       
     </div>
@@ -617,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-支持向量机"><span class="nav-number">1.</span> <span class="nav-text">1. 支持向量机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-边界"><span class="nav-number">2.</span> <span class="nav-text">2. 边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-符号标记"><span class="nav-number">3.</span> <span class="nav-text">3. 符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数间隔和几何间隔"><span class="nav-number">4.</span> <span class="nav-text">4. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最优间隔分类器"><span class="nav-number">5.</span> <span class="nav-text">5. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-拉格朗日对偶"><span class="nav-number">6.</span> <span class="nav-text">6. 拉格朗日对偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-最优间隔分类器"><span class="nav-number">7.</span> <span class="nav-text">7. 最优间隔分类器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-支持向量机"><span class="nav-number">1.</span> <span class="nav-text">1. 支持向量机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-边界"><span class="nav-number">2.</span> <span class="nav-text">2. 边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-符号标记"><span class="nav-number">3.</span> <span class="nav-text">3. 符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数间隔和几何间隔"><span class="nav-number">4.</span> <span class="nav-text">4. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最优间隔分类器"><span class="nav-number">5.</span> <span class="nav-text">5. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-拉格朗日对偶"><span class="nav-number">6.</span> <span class="nav-text">6. 拉格朗日对偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-最优间隔分类器"><span class="nav-number">7.</span> <span class="nav-text">7. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-核技巧"><span class="nav-number">8.</span> <span class="nav-text">8. 核技巧</span></a></li></ol></div>
             
 
           </div>
