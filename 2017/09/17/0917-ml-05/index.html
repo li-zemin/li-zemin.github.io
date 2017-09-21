@@ -129,7 +129,19 @@
 <meta property="og:image" content="http://yoursite.com/image/20170917/025.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/026.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/027.png">
-<meta property="og:updated_time" content="2017-09-20T09:18:20.083Z">
+<meta property="og:image" content="http://yoursite.com/image/20170917/028.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/029.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/030.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/031.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/032.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/033.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/034.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/035.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/036.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/037.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/038.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/039.png">
+<meta property="og:updated_time" content="2017-09-21T00:24:15.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
 <meta name="twitter:description" content="1. 支持向量机​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。 2.">
@@ -395,53 +407,35 @@
       
         <h2 id="1-支持向量机"><a href="#1-支持向量机" class="headerlink" title="1. 支持向量机"></a>1. 支持向量机</h2><p>​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。</p>
 <h2 id="2-边界"><a href="#2-边界" class="headerlink" title="2. 边界"></a>2. 边界</h2><p>​    本节内容将简单引入边界问题并讨论预测的“信任度”问题，这些概念将在第三部分正式讨论。<br><a id="more"></a><br>​    在下面这幅图中，x表示正训练样本，O表示负驯良样本，并且还有一个<strong>分类超平面（separating hyperplane）</strong>,三个点被标记为A,B,C,<br>​    <img src="/image/20170917/001.png" alt="001"><br>​    A距离边界最远，所以对y=1的预测更加自信。相反，C距离分类边界更近，只需要一点的变化，就可能被预测为负样本。因此，我们预测A比预测C为为正样本的信任度更大。因此，我们要找到一个边界，使我们的预测是自信的并且信任度较高。</p>
-<h2 id="3-符号标记"><a href="#3-符号标记" class="headerlink" title="3. 符号标记"></a>3. 符号标记</h2><p>​    接下来，我们介绍一种关于分类的新的符号标记。对于一个有标签y和特征x的二值化问题线性分类器。从现在开始，我们使用\(y \in \left \{ -1,1\right \}\)（而不是\( \left \{ -1,1\right \}\)）表示类别标签。同时，不试用线性分类器的参数向量θ，我们试用参数ω，可以将分类器写为，<br>​    <img src="/image/20170917/002.png" alt="002"></p>
-<p>​    这里，当z≥0时g(z)=1，否则g(z)=-1。这里的“ω，b”的符号表示允许我们将b与其他参数区别开老驴。因此，b相当于原先的\(\theta _{0}\)，ω相当于\(\left [ \theta _{1}…\theta _{n} \right ] ^{T}\)。</p>
+<h2 id="3-符号标记"><a href="#3-符号标记" class="headerlink" title="3. 符号标记"></a>3. 符号标记</h2><p>​    接下来，我们介绍一种关于分类的新的符号标记。对于一个有标签y和特征x的二值化问题线性分类器。从现在开始，我们使用\(y \in \left \{ -1,1\right \}\)（而不是\( \left \{ -1,1\right \}\)）表示类别标签。同时，不试用线性分类器的参数向量θ，我们试用参数ω，可以将分类器写为，<br>​    <img src="/image/20170917/002.png" alt="002"><br>​    这里，当z≥0时g(z)=1，否则g(z)=-1。这里的“ω，b”的符号表示允许我们将b与其他参数区别开老驴。因此，b相当于原先的\(\theta _{0}\)，ω相当于\(\left [ \theta _{1}…\theta _{n} \right ] ^{T}\)。</p>
 <p>​    注意到，从上面对g的定义得知，我们的分类器直接预测结果时1或者是-1，没有经过预测y=1的概率这一中间步骤（在逻辑斯特回归中我们时那样做的）。</p>
-<h2 id="4-函数间隔和几何间隔"><a href="#4-函数间隔和几何间隔" class="headerlink" title="4. 函数间隔和几何间隔"></a>4. 函数间隔和几何间隔</h2><p>​    给定一个样本\((x ^{(i)},y ^{(i)})\)，我们定义该训练样本的<strong>函数间隔（functional margin）</strong>为<br>​    <img src="/image/20170917/003.png" alt="003"></p>
-<p>​    如果\(y ^{(i)}=1\)，那么为了使函数间隔比较大，我们需要\(\omega ^{T}x + b\)使一个比较大的正数。相反，如果\(y ^{(i)}=1\)，那么我们需要\(\omega ^{T}x + b\)是一个大的附属。更多地，如果\(y ^{(i)}(\omega ^{T}x+b)&gt;0\)，我们地预测就是正确地。因此，一个较大的函数边界说明预测的正确性同时信任度也比较高。</p>
+<h2 id="4-函数间隔和几何间隔"><a href="#4-函数间隔和几何间隔" class="headerlink" title="4. 函数间隔和几何间隔"></a>4. 函数间隔和几何间隔</h2><p>​    给定一个样本\((x ^{(i)},y ^{(i)})\)，我们定义该训练样本的<strong>函数间隔（functional margin）</strong>为<br>​    <img src="/image/20170917/003.png" alt="003"><br>​    如果\(y ^{(i)}=1\)，那么为了使函数间隔比较大，我们需要\(\omega ^{T}x + b\)使一个比较大的正数。相反，如果\(y ^{(i)}=1\)，那么我们需要\(\omega ^{T}x + b\)是一个大的附属。更多地，如果\(y ^{(i)}(\omega ^{T}x+b)&gt;0\)，我们地预测就是正确地。因此，一个较大的函数边界说明预测的正确性同时信任度也比较高。</p>
 <p>​    对上面定义的g这样的线性分类器，有一个特性会使得函数边界对可信度的评估并不准确。如果我们将ω换成2ω，b换成2b，那么\(g(\omega ^{T}x+b)=g(2\omega ^{T}x+2b)\)，超平面是不会变的，但是函数间隔却变成了原先的2倍。因此，我们可以制定一个约束条件，\(\left | \omega \right | _{2}=1\)；因此，我们使(ω，b)变为(\(\omega/\left | \omega \right | _{2},b/\left | \omega \right | _{2}\))，并且我们考虑在这种条件下的函数间隔。</p>
-<p>​    给定一个训练集S，我们定义对S的函数边界为分离这两种样本的最小的函数间隔，标记为\(\hat{\gamma}\)，可以写为<br>​    <img src="/image/20170917/004.png" alt="004"></p>
-<p>​    接下来，我们介绍<strong>几何间隔</strong>，思考下面这张图片：<br>​    <img src="/image/20170917/005.png" alt="005"></p>
-<p>​    对于A点，离分离超平面的距离为\(\gamma ^{(i)}\)，就是线段AB的距离。我们如何找到AB的长度呢？\(\omega/\left | \omega \right | _{2}\)是单位向量。因为A点的位置为\(x ^{(i)}\)，因此我们可以用\(x ^{(i)}-\gamma ^{(i)}\)表示B点。并且这个点在分离超平面上，因此，满足等式\(\omega ^{T}x+b=0\)。因此，<br>​    <img src="/image/20170917/006.png" alt="006"></p>
-<p>​    解出\(\gamma ^{(i)}\)，<br>​    <img src="/image/20170917/007.png" alt="007"></p>
-<p>​    这就解出了图中正的训练样本点A，距离分离超平面的距离。更普遍的，我们定义训练样本点\(\left ( x ^{(i)},y ^{(i)} \right )\)距离分离超平面的几何间隔为，<br>​    <img src="/image/20170917/008.png" alt="008"></p>
-<p>​    注意到，如果\(\left | \omega \right | =1\)，函数间隔等于几何间隔。并且，几何边界并不会随着参数的尺度变化而变化。当我们在训练数据集中寻找合适的ω和b时，我们可以对ω的长度进行假设，例如，假设\(\left | \omega \right | =1\)。</p>
+<p>​    给定一个训练集S，我们定义对S的函数边界为分离这两种样本的最小的函数间隔，标记为\(\hat{\gamma}\)，可以写为<br>​    <img src="/image/20170917/004.png" alt="004"><br>​    接下来，我们介绍<strong>几何间隔</strong>，思考下面这张图片：<br>​    <img src="/image/20170917/005.png" alt="005"><br>​    对于A点，离分离超平面的距离为\(\gamma ^{(i)}\)，就是线段AB的距离。我们如何找到AB的长度呢？\(\omega/\left | \omega \right | _{2}\)是单位向量。因为A点的位置为\(x ^{(i)}\)，因此我们可以用\(x ^{(i)}-\gamma ^{(i)}\)表示B点。并且这个点在分离超平面上，因此，满足等式\(\omega ^{T}x+b=0\)。因此，<br>​    <img src="/image/20170917/006.png" alt="006"><br>​    解出\(\gamma ^{(i)}\)，<br>​    <img src="/image/20170917/007.png" alt="007"><br>​    这就解出了图中正的训练样本点A，距离分离超平面的距离。更普遍的，我们定义训练样本点\(\left ( x ^{(i)},y ^{(i)} \right )\)距离分离超平面的几何间隔为，<br>​    <img src="/image/20170917/008.png" alt="008"><br>​    注意到，如果\(\left | \omega \right | =1\)，函数间隔等于几何间隔。并且，几何边界并不会随着参数的尺度变化而变化。当我们在训练数据集中寻找合适的ω和b时，我们可以对ω的长度进行假设，例如，假设\(\left | \omega \right | =1\)。</p>
 <p>​    最后，给定一个训练集S，我们可以定义对S的几何边界为，<br>​    <img src="/image/20170917/009.png" alt="009"></p>
 <h2 id="5-最优间隔分类器"><a href="#5-最优间隔分类器" class="headerlink" title="5. 最优间隔分类器"></a>5. 最优间隔分类器</h2><p>​    给定一个训练集，我们需要找到分类超平面的参数使预测的可信度更高，这样可以保证正负样本的间隔（几何）最大。</p>
-<p>​    现在，我们假设给定的训练集是线性可分的，所以我们可以找到一些分类超平面分离正负样本。如何找到可以实现最大几何间隔的分类超平面呢？我们可以提出如下的优化问题：<br>​    <img src="/image/20170917/010.png" alt="010"></p>
-<p>​    我们要最大化γ，所以每个训练样本都至少有函数间隔γ。\(\left | \omega \right |=1\)可以保证函数间隔等于几何间隔，所以我们可以保证所有的几何间隔都至少为γ。因此，解决这个问题的方案就是找到关于这组训练集的最大几何间隔对应的(ω，b)。</p>
-<p>​    解决上面的有话问题，并不是容易的，因为\(\left | \omega \right |=1\)限制并不是一个凸优化问题，并且这个条件并不能很轻易地通过一些优化软件去解决，所以我们将这个问题进行转化，<br>​    <img src="/image/20170917/011.png" alt="011"></p>
-<p>​    这里，我们要最大化\(\hat{\gamma}/\left | \omega \right |\)，保证每个样本都有最小的函数间隔\(\hat{\gamma}\)。因为几何间隔与函数间隔的关系为\(\gamma = \hat{\gamma}/\left | \omega \right |\)，这会提供给我们想要的答案。更多地，我们也已经满足了\(\left | \omega \right |=1\)的条件。接下来，我们又发现\(\hat{\gamma}/\left | \omega \right |\)依然不是一个凸函数；因此我们并没有一个好的方法解决这个问题。</p>
-<p>​    回顾我们之前讨论了关于对ω和b的长度增加一个专门的限制而不会改变任何东西。因此可以固定ω和b的长度使得训练集中的函数间隔为1：<br>​    <img src="/image/20170917/012.png" alt="012"></p>
-<p>​    因此，对ω和b强加一些限制以使函数间隔为一个常数。将这个设定添加到上述问题中，同时注意到最大化\hat{\gamma}/\left | \omega \right |=1/\left | \omega \right |相当于最小化\(\left | \omega \right | ^{2}\)，我们得到了这样的优化问题：<br>​    <img src="/image/20170917/013.png" alt="013"></p>
-<p>​    现在我们已经将问题转化为一个更有效的形式，变成了一个添加了线性条件的凸二次函数的优化问题。通过解决这个问题可以得到一个<strong>最优间隔分类器</strong>。这个优化问题可以通过使用商业二次编程代码解决。</p>
+<p>​    现在，我们假设给定的训练集是线性可分的，所以我们可以找到一些分类超平面分离正负样本。如何找到可以实现最大几何间隔的分类超平面呢？我们可以提出如下的优化问题：<br>​    <img src="/image/20170917/010.png" alt="010"><br>​    我们要最大化γ，所以每个训练样本都至少有函数间隔γ。\(\left | \omega \right |=1\)可以保证函数间隔等于几何间隔，所以我们可以保证所有的几何间隔都至少为γ。因此，解决这个问题的方案就是找到关于这组训练集的最大几何间隔对应的(ω，b)。</p>
+<p>​    解决上面的有话问题，并不是容易的，因为\(\left | \omega \right |=1\)限制并不是一个凸优化问题，并且这个条件并不能很轻易地通过一些优化软件去解决，所以我们将这个问题进行转化，<br>​    <img src="/image/20170917/011.png" alt="011"><br>​    这里，我们要最大化\(\hat{\gamma}/\left | \omega \right |\)，保证每个样本都有最小的函数间隔\(\hat{\gamma}\)。因为几何间隔与函数间隔的关系为\(\gamma = \hat{\gamma}/\left | \omega \right |\)，这会提供给我们想要的答案。更多地，我们也已经满足了\(\left | \omega \right |=1\)的条件。接下来，我们又发现\(\hat{\gamma}/\left | \omega \right |\)依然不是一个凸函数；因此我们并没有一个好的方法解决这个问题。</p>
+<p>​    回顾我们之前讨论了关于对ω和b的长度增加一个专门的限制而不会改变任何东西。因此可以固定ω和b的长度使得训练集中的函数间隔为1：<br>​    <img src="/image/20170917/012.png" alt="012"><br>​    因此，对ω和b强加一些限制以使函数间隔为一个常数。将这个设定添加到上述问题中，同时注意到最大化\hat{\gamma}/\left | \omega \right |=1/\left | \omega \right |相当于最小化\(\left | \omega \right | ^{2}\)，我们得到了这样的优化问题：<br>​    <img src="/image/20170917/013.png" alt="013"><br>​    现在我们已经将问题转化为一个更有效的形式，变成了一个添加了线性条件的凸二次函数的优化问题。通过解决这个问题可以得到一个<strong>最优间隔分类器</strong>。这个优化问题可以通过使用商业二次编程代码解决。</p>
 <p>​    接下来，我们要先介绍拉格朗日对偶。这会对我们解决这个问题提供一些帮助。</p>
 <h2 id="6-拉格朗日对偶"><a href="#6-拉格朗日对偶" class="headerlink" title="6. 拉格朗日对偶"></a>6. 拉格朗日对偶</h2><p>​    我们先讨论一下如何解决有限制条件的优化问题。</p>
-<p>​    对于如下形式的问题：<br>​    <img src="/image/20170917/014.png" alt="014"></p>
-<p>​    在这个问题中，我们可以定义拉格朗日函数为：<br>​    <img src="/image/20170917/015.png" alt="015">            </p>
-<p>​    该式中，\(\Beta _{i}\)被称为<strong>拉格朗日乘子，Lagrange multiplers</strong>。我们可以通过对拉格朗日函数求偏导得到ω和β，<br>​    <img src="/image/20170917/016.png" alt="016"></p>
-<p>​    接下来我们介绍拉格朗日对偶的主要思想和结果，并将这个方法应用于最大间隔分类器问题的求解中。</p>
-<p>​    对于下面的原始优化问题：<br>​    <img src="/image/20170917/017.png" alt="017"></p>
-<p>​    为了解决这个问题，我们可以定义一个生成拉格朗日函数，<br>​    <img src="/image/20170917/018.png" alt="018"></p>
-<p>​    该式中，α和β都为拉格朗日乘子，对于下面的等式，<br>​    <img src="/image/20170917/019.png" alt="019"></p>
-<p>​    该式中，下标p表示“原始”，假设ω是给定的，如果ω违反任一原始的限制条件（g _i(ω)&gt;0 或者h _i(ω)≠0）会得到，<br>​    <img src="/image/20170917/020.png" alt="020"></p>
-<p>​    相反，如果ω的取值使限制条件满足，则\(\theta _{p}(\omega)=f(\omega)\)，因此，<br>​    <img src="/image/20170917/021.png" alt="021"></p>
-<p>​    这样，我们就可以考虑最小化问题，<br>​    <img src="/image/20170917/022.png" alt="022"></p>
-<p>​    我们发现，这个问题与我们最初的优化问题是相同的。为了后面的说明，我们将这个式子的最优值定义为\(p ^{\star }= min _{\omega}\theta _{p}(\omega)\)；称其为最优问题的值。</p>
-<p>​    现在，我们看一个不同的问题。我们定义<br><img src="/image/20170917/023.png" alt="023"></p>
-<p>​    这里，下标“D”表示“对偶”。注意，在\(\theta _{p}\)的定义中，是关于α，β的最优化问题，这里是关于ω的最优化问题。</p>
-<p>​    我们可以提出对偶优化问题：<br>​    <img src="/image/20170917/024.png" alt="024"></p>
-<p>​    这与上面展示的原始优化问题式子一样，除了“max”和“min”的位置改变了。我们也可以定义对偶问题的最优值为\(d ^{\star}=max _{\alpha,\beta: \alpha _{i}\geqslant 0}\theta _{D}(\omega)\)。</p>
-<p>​    原始问题和对偶问题如何联系起来呢？可以很容易写为，<br><img src="/image/20170917/025.png" alt="025"></p>
-<p>​    （已经被证明，一个函数的“最大最小值”一定小于等于它的“最小最大值”），然而， 在特定条件下，我们有<br>​    <img src="/image/20170917/026.png" alt="026"></p>
-<p>​    所以，我们可以通过解对偶问题来解决原始问题（强对偶条件下）,这些条件如下。</p>
+<p>​    对于如下形式的问题：<br>​    <img src="/image/20170917/014.png" alt="014"><br>​    在这个问题中，我们可以定义拉格朗日函数为：<br>​    <img src="/image/20170917/015.png" alt="015"><br>​    该式中，\(\beta _{i}\)被称为<strong>拉格朗日乘子，Lagrange multiplers</strong>。我们可以通过对拉格朗日函数求偏导得到ω和β，<br>​    <img src="/image/20170917/016.png" alt="016"><br>​    接下来我们介绍拉格朗日对偶的主要思想和结果，并将这个方法应用于最大间隔分类器问题的求解中。</p>
+<p>​    对于下面的原始优化问题：<br>​    <img src="/image/20170917/017.png" alt="017"><br>​    为了解决这个问题，我们可以定义一个生成拉格朗日函数，<br>​    <img src="/image/20170917/018.png" alt="018"><br>​    该式中，α和β都为拉格朗日乘子，对于下面的等式，<br>​    <img src="/image/20170917/019.png" alt="019"><br>​    该式中，下标p表示“原始”，假设ω是给定的，如果ω违反任一原始的限制条件（g _i(ω)&gt;0 或者h _i(ω)≠0）会得到，<br>​    <img src="/image/20170917/020.png" alt="020"><br>​    相反，如果ω的取值使限制条件满足，则\(\theta _{p}(\omega)=f(\omega)\)，因此，<br>​    <img src="/image/20170917/021.png" alt="021"><br>​    这样，我们就可以考虑最小化问题，<br>​    <img src="/image/20170917/022.png" alt="022"><br>​    我们发现，这个问题与我们最初的优化问题是相同的。为了后面的说明，我们将这个式子的最优值定义为\(p ^{\star }= min _{\omega}\theta _{p}(\omega)\)；称其为最优问题的值。</p>
+<p>​    现在，我们看一个不同的问题。我们定义<br><img src="/image/20170917/023.png" alt="023"><br>​    这里，下标“D”表示“对偶”。注意，在\(\theta _{p}\)的定义中，是关于α，β的最优化问题，这里是关于ω的最优化问题。</p>
+<p>​    我们可以提出对偶优化问题：<br>​    <img src="/image/20170917/024.png" alt="024"><br>​    这与上面展示的原始优化问题式子一样，除了“max”和“min”的位置改变了。我们也可以定义对偶问题的最优值为\(d ^{\star}=max _{\alpha,\beta: \alpha _{i}\geqslant 0}\theta _{D}(\omega)\)。</p>
+<p>​    原始问题和对偶问题如何联系起来呢？可以很容易写为，<br><img src="/image/20170917/025.png" alt="025"><br>​    （已经被证明，一个函数的“最大最小值”一定小于等于它的“最小最大值”），然而， 在特定条件下，我们有<br>​    <img src="/image/20170917/026.png" alt="026"><br>​    所以，我们可以通过解对偶问题来解决原始问题（强对偶条件下）,这些条件如下。</p>
 <p>​    假设f和\(g _{i}\)是凸函数并且\(h _{i}\)是射线函数，更多地，假设\(g _{i}\)是严格约束的：这意味着对所有的i都存在ω使\(g _{i}(\omega)&lt;0\)。</p>
-<p>​    在上述假设条件下，一定存在\(\omega ^{\star},\alpha ^{\star}, \beta ^{\star}\)，\(\omega ^{\star}\)就是原始问题的解，\(\alpha ^{\star}, \beta ^{\star}\)是对偶问题的解，并且(p ^{\star}=d ^{\star}=L(\omega ^{\star},\alpha ^{\star}, \beta ^{\star})\)。更多地，\omega ^{\star},\alpha ^{\star}, \beta ^{\star}满足<strong>KKT, Karush-Kuhn-Tucker 条件</strong>，<br>​    <img src="/image/20170917/027.png" alt="027"></p>
-<p>​    公式(5)北城为KKT<strong>对偶互补条件</strong>。可以得到如果\(\alpha ^{\star} _{i}&gt;0\)，则\(g _{i}(\omega ^{\star})=0\)。后面，这会成为说明SVM只有较少数量的支持向量的关键条件；同时也给我们讨论SMO算法提供了收敛测试条件。</p>
+<p>​    在上述假设条件下，一定存在\(\omega ^{\star},\alpha ^{\star}, \beta ^{\star}\)，\(\omega ^{\star}\)就是原始问题的解，\(\alpha ^{\star}, \beta ^{\star}\)是对偶问题的解，并且(p ^{\star}=d ^{\star}=L(\omega ^{\star},\alpha ^{\star}, \beta ^{\star})\)。更多地，\omega ^{\star},\alpha ^{\star}, \beta ^{\star}满足<strong>KKT, Karush-Kuhn-Tucker 条件</strong>，<br>​    <img src="/image/20170917/027.png" alt="027"><br>​    公式(5)北城为KKT<strong>对偶互补条件</strong>。可以得到如果\(\alpha ^{\star} _{i}&gt;0\)，则\(g _{i}(\omega ^{\star})=0\)。后面，这会成为说明SVM只有较少数量的支持向量的关键条件；同时也给我们讨论SMO算法提供了收敛测试条件。</p>
 <blockquote>
 <p>对于拉格朗日对偶方法以及KKT条件的理解，建议大家参考博客：<br><a href="http://www.cnblogs.com/mo-wang/p/4775548.html" target="_blank" rel="external">【整理】深入理解拉格朗日乘子法（Lagrange Multiplier) 和KKT条件</a><br><a href="http://www.cnblogs.com/ooon/p/5723725.html" target="_blank" rel="external">拉格朗日对偶</a></p>
 </blockquote>
+<h2 id="7-最优间隔分类器"><a href="#7-最优间隔分类器" class="headerlink" title="7. 最优间隔分类器"></a>7. 最优间隔分类器</h2><p>​    对于我们前面部分提出的寻找最优间隔分类器的问题：<br>​    <img src="/image/20170917/028.png" alt="028"><br>​    我们可以将约束条件写为，<br>​    <img src="/image/20170917/029.png" alt="029"><br>​    对于每个训练样本，都要满足这一约束条件。根据KKT对偶互补条件，只有当函数间隔为0时，\(\alpha _{i}&gt;0\)（与满足等式\(g _{i}(\omega)=0\)限定条件相一致）。在下图中，堆到间隔分离超平面如实线所示。<br><img src="/image/20170917/030.png" alt="030"></p>
+<p>​    最小间隔的点距离分离超平面的距离最近；该图中，有三个点（两个正样本和一个负样本）在平行于分离边界的直线上。因此，在我们解最优化问题过程中，只有三个\(\alpha _{i}\)，对应于3个训练样本的值不为0。这三个点被称为<strong>支持向量</strong>。这表明，支持向量的个数远小于数据集的大小，这个特性后面会被用到。</p>
+<p>​    对于我们推导出的问题的丢欧形式，我们尝试将我们的算法中的输入特征空间中的点之间的关系写成内积的形式。事实上，当我们应用核技巧时，算法的内积表示形式是很关键的。</p>
+<p>​    对要解决的优化问题建立拉格朗日公式，<br><img src="/image/20170917/031.png" alt="031"><br>​    注意到在该式中，只有“\(\alpha _{i}\)”而没有”\(\beta _{i}\)“，因为该问题只有不等式约束。<br>​    要把这个问题转化为对偶形式，首先需要固定α，关于ω和b极小化L(ω, b, α)，得到\(\theta _{D}\)。然后使对ω和b的偏导为0，有：<br><img src="/image/20170917/032.png" alt="032"><br>​    可以得到，<br><img src="/image/20170917/033.png" alt="033"></p>
+<p>​    对b求偏导，可以得到<br><img src="/image/20170917/034.png" alt="034"><br>​    我们将等式(9)代入等式(8)中，简化之后，可以得到<br><img src="/image/20170917/035.png" alt="035"><br>​    但是根据等式(10)，最后一项必须为0，可以得到<br><img src="/image/20170917/036.png" alt="036"><br>​    刚刚得到了关于ω和b最小化L后的等式。加入之前推导得到的限制条件\(\alpha _{i}≥0\)以及等式(10)，可以得到对偶优化问题如下：<br><img src="/image/20170917/037.png" alt="037"><br>​    因此，我们可以通过解对偶问题来解原始优化问题。在上面的对偶问题中，我们有一个包含α的极大化问题。我们后面讲讨论解决这个对偶问题的特殊算法，这样就可以将α代入公式(9)以得到最优的ω。得到\(\omega ^{\star}\)后，在原始优化问题中，就可以直接得到b的最优值，<br>​    <img src="/image/20170917/038.png" alt="038"><br>​    在这里，可以理解为，距离分类边界最近的正样本和最近的负样本决定了b的大小。</p>
+<p>​    我们先观察一下式(9)，给出了在α给定条件下的最优的ω值。假设我们已经得到了模型的参数，现在希望对输入x进行预测。要计算\(\omega x ^{T}+b\)，并且如果计算到的值大于0时预测y=1。但是，通过(9)式，这个计算可以写成，<br><img src="/image/20170917/039.png" alt="039"><br>​    因此，我们要计算x和训练集中的点的内积。更多的，我们之前得到了除了支持向量对应的α，其余都是0。因此，我们只需要找到x和支持向量之间的内积就可以计算出(13)式。</p>
+<p>​    通过优化问题的对偶形式，我们得到了对该问题的深层认识，并且也得到了输入向量之间的内积表示形式。在下一部分，我们将探索将核技巧的特性应用到分类问题中，这样支持向量机算法就可以在更高维度中进行学习。</p>
 
       
     </div>
@@ -623,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-支持向量机"><span class="nav-number">1.</span> <span class="nav-text">1. 支持向量机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-边界"><span class="nav-number">2.</span> <span class="nav-text">2. 边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-符号标记"><span class="nav-number">3.</span> <span class="nav-text">3. 符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数间隔和几何间隔"><span class="nav-number">4.</span> <span class="nav-text">4. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最优间隔分类器"><span class="nav-number">5.</span> <span class="nav-text">5. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-拉格朗日对偶"><span class="nav-number">6.</span> <span class="nav-text">6. 拉格朗日对偶</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-支持向量机"><span class="nav-number">1.</span> <span class="nav-text">1. 支持向量机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-边界"><span class="nav-number">2.</span> <span class="nav-text">2. 边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-符号标记"><span class="nav-number">3.</span> <span class="nav-text">3. 符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数间隔和几何间隔"><span class="nav-number">4.</span> <span class="nav-text">4. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最优间隔分类器"><span class="nav-number">5.</span> <span class="nav-text">5. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-拉格朗日对偶"><span class="nav-number">6.</span> <span class="nav-text">6. 拉格朗日对偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-最优间隔分类器"><span class="nav-number">7.</span> <span class="nav-text">7. 最优间隔分类器</span></a></li></ol></div>
             
 
           </div>
