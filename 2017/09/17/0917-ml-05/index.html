@@ -145,7 +145,16 @@
 <meta property="og:image" content="http://yoursite.com/image/20170917/041.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/042.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/043.png">
-<meta property="og:updated_time" content="2017-09-21T00:58:14.226Z">
+<meta property="og:image" content="http://yoursite.com/image/20170917/044.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/045.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/046.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/047.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/048.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/049.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/050.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/051.png">
+<meta property="og:image" content="http://yoursite.com/image/20170917/052.png">
+<meta property="og:updated_time" content="2017-09-22T02:11:26.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
 <meta name="twitter:description" content="1. 支持向量机​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。 2.">
@@ -437,12 +446,43 @@
 <p>​    最小间隔的点距离分离超平面的距离最近；该图中，有三个点（两个正样本和一个负样本）在平行于分离边界的直线上。因此，在我们解最优化问题过程中，只有三个\(\alpha _{i}\)，对应于3个训练样本的值不为0。这三个点被称为<strong>支持向量</strong>。这表明，支持向量的个数远小于数据集的大小，这个特性后面会被用到。</p>
 <p>​    对于我们推导出的问题的丢欧形式，我们尝试将我们的算法中的输入特征空间中的点之间的关系写成内积的形式。事实上，当我们应用核技巧时，算法的内积表示形式是很关键的。</p>
 <p>​    对要解决的优化问题建立拉格朗日公式，<br><img src="/image/20170917/031.png" alt="031"><br>​    注意到在该式中，只有“\(\alpha _{i}\)”而没有”\(\beta _{i}\)“，因为该问题只有不等式约束。<br>​    要把这个问题转化为对偶形式，首先需要固定α，关于ω和b极小化L(ω, b, α)，得到\(\theta _{D}\)。然后使对ω和b的偏导为0，有：<br><img src="/image/20170917/032.png" alt="032"><br>​    可以得到，<br><img src="/image/20170917/033.png" alt="033"></p>
-<p>​    对b求偏导，可以得到<br><img src="/image/20170917/034.png" alt="034"><br>​    我们将等式(9)代入等式(8)中，简化之后，可以得到<br><img src="/image/20170917/035.png" alt="035"><br>​    但是根据等式(10)，最后一项必须为0，可以得到<br><img src="/image/20170917/036.png" alt="036"><br>​    刚刚得到了关于ω和b最小化L后的等式。加入之前推导得到的限制条件\(\alpha _{i}≥0\)以及等式(10)，可以得到对偶优化问题如下：<br><img src="/image/20170917/037.png" alt="037"><br>​    因此，我们可以通过解对偶问题来解原始优化问题。在上面的对偶问题中，我们有一个包含α的极大化问题。我们后面讲讨论解决这个对偶问题的特殊算法，这样就可以将α代入公式(9)以得到最优的ω。得到\(\omega ^{\star}\)后，在原始优化问题中，就可以直接得到b的最优值，<br>​    <img src="/image/20170917/038.png" alt="038"><br>​    在这里，可以理解为，距离分类边界最近的正样本和最近的负样本决定了b的大小。</p>
+<p>​    对b求偏导，可以得到<br><img src="/image/20170917/034.png" alt="034"><br>​    我们将等式(9)代入等式(8)中，简化之后，可以得到<br><img src="/image/20170917/035.png" alt="035"><br>​    但是根据等式(10)，最后一项必须为0，可以得到<br><img src="/image/20170917/036.png" alt="036"><br>​    刚刚得到了关于ω和b最小化L后的等式。加入之前推导得到的限制条件\(\alpha _{i}≥0\)以及等式(10)，可以得到对偶优化问题如下：<br><img src="/image/20170917/037.png" alt="037"></p>
+<blockquote>
+<p>这里想解释一下为什么这是原问题的对偶形式：<br>因为原始问题是一个极小极大问题\(\underset{\omega,b}{min}\underset{\alpha}{max}L(\omega,b,\alpha)\)，就是先求极大再求极小</p>
+<p>现在的对偶问题是一个极大极小问题\(\underset{\alpha}{max}\underset{\omega,b}{min}L(\omega,b,\alpha)\)即先求极小再求极大</p>
+</blockquote>
+<p>​    因此，我们可以通过解对偶问题来解原始优化问题。在上面的对偶问题中，我们有一个包含α的极大化问题。我们后面讲讨论解决这个对偶问题的特殊算法，这样就可以将α代入公式(9)以得到最优的ω。得到\(\omega ^{\star}\)后，在原始优化问题中，就可以直接得到b的最优值，<br>​    <img src="/image/20170917/038.png" alt="038"><br>​    在这里，可以理解为，距离分类边界最近的正样本和最近的负样本决定了b的大小。</p>
 <p>​    我们先观察一下式(9)，给出了在α给定条件下的最优的ω值。假设我们已经得到了模型的参数，现在希望对输入x进行预测。要计算\(\omega x ^{T}+b\)，并且如果计算到的值大于0时预测y=1。但是，通过(9)式，这个计算可以写成，<br><img src="/image/20170917/039.png" alt="039"><br>​    因此，我们要计算x和训练集中的点的内积。更多的，我们之前得到了除了支持向量对应的α，其余都是0。因此，我们只需要找到x和支持向量之间的内积就可以计算出(13)式。</p>
 <p>​    通过优化问题的对偶形式，我们得到了对该问题的深层认识，并且也得到了输入向量之间的内积表示形式。在下一部分，我们将探索将核技巧的特性应用到分类问题中，这样支持向量机算法就可以在更高维度中进行学习。</p>
 <h2 id="8-核技巧"><a href="#8-核技巧" class="headerlink" title="8. 核技巧"></a>8. 核技巧</h2><p>​    回顾我们之前对线性回归的讨论，对于房屋居住面积x，我们会使用特征\(x,x ^{2},x ^{3}\)以得到一个三次函数。为了区分两组不同的变量，我们将原始的输入称为<strong>属性</strong>（在该问题中，是居住面积x）。在学习算法中，要将输入属性映射到变量集中，我们将这些新的变量称为输入<strong>特征</strong>。用φ表示从输入属性到特征的<strong>特征映射</strong>，例如，在上面的例子中有，<br><img src="/image/20170917/040.png" alt="040"><br>​    我们可能需要使用特征\(\phi(x)\)而不是输入属性x训练SVM算法模型。因此，我们需要将特征\(\phi(x)\)应用到之前推导出的算法中。</p>
 <p>​    现在，给定φ，计算\(\phi(x)\)和\(\phi(z)\)后，可以通过内积运算很容易得到K(x, z)。但比较有意思的是，更多时候，即使\(\phi(x)\)本身计算代价很高（因为可能是比较高维度的向量），K(x, z)的计算也比较容易。在这种情况下，可以将高效的计算K(x, z)应用到我们的算法中，通过映射φ使SVM在更高维度特征空间中学习，而不需要明确得到向量\(\phi(x)\)。</p>
 <p>​    对于下面这个例子，假设\(x,z \in \mathbb{R}^{n}\)，并且对下式<br>​    <img src="/image/20170917/041.png" alt="041"><br>​    我们可以写成<br>​    <img src="/image/20170917/042.png" alt="042"><br>​    因此，我们可以得到\(K(x,z)=\phi(x) ^{T}\phi(z) ^{T}\)，特征映射（n=3时）为，<br><img src="/image/20170917/043.png" alt="043"><br>​    计算高维度的\(\phi(x)\))的复杂度为\(O(n ^{2})\\，计算K(x, z)的复杂度为\(O(n)\)。</p>
+<p>​    再举一个相关的例子，<br><img src="/image/20170917/044.png" alt="044"><br>​    对应的特征映射（n=3时）为：<br><img src="/image/20170917/045.png" alt="045"><br>​    参数c的改变可以影响\(x _{i}\)和(x _{i}x _{j})项之间的相关权重。</p>
+<p>​    概括来讲，核\(K(x,z)=(x ^{T}z + c) ^{d}\)对应一个特征映射，映射到\(\binom{n + d}{d}\)的特征空间，对应所有的单项式\(x _{i1}x _{i2}…x _{ik}\)一直到d阶。然而，即使计算的复杂度为\(O(n ^{d})\)，计算K(x, z)的复杂度仍为\(O(n)\)，因此我们并不需要在更高维的特征空间中写出特征向量。</p>
+<blockquote>
+<p>对于核函数，可以理解为：<br>对于某些输入变量，我们在给定的特征空间中并不能找到合适的算法模型。因此，我们就需要把原有的输入变量映射到更高维的特征空间。所以，当我们给定核函数以后，同时会有一个对应的特征映射φ。<br>正常流程来讲，应该是将现有的输入变量输入通过特征映射φ映射到高维特征空间，然后再求在高维特征空间的内积（SVM算法的内积形式）。但是，特征映射往往是比较复杂的，计算复杂度较高。<br>核函数的计算复杂度很低。这样就可以通过核函数简化特征映射这一计算过程。</p>
+</blockquote>
+<p>​    现在，我们从另一个不同的角度关注核。直觉上来说，如果\(\phi(x)\)和\(\phi(z)\)彼此相近，那么\(K(x,z)=\phi(x) ^{T}\phi(z)\)会比较大。相反，如果\(\phi(x)\)和\(\phi(z)\)相距较远，或者说是正交的，那么\(K(x,z)=\phi(x) ^{T}\phi(z)\)会比较小。因此，我们可以通过K(x, z)的值衡量\(\phi(x)\)和\(\phi(z)\)之间的相似度，或者x和z之间的相似度。</p>
+<blockquote>
+<p>x和z为两个向量，两个向量距离越相近，表示夹角越小，则内积越大。两向量正交时，内积为0。</p>
+</blockquote>
+<p>​    根据前面的分析，在解决一些学习问题时，可以通过一些函数K(x, z)评估x和z的相似性。例如，可以选择<br>​    <img src="/image/20170917/046.png" alt="046"><br>​    通过该函数衡量x和z之间的相似度是有效的，并且当x和z之间越相似，函数值越接近于1。可以将该核函数应用于SVM问题中（该核被称为<strong>高斯核</strong>）。给定一个核函数K，我们如何辨别这个核函数是否是有效的呢，我们是否可以辨别存在一个对应的特征映射φ，对所有的x, z满足\(K(x,z)=\phi(x) ^{T}\phi(z)\)。</p>
+<p>​    假设找到了一个K对应特征映射φ是有效的。现在，考虑一些有限的集合包含m个点（没有必要是训练集）\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，并且定义一个m<em>m的矩阵K，同时\(K _{ij}=K(x ^{(i)},x ^{(j)})\)。该矩阵被称为<em>*核矩阵</em></em>。注意到，我们用K既表示核函数也表示核矩阵。</p>
+<p>​    现在，如果K是一个合理的核，那么\(K _{ij}=K(x ^{(i)},x ^{(j)})=\phi(x ^{(i)})^ {T}\phi(x ^{(j)})=\phi(x ^{(j)})^ {T}\phi(x ^{(i)})=K(x ^{(j)},x ^{(i)})=K _{ji}\)，因此K一定是对称的。更多地，\(\phi _{k}(x)\)表示第k个向量\(\phi(x)\)，对任意向量z，有<br><img src="/image/20170917/047.png" alt="047"> </p>
+<p>​    从这个公式我们可以看出，如果K是一个有效的核函数（即满足\(K(x,z)=\phi(x) ^{T}\phi(z)\)），那么在训练集上得到的核函数矩阵K应该是半正定的。</p>
+<p>​    因此，我们说明了K是一个合理的核，并且对应的核矩阵K是一个对称的半正定阵。更普遍地，这是K为合理核的必要的而不是充分的条件。这是由Mercer理论推导出来的。</p>
+<p>​    对于Mercer定理，描述为：给定一个K表示\(\mathbb{R} ^{n}\times \mathbb{R} ^{n} \mapsto \mathbb{R}\)（也就是从两个n维向量映射到实数域）。那么K为一个有效的(Mercer)核函数的充分必要条件是，对于任意一个\(\left \{ x ^{(1)},…,x ^{(m)} \right \},(m&lt;\infty )\)，对应的核矩阵都是对称的半正定阵。</p>
+<p>​    Mercer定理表明为了证明K是有效的核函数，那么我们不用去寻找K，而只需要在训练集上求出各个\(K _{ij}\)，然后判断矩阵K是否是半正定（使用左上角主子式大于等于零等方法）即可。</p>
+<blockquote>
+<p>个人理解，这里给出了一些关于寻找或者验证高斯函数是否合理的思路，具体的应用中，可能大多数情况还是用常用的几种核，比如高斯核。通过调整参数，寻找好的训练模型。</p>
+</blockquote>
+<p>​    核的应用不仅仅局限于SVM中。特别地，如果你有一个算法模型可以写成内积的形式，那么就可以用K(x, z)代替内积，这样就可以很神奇地将模型在更高维的控件进行训练。例如，核技巧可以被应用于感知机中以得到一个核感知算法。我们在这堂课中的好多算法都可以应用这种方法，就是我们所说的“核技巧”。</p>
+<blockquote>
+<p>如果还不太明白的话， 可以推荐一篇博文，算了还是不推荐了，我讲的很明白了。</p>
+</blockquote>
+<h2 id="9-正则化和不可分情况"><a href="#9-正则化和不可分情况" class="headerlink" title="9. 正则化和不可分情况"></a>9. 正则化和不可分情况</h2><p>​    前面对于SVM的推导都是在样本线性可分的。当通过φ将数据映射到高维特征空间时，可以增加数据可分的可能性，但是不能保证一定是可分的。同时，在时候受一些异常样本的影响，我们并不能找到想要的分类超平面。例如，在下面的左图中展示了一种最优间隔分类器，但是当一个异常点被添加在左上角区域（右图中）时，分类边界就要相应调整，最后的间隔也较小。<br><img src="/image/20170917/048.png" alt="048"><br>​    为了降低算法对非线性可分数据集中的异常点的敏感度，我们将优化问题的形式（使用\(l _{1}\)<strong>正则化</strong>）修改为，<br><img src="/image/20170917/049.png" alt="049"><br>​    这样，在现在的分类中，可以存在函数间隔小于1的点，同时对最小化函数增加一个代价\(C\xi _{i}\)。参数C称为惩罚参数，C值越大对误分类的惩罚增大，C值减小对误分类的惩罚减小。最小化目标函数（第一个式子）包含两层含义：使\(\frac{1}{2}\left | \omega \right | ^{2}\)尽量小即间隔尽量大，同时使误分类的个数尽量小，C是调和两者的系数。</p>
+<p>​    与前面类似，可以写出拉格朗日函数：<br><img src="/image/20170917/050.png" alt="050"><br>​    这里，α和γ是拉格朗日乘子。经过与前面类似的推导，可以得到该问题的对偶形式：<br><img src="/image/20170917/051.png" alt="051"><br>​    正如之前介绍的，根据(9)式将ω用x表示。因此在解决对偶问题之后，我们可以继续使用式(13)进行预测。注意到，有些意外的是，在增加\(l _{1}\)正则化之后，对偶问题唯一的变化是，对α的限制条件变成了\(0\leqslant \alpha _{i}\leqslant C\)。对于\(b ^{\star}\)的计算也应该对应修改。</p>
+<p>​    并且，KKT对偶互补条件是：<br><img src="/image/20170917/052.png" alt="052"><br>​    现在，仍然未解决的问题就是找到一个求解对偶问题的方法，我们将在下一部分说明。</p>
 
       
     </div>
@@ -624,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-支持向量机"><span class="nav-number">1.</span> <span class="nav-text">1. 支持向量机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-边界"><span class="nav-number">2.</span> <span class="nav-text">2. 边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-符号标记"><span class="nav-number">3.</span> <span class="nav-text">3. 符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数间隔和几何间隔"><span class="nav-number">4.</span> <span class="nav-text">4. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最优间隔分类器"><span class="nav-number">5.</span> <span class="nav-text">5. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-拉格朗日对偶"><span class="nav-number">6.</span> <span class="nav-text">6. 拉格朗日对偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-最优间隔分类器"><span class="nav-number">7.</span> <span class="nav-text">7. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-核技巧"><span class="nav-number">8.</span> <span class="nav-text">8. 核技巧</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-支持向量机"><span class="nav-number">1.</span> <span class="nav-text">1. 支持向量机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-边界"><span class="nav-number">2.</span> <span class="nav-text">2. 边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-符号标记"><span class="nav-number">3.</span> <span class="nav-text">3. 符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数间隔和几何间隔"><span class="nav-number">4.</span> <span class="nav-text">4. 函数间隔和几何间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最优间隔分类器"><span class="nav-number">5.</span> <span class="nav-text">5. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-拉格朗日对偶"><span class="nav-number">6.</span> <span class="nav-text">6. 拉格朗日对偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-最优间隔分类器"><span class="nav-number">7.</span> <span class="nav-text">7. 最优间隔分类器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-核技巧"><span class="nav-number">8.</span> <span class="nav-text">8. 核技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-正则化和不可分情况"><span class="nav-number">9.</span> <span class="nav-text">9. 正则化和不可分情况</span></a></li></ol></div>
             
 
           </div>
