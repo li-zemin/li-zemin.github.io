@@ -167,7 +167,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20170917/063.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/064.png">
 <meta property="og:image" content="http://yoursite.com/image/20170917/065.png">
-<meta property="og:updated_time" content="2017-09-24T10:05:39.595Z">
+<meta property="og:updated_time" content="2017-09-24T12:56:12.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机">
 <meta name="twitter:description" content="1. 支持向量机​    本篇博文将介绍支持向量机（Support Vector Machine, SVM）算法。SVM是最好的“无需定制”的监督学习算法。为了很好地介绍支持向量机，我们首先要了解分离数据的概念以及边界问题。接下来，我们要讨论最优边界分类器，并且引出拉格朗日算子。我们也会知道核函数，有助于我们在更高维的特征空间里应用SVM算法。最后，我们会讨论SMO算法，是SVM算法的实现。 2.">
@@ -458,7 +458,7 @@
 <p>​    我们可以提出对偶优化问题：<br>​    <img src="/image/20170917/024.png" alt="024"><br>​    这与上面展示的原始优化问题式子一样，除了“max”和“min”的位置改变了。我们也可以定义对偶问题的最优值为\(d ^{\star}=max _{\alpha,\beta: \alpha _{i}\geqslant 0}\theta _{D}(\omega)\)。</p>
 <p>​    原始问题和对偶问题如何联系起来呢？可以很容易写为，<br><img src="/image/20170917/025.png" alt="025"><br>​    （已经被证明，一个函数的“最大最小值”一定小于等于它的“最小最大值”），然而， 在特定条件下，我们有<br>​    <img src="/image/20170917/026.png" alt="026"><br>​    所以，我们可以通过解对偶问题来解决原始问题（强对偶条件下）,这些条件如下。</p>
 <p>​    假设f和\(g _{i}\)是凸函数并且\(h _{i}\)是射线函数，更多地，假设\(g _{i}\)是严格约束的：这意味着对所有的i都存在ω使\(g _{i}(\omega)&lt;0\)。</p>
-<p>​    在上述假设条件下，一定存在\(\omega ^{\star},\alpha ^{\star}, \beta ^{\star}\)，\(\omega ^{\star}\)就是原始问题的解，\(\alpha ^{\star}, \beta ^{\star}\)是对偶问题的解，并且(p ^{\star}=d ^{\star}=L(\omega ^{\star},\alpha ^{\star}, \beta ^{\star})\)。更多地，\omega ^{\star},\alpha ^{\star}, \beta ^{\star}满足<strong>KKT, Karush-Kuhn-Tucker 条件</strong>，<br>​    <img src="/image/20170917/027.png" alt="027"><br>​    公式(5)北城为KKT<strong>对偶互补条件</strong>。可以得到如果\(\alpha ^{\star} _{i}&gt;0\)，则\(g _{i}(\omega ^{\star})=0\)。后面，这会成为说明SVM只有较少数量的支持向量的关键条件；同时也给我们讨论SMO算法提供了收敛测试条件。</p>
+<p>​    在上述假设条件下，一定存在\(\omega ^{\star},\alpha ^{\star}, \beta ^{\star}\)，\(\omega ^{\star}\)就是原始问题的解，\(\alpha ^{\star}, \beta ^{\star}\)是对偶问题的解，并且\(p ^{\star}=d ^{\star}=L(\omega ^{\star},\alpha ^{\star}, \beta ^{\star})\)。更多地，\(\omega ^{\star},\alpha ^{\star}, \beta ^{\star}\)满足<strong>KKT, Karush-Kuhn-Tucker 条件</strong>，<br>​    <img src="/image/20170917/027.png" alt="027"><br>​    公式(5)北城为KKT<strong>对偶互补条件</strong>。可以得到如果\(\alpha ^{\star} _{i}&gt;0\)，则\(g _{i}(\omega ^{\star})=0\)。后面，这会成为说明SVM只有较少数量的支持向量的关键条件；同时也给我们讨论SMO算法提供了收敛测试条件。</p>
 <blockquote>
 <p>对于拉格朗日对偶方法以及KKT条件的理解，建议大家参考博客：<br><a href="http://www.cnblogs.com/mo-wang/p/4775548.html" target="_blank" rel="external">【整理】深入理解拉格朗日乘子法（Lagrange Multiplier) 和KKT条件</a><br><a href="http://www.cnblogs.com/ooon/p/5723725.html" target="_blank" rel="external">拉格朗日对偶</a></p>
 </blockquote>
@@ -476,7 +476,7 @@
 <p>​    通过优化问题的对偶形式，我们得到了对该问题的深层认识，并且也得到了输入向量之间的内积表示形式。在下一部分，我们将探索将核技巧的特性应用到分类问题中，这样支持向量机算法就可以在更高维度中进行学习。</p>
 <h2 id="8-核技巧"><a href="#8-核技巧" class="headerlink" title="8. 核技巧"></a>8. 核技巧</h2><p>​    回顾我们之前对线性回归的讨论，对于房屋居住面积x，我们会使用特征\(x,x ^{2},x ^{3}\)以得到一个三次函数。为了区分两组不同的变量，我们将原始的输入称为<strong>属性</strong>（在该问题中，是居住面积x）。在学习算法中，要将输入属性映射到变量集中，我们将这些新的变量称为输入<strong>特征</strong>。用φ表示从输入属性到特征的<strong>特征映射</strong>，例如，在上面的例子中有，<br><img src="/image/20170917/040.png" alt="040"><br>​    我们可能需要使用特征\(\phi(x)\)而不是输入属性x训练SVM算法模型。因此，我们需要将特征\(\phi(x)\)应用到之前推导出的算法中。</p>
 <p>​    现在，给定φ，计算\(\phi(x)\)和\(\phi(z)\)后，可以通过内积运算很容易得到K(x, z)。但比较有意思的是，更多时候，即使\(\phi(x)\)本身计算代价很高（因为可能是比较高维度的向量），K(x, z)的计算也比较容易。在这种情况下，可以将高效的计算K(x, z)应用到我们的算法中，通过映射φ使SVM在更高维度特征空间中学习，而不需要明确得到向量\(\phi(x)\)。</p>
-<p>​    对于下面这个例子，假设\(x,z \in \mathbb{R}^{n}\)，并且对下式<br>​    <img src="/image/20170917/041.png" alt="041"><br>​    我们可以写成<br>​    <img src="/image/20170917/042.png" alt="042"><br>​    因此，我们可以得到\(K(x,z)=\phi(x) ^{T}\phi(z) ^{T}\)，特征映射（n=3时）为，<br><img src="/image/20170917/043.png" alt="043"><br>​    计算高维度的\(\phi(x)\))的复杂度为\(O(n ^{2})\\，计算K(x, z)的复杂度为\(O(n)\)。</p>
+<p>​    对于下面这个例子，假设\(x,z \in \mathbb{R}^{n}\)，并且对下式<br>​    <img src="/image/20170917/041.png" alt="041"><br>​    我们可以写成<br>​    <img src="/image/20170917/042.png" alt="042"><br>​    因此，我们可以得到\(K(x,z)=\phi(x) ^{T}\phi(z) ^{T}\)，特征映射（n=3时）为，<br><img src="/image/20170917/043.png" alt="043"><br>​    计算高维度的\(\phi(x)\)的复杂度为\(O(n ^{2})\\，计算K(x, z)的复杂度为\(O(n)\)。</p>
 <p>​    再举一个相关的例子，<br><img src="/image/20170917/044.png" alt="044"><br>​    对应的特征映射（n=3时）为：<br><img src="/image/20170917/045.png" alt="045"><br>​    参数c的改变可以影响\(x _{i}\)和(x _{i}x _{j})项之间的相关权重。</p>
 <p>​    概括来讲，核\(K(x,z)=(x ^{T}z + c) ^{d}\)对应一个特征映射，映射到\(\binom{n + d}{d}\)的特征空间，对应所有的单项式\(x _{i1}x _{i2}…x _{ik}\)一直到d阶。然而，即使计算的复杂度为\(O(n ^{d})\)，计算K(x, z)的复杂度仍为\(O(n)\)，因此我们并不需要在更高维的特征空间中写出特征向量。</p>
 <blockquote>
