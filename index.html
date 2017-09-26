@@ -381,7 +381,7 @@
 
       
         
-          <h2 id="1-偏差-方差均衡"><a href="#1-偏差-方差均衡" class="headerlink" title="1. 偏差-方差均衡"></a>1. 偏差-方差均衡</h2><p>​    我们学习线性回归时，曾讨论了选取简单的模型“\(y=\theta _{0}+\theta _{1}x\)”还是一个复杂的模型“\(y=\theta _{0}+\theta _{1}x +\cdots +\theta _{5}x^{5}\)”进行建模。我们看下面这个例子，<br><img src="/image/20170925/01.png" alt="01"><br>​    选取5阶多项式得到的模型（最右边图示）并不是好模型。即时5阶多项式在预测训练集样本时可以取得很好的效果，但是在训练集以外的样本上的预测往往是不准确的。换句话说，从训练集学习到的参数在测试集上表现并不好。一个假设的<strong>生成误差（generalization error）</strong>为对非训练集样本预测的误差。<br>
+          <h2 id="1-偏差-方差均衡"><a href="#1-偏差-方差均衡" class="headerlink" title="1. 偏差-方差均衡"></a>1. 偏差-方差均衡</h2><p>​    我们学习线性回归时，曾讨论了选取简单的模型“\(y=\theta _{0}+\theta _{1}x\)”还是一个复杂的模型“\(y=\theta _{0}+\theta _{1}x +\cdots +\theta _{5}x^{5}\)”进行建模。我们看下面这个例子，<br><img src="/image/20170925/01.png" alt="01"><br>​    选取5阶多项式得到的模型（最右边图示）并不是好模型。即使5阶多项式在预测训练集样本时可以取得很好的效果，但是在训练集以外的样本上的预测往往是不准确的。换句话说，从训练集学习到的参数在测试集上表现并不好。一个假设函数的<strong>生成误差（generalization error）</strong>为对非训练集样本预测的误差。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/09/25/0925-ml-06/#more" rel="contents">
