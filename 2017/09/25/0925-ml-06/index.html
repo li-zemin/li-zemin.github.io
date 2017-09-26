@@ -105,7 +105,15 @@
 <meta property="og:image" content="http://yoursite.com/image/20170925/01.png">
 <meta property="og:image" content="http://yoursite.com/image/20170925/02.png">
 <meta property="og:image" content="http://yoursite.com/image/20170925/03.png">
-<meta property="og:updated_time" content="2017-09-25T01:14:34.702Z">
+<meta property="og:image" content="http://yoursite.com/image/20170925/04.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/05.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/06.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/07.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/08.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/09.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/10.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/11.png">
+<meta property="og:updated_time" content="2017-09-26T00:52:18.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习理论">
 <meta name="twitter:description" content="1. 偏差-方差均衡​    我们学习线性回归时，曾讨论了选取简单的模型“\(y=\theta _{0}+\theta _{1}x\)”还是一个复杂的模型“\(y=\theta _{0}+\theta _{1}x +\cdots +\theta _{5}x^{5}\)”进行建模。我们看下面这个例子，​    选取5阶多项式得到的模型（最右边图示）并不是好模型。即时5阶多项式在预测训练集样本时可以取">
@@ -388,7 +396,18 @@
 <h2 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2. 准备工作"></a>2. 准备工作</h2><p>​    接下来，我们开始接触<strong>学习理论（learning theory）</strong>。主要解决以下几个问题：一是如何均衡刚刚讨论的偏差/方差？这也会引导我们思考模型的喧杂方法，自然也会告诉我们选取几阶多项式拟合模型；二是在机器学习中，我们比较关注生成误差（非训练集样本的预测误差），但是大多学习算法拟合的是训练集。为什么在训练集上表现很好地模型可以告诉我们生成误差的一些信息呢？特别的，我们可以将在训练集上的误差和生成误差联系起来么？最后一个是，是否存在一定条件下，我们可以确切证明学习算法的效果很好。</p>
 <p>​    首先我们介绍两种简单而有用的引理。</p>
 <p><strong>引理1</strong>(联合界)。\(A _{1},A _{2},…,A _{k}\)为k个不同事件（可能不是独立的），那么<br><img src="/image/20170925/02.png" alt="02"><br>​    在概率论中。联合界被公认问一种公理（我们不去证明）。由此可知，k个事件中任意一个发生的概率小于k个事件分别发生的概率之和。</p>
-<p><strong>引理2</strong>（Hoeffding 不等式）。\(Z _{1},Z _{2},…,Z _{m}\)表示m个由伯努利分布得到的独立同分布随机变量。\(P(Z _{i}=1)=\phi\)，\(P(Z _{i}=0)=1-\phi\)。\(\hat{\phi}=(1/m)\sum _{i=1}^{m}Z _{i}\)表示这些随机变量的平均值，对任意一个确定的变量\(\gamma &gt;0\)。有<br><img src="/image/20170925/03.png" alt="03"></p>
+<p><strong>引理2</strong>（Hoeffding 不等式）。\(Z _{1},Z _{2},…,Z _{m}\)表示m个由伯努利分布得到的独立同分布随机变量。\(P(Z _{i}=1)=\phi\)，\(P(Z _{i}=0)=1-\phi\)。\(\hat{\phi}=(1/m)\sum _{i=1}^{m}Z _{i}\)表示这些随机变量的平均值，对任意一个确定的变量\(\gamma &gt;0\)。有<br><img src="/image/20170925/03.png" alt="03"><br>​    该引理（在学习理论中也被称为<strong>切诺夫边界</strong>）说明如果我们将\(\hat{\phi}\)作为\(\phi\)的估计，若m足够大，那么概率值与真实值之间的误差是比较小的。换句话说，我们投掷一枚硬币，正面朝上的概率为φ，那么如果我们投掷m次，并且计算正面朝上次数与m的比值，最终可以得到比较可信的φ的取值（如果m足够大）。</p>
+<p>​    利用这两个引理，我们可以证明在学习理论中的更深层次和更重要的结果。</p>
+<p>​    为了简化表述，我们只关注二分类问题，样本标签为\(y\in \left \{ 0,1 \right \}\)。讨论的结果都可以延伸至回归问题和多分类问题等。</p>
+<p>​    假设我们给定大小为m的训练集\(S=\left \{ (x ^{(i)},y ^{(i)});i=1,…,m \right \}\)，训练样本\(\left ( x ^{(i)},y ^{(i)} \right )\)来源于概率为D的独立同分布。对于假设h，我们定义<strong>训练误差（training error）</strong>（在学习理论中也被称为<strong>经验风险</strong>和<strong>经验误差</strong>）为，<br><img src="/image/20170925/04.png" alt="04"><br>​    这表示在假设h中被误分类的概率。当我们想明确表示在训练集S上经验误差时，我们可以写成\(\hat{\varepsilon } _{S}(h)\)。我们也可以将生成误差定义为<br><img src="/image/20170925/05.png" alt="05"><br>​    该式表示，如果我们从分布D中取得一个样本(x, y)，h对其误分类的概率。</p>
+<p>​    注意到我们之前已经假设训练数据来源于我们评估假设函数的分布D（在生成误差的定义里面所描述的）。</p>
+<p>​    考虑到在线性分类中，\(h _{\theta}(x)=1\left \{ \theta ^{T}x\geq 0 \right \}\)。如何找到合适的参数θ呢？我们的办法是尝试最小化训练误差，并且选取<br><img src="/image/20170925/06.png" alt="06"><br>​    我们将这个过程称为<strong>经验风险最小化（empirical risk minimization, ERM）</strong>，并且通过学习理论得到的假设函数为\(\hat{h}=h _{\hat{\theta}}\)。ERM是最“基本”的学历算法，并且我们会在本节内容中重点讨论。（逻辑斯特回归算法也可以看成经验风险最小化的近似）</p>
+<p>​    在我们对学习理论的学习中，应该不考虑特别的参数化的假设以及我们是否使用的是线性分类器。我们定义了<strong>假设集H</strong>作为所有要考虑的分类器的集合。对于线性分类，\(H=\left \{ h _{\theta}:h _{\theta}(x)=1\left \{ \theta ^{T}x\geqslant 0 \right \},\theta\in \mathbb{R} ^{n+1} \right \}\)表示所有在输入空间上的分类器的集合，分类边界的是线性的。更广泛的，如果我们研究神经网络，那么我们可以使H表示神经网络所等价的分类器的集合。</p>
+<p>​    经验风险最小化可以被看做在函数集H上的最小化，在学习理论中将假设函数表示为：<br><img src="/image/20170925/07.png" alt="07"></p>
+<h2 id="3-有限H的情况"><a href="#3-有限H的情况" class="headerlink" title="3. 有限H的情况"></a>3. 有限H的情况</h2><p>​    我们先考虑包含有限的假设集的情况，比如包含k个假设的假设集\(H=\left \{ h _{1},…, h _{k} \right \}\)。因此，H表示包含将输入空间X映射到{0, 1}的k个函数映射，并且经验风险最小化就是在k个函数中选取训练误差最小的函数作为\(\hat{h}\)。</p>
+<p>​    我们想要得到\(\hat{h}\)的生成误差。要达到这一目的有两步操作：1，说明对所有假设函数h都满足的\(\hat{\varepsilon }(h)\)与\(\varepsilon(h)\)之间的关系；2，说明这个关系暗示了\(\hat{h}\)的生成误差的上界。</p>
+<p>​    选取任何一个确定的\(h _{i}\in H\)。考虑一个伯努利变量Z的分布定义如下。选取一个样本\(\left ( x, y \right )\sim D\)，然后，设\(Z=1\left \{ h _{i}(x)\neq y \right \}\)。就是说，我们尝试得到一个样本，然后用Z表示假设\(h _{i}\)对该样本点的分类是否正确。相似地，我们定义\(Z _{j}=1\left \{ h _{i}(x ^{(j)})\neq y ^{(j)} \right \}\)。由于我们的训练集都是来源于独立同分布D，所以Z和\(Z _{j}\)有一样的分布。</p>
+<p>​    我们将在随机获取的样本上的误分类概率\(\varepsilon(h)\)看成Z的期望。更多地，训练误差可以写成<br><img src="/image/20170925/08.png" alt="08"><br>​    因此，\(\hat{\varepsilon }(h _{i})\)确实是m个随机变量\(Z _{j}\)的平均值，\(Z _{j}\)来源于均值为\varepsilon(h _{i})的伯努利分布。因此，我们可以应用Hoeffding不等式，得到<br><img src="/image/20170925/09.png" alt="09"><br>​    这说明，对于一个特殊的\(h _{i}\)，假设m足够大时，训练误差很大概率接近于生成误差。但是这一规律不能只对特殊的\(h _{i}\)成立。我们要证明对所有\(h _{i}\in H\)满足这一规律。为了说明，我们设\(A _{i}\)表示事件\(\left | \varepsilon (h _{i})-\hat{\varepsilon}(h _{i})  \right |&gt;\gamma\)。因此，使用联合界引理，有<br><img src="/image/20170925/10.png" alt="10"><br>​    用1剪去两边， 可以得到<br><img src="/image/20170925/11.png" alt="11"><br>​    因此，至少有\(1-2kexp(-2\gamma ^{2}m)\)的概率，我们可以对所有的\(h _{i}\in H\)，\(\varepsilon(h)\)都为\(\hat{\varepsilon }(h)\)为中心γ为半径的区域内的一点。这被称为<em>不规则收敛</em>，因为这是一个是所有\(h _{i}\in H\)都成立的一个边界。</p>
 
       
     </div>
@@ -581,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-偏差-方差均衡"><span class="nav-number">1.</span> <span class="nav-text">1. 偏差-方差均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-准备工作"><span class="nav-number">2.</span> <span class="nav-text">2. 准备工作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-偏差-方差均衡"><span class="nav-number">1.</span> <span class="nav-text">1. 偏差-方差均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-准备工作"><span class="nav-number">2.</span> <span class="nav-text">2. 准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-有限H的情况"><span class="nav-number">3.</span> <span class="nav-text">3. 有限H的情况</span></a></li></ol></div>
             
 
           </div>
