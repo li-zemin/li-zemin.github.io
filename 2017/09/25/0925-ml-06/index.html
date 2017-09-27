@@ -113,7 +113,12 @@
 <meta property="og:image" content="http://yoursite.com/image/20170925/09.png">
 <meta property="og:image" content="http://yoursite.com/image/20170925/10.png">
 <meta property="og:image" content="http://yoursite.com/image/20170925/11.png">
-<meta property="og:updated_time" content="2017-09-26T01:45:01.008Z">
+<meta property="og:image" content="http://yoursite.com/image/20170925/12.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/13.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/14.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/15.png">
+<meta property="og:image" content="http://yoursite.com/image/20170925/16.png">
+<meta property="og:updated_time" content="2017-09-27T00:53:59.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习理论">
 <meta name="twitter:description" content="1. 偏差-方差均衡​    我们学习线性回归时，曾讨论了选取简单的模型“\(y=\theta _{0}+\theta _{1}x\)”还是一个复杂的模型“\(y=\theta _{0}+\theta _{1}x +\cdots +\theta _{5}x^{5}\)”进行建模。我们看下面这个例子，​    选取5阶多项式得到的模型（最右边图示）并不是好模型。即使5阶多项式在预测训练集样本时可以取">
@@ -408,6 +413,16 @@
 <p>​    我们想要得到\(\hat{h}\)的生成误差。要达到这一目的有两步操作：1，说明对所有假设函数h都满足的\(\hat{\varepsilon }(h)\)与\(\varepsilon(h)\)之间的关系；2，说明这个关系暗含了\(\hat{h}\)的生成误差的上界。</p>
 <p>​    选取任何一个确定的\(h _{i}\in H\)。考虑一个伯努利变量Z的分布定义如下。选取一个样本\(\left ( x, y \right )\sim D\)，然后，设\(Z=1\left \{ h _{i}(x)\neq y \right \}\)。就是说，我们尝试得到一个样本，然后用Z表示假设\(h _{i}\)对该样本点的分类是否正确。相似地，我们定义\(Z _{j}=1\left \{ h _{i}(x ^{(j)})\neq y ^{(j)} \right \}\)。由于我们的训练集都是来源于独立同分布D，所以\(Z\)和\(Z _{j}\)有一样的分布。</p>
 <p>​    我们将在随机获取的样本上的误分类概率\(\varepsilon(h)\)看成Z的期望。更多地，训练误差可以写成<br><img src="/image/20170925/08.png" alt="08"><br>​    因此，\(\hat{\varepsilon }(h _{i})\)确实是m个随机变量\(Z _{j}\)的平均值，\(Z _{j}\)来源于均值为\(\varepsilon(h _{i})\)的伯努利分布。因此，我们可以应用Hoeffding不等式，得到<br><img src="/image/20170925/09.png" alt="09"><br>​    这说明，对于一个特殊的\(h _{i}\)，假设m足够大时，训练误差很大概率接近于生成误差。但是这一规律不能只对特殊的\(h _{i}\)成立。我们要证明对所有\(h _{i}\in H\)满足这一规律。为了说明，我们设\(A _{i}\)表示事件\(\left | \varepsilon (h _{i})-\hat{\varepsilon}(h _{i})  \right |&gt;\gamma\)。因此，使用联合界引理，有<br><img src="/image/20170925/10.png" alt="10"><br>​    用1剪去两边， 可以得到<br><img src="/image/20170925/11.png" alt="11"><br>​    因此，至少有\(1-2kexp(-2\gamma ^{2}m)\)的概率，我们可以对所有的\(h _{i}\in H\)，\(\varepsilon(h)\)都为\(\hat{\varepsilon }(h)\)为中心γ为半径的区域内的一点。这被称为<em>不规则收敛</em>，因为这是一个是所有\(h _{i}\in H\)都成立的一个边界。</p>
+<p>​    在上面的讨论中，我们所做的就是给一个特殊的m和γ，给定一个概率上的边界，对一些\(h\in H\)，\(\left | \varepsilon (h)-\hat{\varepsilon}(h) \right |&gt; 0\)。在这里有三个变量：m，γ以及误差的概率；我们可以将其中的一个用另外两个变量表示。</p>
+<p>​    例如，我们可以提出这样一个问题，给定γ和一些δ&gt;0，m要多大才能保证上述推导的概率大于1-δ，并且训练误差在γ范围内呢？设\(\delta =1-2kexp(-2\gamma ^{2}m)\)并且求解m，可以得到<br><img src="/image/20170925/12.png" alt="12"><br>​    那么对所有\(h\in H\)，满足\(\left | \varepsilon (h)-\hat{\varepsilon}(h) \right |\leq  \gamma)的概率大于等于1-δ。（等价地，这说明对一些\(h\in H\)，\(\left | \varepsilon (h)-\hat{\varepsilon}(h) \right |&gt; \gamma\)的概率小于δ）这个不等式告诉我们在训练集中需要包含多少的样本。一个特定的方法或者算法取得一定地训练效果时所需要的训练集大小m也被称为<strong>样本复杂度，sample complexity</strong>。</p>
+<p>​    在训练集样本满足的不等式中，假设集H的大小k的对数也是很重要的。</p>
+<p>​    同样地，我们可以固定m和δ不变，在之前的式子中求解γ，得到对所有\(h\in H\)，<br><img src="/image/20170925/13.png" alt="13"><br>​    现在，我们假设不规则收敛为，\(\left | \varepsilon (h)-\hat{\varepsilon}(h) \right |\leq  \gamma)对所有\(h\in H\)成立。我们如何证明在所有的学习算法中我们要选择\(\hat{h}=argmin _{h \in H}\hat{\varepsilon}(h)\\？</p>
+<p>​    定义\(h ^{\star}=argmin _{h \in H}\varepsilon(h)\)为假设集H中最可能的假设。注意\(h ^{\star}\)是我们给定的H中可能性最大的假设，因此可以与\(h ^{\star}\)做比较，有：<br><img src="/image/20170925/14.png" alt="14"><br>​    第一行根据之前的不规则收敛得到，第二行因为\(\hat{h}\)对应于极小值\(\hat{\varepsilon}(h)\)，因此\(\hat{\varepsilon}(\hat{h})\leq  \hat{\varepsilon}(h)\)对所有h成立，也对\(\hat{\varepsilon}(\hat{h})\leq  \hat{\varepsilon}(h ^{\star})\)成立。第三行再一次用到了不规则收敛假设，说明\(\hat{\varepsilon}(h ^{\star})\leq \varepsilon (h ^{\star})+\gamma\)。因此说明：如果不规则收敛的条件满足，那么\(\hat{h}\)的生成误差小于H中最可能假设\(h ^{\star}\)的生成误差再加上2γ。</p>
+<p>​    将所有的结论合并成一个定理可以得到。</p>
+<p>​    <strong>定理。</strong>设\(\left | H \right |=k\)，取任意m，δ。那么至少有1-δ的概率满足，<br><img src="/image/20170925/15.png" alt="15"><br>​    这也可以用来量化我们之前所说的在模型选择时要考虑的误差方差均衡问题。假设我们有一个假设集H，并在考虑一个更大的假设集H’，\(H’\supseteq H\)。如果我们选择H’，那么第一项\(min _{h}\varepsilon(h)\)只会减少。因此，对于更大的假设集，我们的误差会减小。然而，如果k增加，那么第二项也会增加。在更大的假设集中方差也会相应增加。</p>
+<p>​    保持γ和δ不变并且解出m，可以得到样本复杂度不等式：</p>
+<p><strong>推论。</strong> 设\(\left | H \right |=k\)，取任意m，δ。那么要使\(\varepsilon (\hat{h})\leq min _{h}\varepsilon(h)+2\gamma\)成立的概率至少为1-δ，需满足<br><img src="/image/20170925/16.png" alt="16"></p>
+<h2 id="4-无限大小的H的情况"><a href="#4-无限大小的H的情况" class="headerlink" title="4. 无限大小的H的情况"></a>4. 无限大小的H的情况</h2><p>​    我们已经在有限大小H中证明了很多有用的理论。对于有些假设集，包含参数化为无穷个实数的模型（线性分类）。我们如何证明相似地结果呢？</p>
 
       
     </div>
@@ -600,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-偏差-方差均衡"><span class="nav-number">1.</span> <span class="nav-text">1. 偏差-方差均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-准备工作"><span class="nav-number">2.</span> <span class="nav-text">2. 准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-有限H的情况"><span class="nav-number">3.</span> <span class="nav-text">3. 有限H的情况</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-偏差-方差均衡"><span class="nav-number">1.</span> <span class="nav-text">1. 偏差-方差均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-准备工作"><span class="nav-number">2.</span> <span class="nav-text">2. 准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-有限H的情况"><span class="nav-number">3.</span> <span class="nav-text">3. 有限H的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-无限大小的H的情况"><span class="nav-number">4.</span> <span class="nav-text">4. 无限大小的H的情况</span></a></li></ol></div>
             
 
           </div>
