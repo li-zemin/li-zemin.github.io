@@ -123,7 +123,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20170925/19.png">
 <meta property="og:image" content="http://yoursite.com/image/20170925/20.png">
 <meta property="og:image" content="http://yoursite.com/image/20170925/21.png">
-<meta property="og:updated_time" content="2017-09-29T02:20:55.697Z">
+<meta property="og:updated_time" content="2017-09-29T02:38:40.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习理论">
 <meta name="twitter:description" content="1. 偏差-方差均衡​    我们学习线性回归时，曾讨论了选取简单的模型“\(y=\theta _{0}+\theta _{1}x\)”还是一个复杂的模型“\(y=\theta _{0}+\theta _{1}x +\cdots +\theta _{5}x^{5}\)”进行建模。我们看下面这个例子，​    选取5阶多项式得到的模型（最右边图示）并不是好模型。即使5阶多项式在预测训练集样本时可以取">
@@ -427,17 +427,17 @@
 <p>​    <strong>定理。</strong>设\(\left | H \right |=k\)，取任意m，δ。那么至少有1-δ的概率满足，<br><img src="/image/20170925/15.png" alt="15"><br>​    这也可以用来量化我们之前所说的在模型选择时要考虑的误差方差均衡问题。假设我们有一个假设集H，并在考虑一个更大的假设集H’，\(H’\supseteq H\)。如果我们选择H’，那么第一项\(min _{h}\varepsilon(h)\)只会减少。因此，对于更大的假设集，我们的误差会减小。然而，如果k增加，那么第二项也会增加。在更大的假设集中方差也会相应增加。</p>
 <p>​    保持γ和δ不变并且解出m，可以得到样本复杂度不等式：</p>
 <p><strong>推论。</strong> 设\(\left | H \right |=k\)，取任意m，δ。那么要使\(\varepsilon (\hat{h})\leq min _{h}\varepsilon(h)+2\gamma\)成立的概率至少为1-δ，需满足<br><img src="/image/20170925/16.png" alt="16"></p>
-<h2 id="4-无限大小的H的情况"><a href="#4-无限大小的H的情况" class="headerlink" title="4. 无限大小的H的情况"></a>4. 无限大小的H的情况</h2><p>​    我们已经在有限大小H中证明了很多有用的理论。对于有些假设集，包含参数化为无穷个实数的模型（线性分类）。我们如何证明相似地结果呢？</p>
-<p>​    我们先看一些“不正确”的论断。尽管更普遍的论断存在，但是但是对于“不正确”的论断的讨论也是有用的。</p>
-<p>​    假设我们有一个含d个实数参数的假设H。由于我们要在电脑中表示实数，同时一个双精度浮点型数据需要64位表示。因此，我们的假设集由最多有\(k=2 ^{64d}\)种不同假设。在上一部分的推论中，我们得到，为了保证最少有1-δ的概率使\(\varepsilon (\hat{h})\leq \varepsilon (h ^{\star})+2 \gamma\)成立，m需满足\(m\geq O(\frac{1}{\gamma ^{2}}log\frac{2 ^{64d}}{\delta})=O(\frac{d}{\gamma ^{2}}log\frac{1}{\delta})=O _{\gamma, \delta}(d)\)。因此，训练集样本数与模型的参数个数成正比。</p>
+<h2 id="4-无限大小的H的情况"><a href="#4-无限大小的H的情况" class="headerlink" title="4. 无限大小的H的情况"></a>4. 无限大小的H的情况</h2><p>​    我们已经在有限大小H中证明了很多有用的理论。对于有些假设集，包含参数化为无穷个实数的模型（线性分类）。我们如何证明相似的结果呢？</p>
+<p>​    我们先看一些“不正确”的论证。尽管更普遍的论证存在，但是但是对于“不正确”的论断的讨论也是有用的。</p>
+<p>​    假设我们有一个含d个实数参数的假设H。由于我们要在计算机中表示实数，同时一个双精度浮点型数据需要64位表示。因此，我们的假设集由最多有\(k=2 ^{64d}\)种不同假设。在上一部分的推论中，我们得到，为了保证最少有1-δ的概率使\(\varepsilon (\hat{h})\leq \varepsilon (h ^{\star})+2 \gamma\)成立，m需满足\(m\geq O(\frac{1}{\gamma ^{2}}log\frac{2 ^{64d}}{\delta})=O(\frac{d}{\gamma ^{2}}log\frac{1}{\delta})=O _{\gamma, \delta}(d)\)。因此，训练集样本数与模型的参数个数成正比。</p>
 <p>​    在这里要注意的是我们证明的结果适用于使用了经验风险最小化的算法。因此，最后的结论在一些判别学习算法中并不是完全成立。为一些非ERM的学习算法中提供理论保证依然是研究的重点领域。</p>
-<p>​    我们之前论证的另一部分也有一点不满足的在于H的参数化。我们将一种线性分类器写成\(h _{\theta }(x)=1\left \{ \theta _{0}+\theta _{1}x _{1}+\cdots +\theta _{n}x _{n} \geqslant 0  \right \}\)，有n+1个参数\(\theta _{0},…,\theta _{n}\)。但是这个分类器也可以写成\(h _{u,v}(x)=1\left \{ (\mu _{0} ^{2}-\upsilon _{0} ^{2})+(\mu _{1} ^{2}-\upsilon _{1} ^{2})x _{1}+\cdots+(\mu _{n} ^{2}-\upsilon _{n} ^{2})x _{n} \geq 0 \right \}\)，有2n+1个单数μ，v。但是，两个式子定义地都是同一个假设H。</p>
-<p>​    为了得到更加满意的林正，我们再定义一些东西。</p>
-<p>​    给定数据集\(S = \left \{ x ^{(i)},…,x ^{(d)} \right \}\)（与数据集没有关系）中的\(x ^{(i)} \in X\)，如果H可以对S中的任意样本都实现标签分类，我们说就说H<strong>打散（shatters）</strong>S。意思是，对于任意一个标签集\(\left \{ y ^{(i)},…,y ^{(d)} \right \}\)，存在一些\(h \in H\)使\( h(x ^{(i)}) = y ^{(i)}\)对所有的i = 1,…,d都成立。</p>
-<p>​    给定一个假设集H，我们可以定义他的<strong>Vapnik-Chervonenkis纬度</strong>，一般写为VC(H)，表示可以被H打散的最大集合的大小。（如果H可以打散任一大的集合，那么VC(H)=∞）</p>
+<p>​    我们之前论证的另一部分在H参数化时也不满足。我们将一种线性分类器写成\(h _{\theta }(x)=1\left \{ \theta _{0}+\theta _{1}x _{1}+\cdots +\theta _{n}x _{n} \geqslant 0  \right \}\)，有n+1个参数\(\theta _{0},…,\theta _{n}\)。但是这个分类器也可以写成\(h _{u,v}(x)=1\left \{ (\mu _{0} ^{2}-\upsilon _{0} ^{2})+(\mu _{1} ^{2}-\upsilon _{1} ^{2})x _{1}+\cdots+(\mu _{n} ^{2}-\upsilon _{n} ^{2})x _{n} \geq 0 \right \}\)，有2n+1个单数μ，v。但是，两个式子定义地都是同一个假设H。</p>
+<p>​    为了得到更加满意的论证，我们再定义一些东西。</p>
+<p>​    给定一个集合\(S = \left \{ x ^{(i)},…,x ^{(d)} \right \}\)（与训练集没有关系）中的\(x ^{(i)} \in X\)，如果H可以对S中的样本的任意标签情况都实现分类，我们说就说H<strong>打散（shatters）</strong>S。意思是，对于任意一个标签集合\(\left \{ y ^{(i)},…,y ^{(d)} \right \}\)，存在一些\(h \in H\)使\( h(x ^{(i)}) = y ^{(i)}\)对所有的i = 1,…,d都成立。</p>
+<p>​    给定一个假设集H，我们可以定义他的<strong>Vapnik-Chervonenkis维度</strong>，一般写为VC(H)，表示可以被H打散的最大集合的大小。（如果H可以打散任一集合，那么VC(H)=∞）</p>
 <p>​    例如，考虑下面三个点的情况：</p>
 <p><img src="/image/20170925/17.png" alt="17"></p>
-<p>​    一个在二维空间中的分类器（\(h _{\theta }(x)=1\left \{ \theta _{0}+\theta _{1}x _{1} +\theta _{2}x _{2} \geq 0  \right \}\)）集合H可以打散上面的点吗？答案是可以的。我们可以看到，对于下面8种情况，我们都可以找到一种分类器可以实现“0训练错误”：</p>
+<p>​    一个在二维空间中的分类器（\(h _{\theta }(x)=1\left \{ \theta _{0}+\theta _{1}x _{1} +\theta _{2}x _{2} \geq 0  \right \}\)）集合H可以打散上面的点吗？答案是可以的。我们看到，对于下面8种情况，我们都可以找到一种分类器可以实现“0训练误差”：</p>
 <p><img src="/image/20170925/18.png" alt="18"></p>
 <p>​    更多地，可以说明这个假设集H无法打散含有4个点的集合。因此，这个假设集可以打散的集合的大小为3，因此VC(H)=3。</p>
 <p>​    注意到，即使有一些3个点的情况不能被打散，但是H的VC维依然为3。例如，如果我们有三个点在一条直线上（左图），然后无法找到一个线性分类器可以分离右图中的三个点：</p>
