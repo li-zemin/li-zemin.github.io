@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
 <meta property="og:description" content="1. 正则化和模型选择​    假定我们要给一个学习问题中选择一个模型。例如，我们或许会使用一个多项式回归模型\(h _{\theta }(x)=g(\theta _{0}+\theta _{1}x+\theta _{2}x ^{2}+ \cdots +\theta _{k}x ^{k})\)，并且希望确定k应该是0, 1, . . . , 或者10。我们怎么样自动选择一个模型，以使得在偏差和方差">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-30T01:17:35.695Z">
+<meta property="og:updated_time" content="2017-10-01T02:14:23.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则化和模型选择">
 <meta name="twitter:description" content="1. 正则化和模型选择​    假定我们要给一个学习问题中选择一个模型。例如，我们或许会使用一个多项式回归模型\(h _{\theta }(x)=g(\theta _{0}+\theta _{1}x+\theta _{2}x ^{2}+ \cdots +\theta _{k}x ^{k})\)，并且希望确定k应该是0, 1, . . . , 或者10。我们怎么样自动选择一个模型，以使得在偏差和方差">
@@ -378,7 +378,40 @@
       
 
       
-        <h2 id="1-正则化和模型选择"><a href="#1-正则化和模型选择" class="headerlink" title="1. 正则化和模型选择"></a>1. 正则化和模型选择</h2><p>​    假定我们要给一个学习问题中选择一个模型。例如，我们或许会使用一个多项式回归模型\(h _{\theta }(x)=g(\theta _{0}+\theta _{1}x+\theta _{2}x ^{2}+ \cdots +\theta _{k}x ^{k})\)，并且希望确定k应该是0, 1, . . . , 或者10。我们怎么样自动选择一个模型，以使得在偏差和方差之间取得一种好的均衡呢？可选择地，假设我们想自动确定局部加权回归算法中的参数τ，或者SVM中的L1正则化参数C，我们怎么做呢？<br><a id="more"></a><br>​    面对这种具体需求，在本节内容中，假设我们已经有了包含有限模型的集合\(M = \left \{ M _{1},…,M _{d} \right \}\)，并要从中选择一个。例如，在我们上面的例子中，模型\(M _{i}\)表示第i阶的多项式模型。其它地，如果我们要决定选取SVM，神经网络哈市逻辑斯特回归，那么集合M可能就包含这些模型。</p>
+        <h2 id="1-正则化和模型选择"><a href="#1-正则化和模型选择" class="headerlink" title="1. 正则化和模型选择"></a>1. 正则化和模型选择</h2><p>​    假定我们要给一个学习问题中选择一个模型。例如，我们或许会使用一个多项式回归模型\(h _{\theta }(x)=g(\theta _{0}+\theta _{1}x+\theta _{2}x ^{2}+ \cdots +\theta _{k}x ^{k})\)，并且希望确定k应该是0, 1, . . . , 或者10。我们怎么样自动选择一个模型，以使得在偏差和方差之间取得一种好的均衡呢？可选择地，假设我们想自动确定局部加权回归算法中的参数τ，或者SVM中的L1正则化参数C，我们怎么做呢？<br><a id="more"></a><br>​    面对这种具体需求，在本节内容中，假设我们已经有了包含有限模型的集合\(M = \left \{ M _{1},…,M _{d} \right \}\)，并要从中选择一个。例如，在我们上面的例子中，模型\(M _{i}\)表示第i阶的多项式模型。其它地，如果我们要决定选取SVM，神经网络和逻辑斯特回归，那么集合M可能就包含这些模型。</p>
+<h2 id="2-交叉验证"><a href="#2-交叉验证" class="headerlink" title="2. 交叉验证"></a>2. 交叉验证</h2><p>​    和往常一样，我们给定训练集S。我们根据经验误差最小化提出算法进行模型选择：</p>
+<blockquote>
+<ol>
+<li>在S上训练每个模型\(M _{i}\)，得到假设\(h _{i}\).</li>
+<li>选取最小训练误差的假设.</li>
+</ol>
+</blockquote>
+<p>​    这个算法并没有效果。考虑选择多项式阶次模型的问题。多项式的阶次更高，模型对训练集S的拟合更好，因此训练误差也更小。因此，这个方法总是会选取高方差，高阶次的多项式模型。这往往不是一个很好地选择。</p>
+<p>​    下面介绍一种效果更好地算法。在<strong>留出法交叉验证（hold-out cross  validation）</strong>（也被称为<strong>抽样交叉验证（simple cross validation）</strong>）算法中，我们要完成下面的操作：</p>
+<blockquote>
+<ol>
+<li>随机从S中分离出\(S _{train}\)（比如，70%的数据）以及\(S _{cv}\)（30的数据）。这里，\(S _{cv}\)被称为留出交叉验证集。</li>
+<li>只在\(S _{train}\)上训练每个模型\(M _{i}\)，得到得到假设\(h _{i}\)。</li>
+<li>选取在交叉验证集上有最小误差\(\hat{\varepsilon } _{S _{cv}}(h _{i})\)的假设\(h _{i}\)。\(\hat{\varepsilon } _{S _{cv}}(h _{i})\)表示h在\(S _{cv}\)集合样本上的经验误差。</li>
+</ol>
+</blockquote>
+<p>​    通过在\(S _{cv}\)集合样本上测试之前训练的模型，我们得到了对每个假设\(h _{i}\)的泛化误差的更好估计，并且可以选择一个泛化误差最小的模型。交叉验证集中包含1/4-1/3的数据，经常选取30%的数据。</p>
+<p>​    算法中的步骤3也可以替换成，根据\(\textup{min}  _{i}\hat{\varepsilon } _{S _{cv}}(h _{i})\)选择模型\(M _{i}\)，然后重新在全部的训练集S中进行训练。（在特殊情况下这个方法是不可取的，比如模型对数据或者初始条件是敏感的。对于这些方法，\(M _{i}\)在\(S _{train}\)表现得很好并不意味着在\(S _{cv}\)上也表现得很好，那么我们就应该放弃重新训练。）</p>
+<p>​    使用留出法交叉验证的缺点在于它会“浪费”30%的数据。即时我们会选择在全部的训练集上重新训练模型，但是它仍然是我们在0.7m个训练样本中找到的模型，而不是来源于m个训练样本。如果数据是足够多的，这样做也是可取的。在数据比较稀少的情况下，我们会采取如下的方案。</p>
+<p>​    下面介绍一种叫做<strong>k折交叉验证</strong>的算法，每次都留出较少的数据：</p>
+<blockquote>
+<ol>
+<li><p>随机送S中分离出不相交的子集，每个自己包含m/k个样本，我们将这些自己定义成\(S _{1},…,S _{k}\)。</p>
+</li>
+<li><p>对每个模型，我们通过如下办法进行评估：<br>对j = 1, . . . , k<br>​    在集合\(S _{1}\cup \cdots \cup S _{j-1} \cup S _{j+1} \cup \cdots S _{k}\)上训练模型\(M _{i}\)，得到假设函数\(h _{ij}\)<br>​    在集合\(S _{j}\)上测试\(h _{ij}\)，得到\(\hat{\varepsilon } _{S _{j}}(h _{ij})\)<br>对\(\hat{\varepsilon } _{S _{j}}(h _{ij})\)（每个j）求平均值得到\(M _{i}\)的泛化误差估计。</p>
+</li>
+<li><p>选取泛化误差最小的模型\(M _{i}\)，并在全部的训练集上重新训练。最后得到的假设函数就是最终的答案。</p>
+</li>
+</ol>
+</blockquote>
+<p>​    我们经常选取k=10。这个算法比留出法交叉验证算法的计算代价更高，因为我们需要对每个模型都训练k次。</p>
+<p>​    在某些数据比较稀少的情况下，我们会选择k=m以使每次都留出很少的样本。在这种情况下，我们在缺少一个样本的S上进行重复训练，并且使用留出的样本进行测试。然后对模型的误差取平均值以得到泛化误差的估计。这个方法被称为<strong>留一交叉验证法（leave-one-out cross validation）</strong>。</p>
+<p>​    最后，即使我们已经描述了用于模型选取的两种不同形式的交叉验证的方法，但是他们也可以用于对单个模型的评估。例如，如果你实现了一种学习算法并且想评估它的性能，交叉验证是一个可取的验证方法。</p>
 
       
     </div>
@@ -571,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-正则化和模型选择"><span class="nav-number">1.</span> <span class="nav-text">1. 正则化和模型选择</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-正则化和模型选择"><span class="nav-number">1.</span> <span class="nav-text">1. 正则化和模型选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-交叉验证"><span class="nav-number">2.</span> <span class="nav-text">2. 交叉验证</span></a></li></ol></div>
             
 
           </div>
