@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="算法," />
 
 
 
@@ -94,17 +94,28 @@
 
 
 
-<meta name="description" content="JUST DO IT!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="1. 感知机和大间隔分类器​    在学习讲义相关内容的最后一部分，我们将介绍一种不同的机器学习模型。我们已经考虑过批学习（batch learning）的情况，首先给一个训练集进行学习，然后在其余的测试数据中评估假设函数h。在本节内容中，我们将考虑在线学习（online learning），就是在预测过程中对模型进行学习训练。 ​    在这种情况下，我们按顺序给出一系列样本\((x ^{(1)">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="感知机和大间隔分类器">
+<meta property="og:url" content="http://yoursite.com/2017/10/03/1003-ml-08/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="JUST DO IT!">
+<meta property="og:description" content="1. 感知机和大间隔分类器​    在学习讲义相关内容的最后一部分，我们将介绍一种不同的机器学习模型。我们已经考虑过批学习（batch learning）的情况，首先给一个训练集进行学习，然后在其余的测试数据中评估假设函数h。在本节内容中，我们将考虑在线学习（online learning），就是在预测过程中对模型进行学习训练。 ​    在这种情况下，我们按顺序给出一系列样本\((x ^{(1)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-16T07:15:39.461Z">
+<meta property="og:image" content="http://yoursite.com/image/20171003/01.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/02.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/03.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/04.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/05.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/06.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/07.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/08.png">
+<meta property="og:image" content="http://yoursite.com/image/20171003/09.png">
+<meta property="og:updated_time" content="2017-10-03T01:29:38.490Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="JUST DO IT!">
+<meta name="twitter:title" content="感知机和大间隔分类器">
+<meta name="twitter:description" content="1. 感知机和大间隔分类器​    在学习讲义相关内容的最后一部分，我们将介绍一种不同的机器学习模型。我们已经考虑过批学习（batch learning）的情况，首先给一个训练集进行学习，然后在其余的测试数据中评估假设函数h。在本节内容中，我们将考虑在线学习（online learning），就是在预测过程中对模型进行学习训练。 ​    在这种情况下，我们按顺序给出一系列样本\((x ^{(1)">
+<meta name="twitter:image" content="http://yoursite.com/image/20171003/01.png">
 
 
 
@@ -133,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/03/1003-ml-08/"/>
 
 
 
 
 
-  <title>tags | Lizemin's Blog</title>
+  <title>感知机和大间隔分类器 | Lizemin's Blog</title>
   
 
 
@@ -254,40 +265,212 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/03/1003-ml-08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lizemin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lizemin's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 3 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/github/" style="font-size: 12px; color: #ccc">github</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/算法/" style="font-size: 30px; color: #111">算法</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">感知机和大间隔分类器</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-03T07:56:03+08:00">
+                2017-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/03/1003-ml-08/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/03/1003-ml-08/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/03/1003-ml-08/" class="leancloud_visitors" data-flag-title="感知机和大间隔分类器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="1-感知机和大间隔分类器"><a href="#1-感知机和大间隔分类器" class="headerlink" title="1. 感知机和大间隔分类器"></a>1. 感知机和大间隔分类器</h2><p>​    在学习讲义相关内容的最后一部分，我们将介绍一种不同的机器学习模型。我们已经考虑过<strong>批学习（batch learning）</strong>的情况，首先给一个训练集进行学习，然后在其余的测试数据中评估假设函数h。在本节内容中，我们将考虑<strong>在线学习（online learning）</strong>，就是在预测过程中对模型进行学习训练。</p>
+<p>​    在这种情况下，我们按顺序给出一系列样本\((x ^{(1)}, y ^{(1)}),(x ^{(2)}, y ^{(2)}),…,(x ^{(m)}, y ^{(m)})\)，算法首先根据\(x ^{(1)}\)预测\(y ^{(1)}\)。在作出预测之后，\(y ^{(1)}\)的值是由算法得到的（算法可能使用这个信息完成一些学习）。再根据\(x ^{(2)}\)预测出\(y ^{(2)}\)，然后再进行学习。这个过程一直持续到\((x ^{(m)}, y ^{(m)})\)。在线学习场景下，我们比较感兴趣算法在整个过程中产生的误差总数。</p>
+<p>​    我们将给出一个感知机在线学习误差边界。为使我们的连续微分更加容易，按照惯例将类别标签表示为\(y \in \left \{ -1,1 \right \}\)。</p>
+<p>​    在感知机算法中，我们有参数\(\theta \in \mathbb{R} ^{n+1}\)，并且根据下式作出预测</p>
+<p><img src="/image/20171003/01.png" alt="01"></p>
+<p>​    且</p>
+<p><img src="/image/20171003/02.png" alt="02"></p>
+<p>​    同时，给定一个训练样本(x, y)，按照下面的方式更新参数。如果\(h _{\theta}(x)=y\)，那么参数不做改变。否则，进行如下更新</p>
+<p><img src="/image/20171003/03.png" alt="03"></p>
+<p>​    下面的理论给出了感知机算法在线学习的误差边界，作为一种在线学习算法，每次遇到错误的样本时都要更新参数。接下来会得到，误差次数的边界值并没有与样本数目m或者是输入空间的维度n之间有明显地依赖关系。</p>
+<p><strong>定理（Block, 1962, and Novikoff, 1962）.</strong>设给定一个样本序列\((x ^{(1)}, y ^{(1)}),(x ^{(2)}, y ^{(2)}),…,(x ^{(m)}, y ^{(m)})\)。假设对所有的i，\(\left || x ^{(i)} \right ||\leq D\)，同时存在一个单位向量u，对样本序列中的所有样本都有\(y ^{(i)}\cdot (u ^{T}x ^{(i)})\geq \gamma\)（如果\(y ^{(i)}=1\)，\(u ^{T}x ^{(i)}\geq \gamma\)，且如果\(y ^{(i)}=-1\)，\(u ^{T}x ^{(i)}\leq \gamma\)）。那么感知机算法对该样本序列错误分类的总次数至多为\((D/ \gamma) ^{2}\)。</p>
+<p><strong>证明.</strong>感知机只有在发生错误分类的时候进行分类。设\(\theta ^{(k)}\)表示第k次预测错误时的权重。因此\(\theta ^{(k)}=\vec{0}\)（由于权重初始化为0），同时如果第k次误分类的样本为\((x ^{(i)}, y ^{(i)})\)，那么\(g((x ^{(i)}) ^{T}\theta ^{(k)})\neq y ^{(i)}\)，可以得到，</p>
+<p><img src="/image/20171003/04.png" alt="04"></p>
+<p>​    同时，根据感知机算法规则，有\(\theta ^{k+1}=\theta ^{k}+y ^{(i)}x ^{(i)}\)。</p>
+<p>​    可以得到</p>
+<p><img src="/image/20171003/05.png" alt="05"></p>
+<p>​    通过一个简单的归纳推导，可以得到</p>
+<p><img src="/image/20171003/06.png" alt="06"></p>
+<p>​    同时，我们有</p>
+<p><img src="/image/20171003/07.png" alt="07"></p>
+<p>​    第三步由式子(2)推出。再次应用归纳推导，由式(4)可以得到</p>
+<p><img src="/image/20171003/08.png" alt="08"></p>
+<p>​    将(4)和(3)放到一起可以得到</p>
+<p><img src="/image/20171003/09.png" alt="09"></p>
+<p>​    第二个不等式由u是一个单位向量得到（\(z ^{T}u = \left ||z \right ||\cdot \left ||u \right ||cos\phi\leq \left ||z \right ||\cdot \left ||u \right ||\)，φ表示z和u之间的夹角）。结果可以得到\(k\leq (D/ \gamma) ^{2}\\\)。因此，如果一个感知机作出了k次预测错误，那么\(k\leq (D/ \gamma) ^{2}\)。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/30/0930-ml-07/" rel="next" title="正则化和模型选择">
+                <i class="fa fa-chevron-left"></i> 正则化和模型选择
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -296,6 +479,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -316,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -392,6 +595,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-感知机和大间隔分类器"><span class="nav-number">1.</span> <span class="nav-text">1. 感知机和大间隔分类器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -522,10 +741,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
@@ -543,6 +762,18 @@
       <script id="dsq-count-scr" src="https://lizemin.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/10/03/1003-ml-08/';
+          this.page.identifier = '2017/10/03/1003-ml-08/';
+          this.page.title = '感知机和大间隔分类器';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lizemin.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
