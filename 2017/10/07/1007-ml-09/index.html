@@ -94,21 +94,21 @@
 
 
 
-<meta name="description" content="1. K-means聚类算法​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。 ​    K-means算法的步骤如下：​    在该算法中，k是要得到">
+<meta name="description" content="1. K-means聚类算法​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习系列(9)——K-means聚类算法">
 <meta property="og:url" content="http://yoursite.com/2017/10/07/1007-ml-09/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="1. K-means聚类算法​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。 ​    K-means算法的步骤如下：​    在该算法中，k是要得到">
+<meta property="og:description" content="1. K-means聚类算法​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/image/20171007/01.png">
 <meta property="og:image" content="http://yoursite.com/image/20171007/02.png">
 <meta property="og:image" content="http://yoursite.com/image/20171007/03.png">
-<meta property="og:updated_time" content="2017-10-07T01:42:35.348Z">
+<meta property="og:updated_time" content="2017-10-07T01:44:48.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系列(9)——K-means聚类算法">
-<meta name="twitter:description" content="1. K-means聚类算法​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。 ​    K-means算法的步骤如下：​    在该算法中，k是要得到">
+<meta name="twitter:description" content="1. K-means聚类算法​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。">
 <meta name="twitter:image" content="http://yoursite.com/image/20171007/01.png">
 
 
@@ -382,8 +382,7 @@
       
 
       
-        <h2 id="1-K-means聚类算法"><a href="#1-K-means聚类算法" class="headerlink" title="1. K-means聚类算法"></a>1. K-means聚类算法</h2><p>​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。</p>
-<p>​    K-means算法的步骤如下：<br><img src="/image/20171007/01.png" alt="01"><br>​    在该算法中，k是要得到的聚类的个数，同时簇的质心\(\mu  _{j}\)表示对于簇的中心位置的猜想预测。为了初始化簇的质心（步骤1），我们可以随机选择k个训练样本，并且使初始的质心等于这k个样本。（其它的初始化方法也是可以的）</p>
+        <h2 id="1-K-means聚类算法"><a href="#1-K-means聚类算法" class="headerlink" title="1. K-means聚类算法"></a>1. K-means聚类算法</h2><p>​    在聚类问题中，我们给定一个训练集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，要将这些数据分成几组内部相联系的“簇”。\(x ^{(i)} \in \mathbb{R}\)，但是标签\(y  ^{(i)}\)是未知的。因此，这是一个无监督学习问题。<br><a id="more"></a><br>​    K-means算法的步骤如下：<br><img src="/image/20171007/01.png" alt="01"><br>​    在该算法中，k是要得到的聚类的个数，同时簇的质心\(\mu  _{j}\)表示对于簇的中心位置的猜想预测。为了初始化簇的质心（步骤1），我们可以随机选择k个训练样本，并且使初始的质心等于这k个样本。（其它的初始化方法也是可以的）</p>
 <p>​    算法的内循环重复完成下面两个步骤：(i)将每个训练样本\\(x ^{(i)}\)都“分配”到与其最近的簇质心\(\mu  _{j}\)，同时(ii)取分配给该簇的点的平均值，并将簇质心\(\mu  _{j}\)移动到平均值位置。图1展示了k-means算法运行的过程，<br><img src="/image/20171007/02.png" alt="02"><br>​    图1：K-means算法。训练样本用点表示，簇质心用×表示。(a)初始数据集。(b)随机初始化质心点（在该例中，并没有选择样本中的点）。(c-f)迭代运行两次k-means的过程。在每次迭代中，我们将每个样本都分配给距离其最近的质心点。（质心点与其所属的样本点的颜色一致）然后，将新的质心点移动到该簇的样本的中心点位置。</p>
 <p>​    k-means算法一定可以保证收敛吗？在某种意义上，答案是肯定的。我们定义一个<strong>畸变函数（distortion function）</strong>：<br><img src="/image/20171007/03.png" alt="03"><br>​    该式中的J度量了某一个簇中的样本数据与对应的质心点之间的距离和。可以看出k-means在J上是坐标下降的。k-means的内循环先完成固定μ，最小化关于c的函数J（将样本点分配到距离其最近的质心，得到每个样本的c值），在固定c，最小化关于μ的函数J（将质心点移动到该簇的中心点位置，得到新的μ值）。因此，J是单调下降的，并且J一定是收敛的。（通常，这也说明了c和μ也是收敛的。理论上，k-means会在几个不同的聚类上产生振荡，因为不同的c和μ值可能会对应一个确定值J值，但是实际中，这从来不会发生。）</p>
 <p>​    畸变函数J是一个非凸函数，因此在J上的坐标下降可以保证其收敛到全局最小值。除了这些，k-means也可以取得取得一个非常好的聚类结果。但是如果你担心算法优化时停留在一个比较查的局部最小值，一个常用的方法是多次运行k-means方法（随机选取不同的质心点）。然后，在得到不同的聚类结果后，选择畸变函数最小的那个聚类结果作为最终的答案。</p>
