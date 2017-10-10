@@ -94,34 +94,21 @@
 
 
 
-<meta name="description" content="1. 广义线性模型​    我们前面已经学习了回归和分类。在回归例子中，我们有\(y|x;\theta\sim N(\mu ,\delta ^{2})\)(高斯分布)，在分类例子中，我们有\(y|x;\theta\sim Bernoulli(\phi )\)(伯努利分布)。在这里，\(\mu\)和\(\phi\)为x和θ得函数。在本节中，我们将学习到两种算法模型都属于这一种广义的模型族，被称为广义">
+<meta name="description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系列(3)——广义线性模型">
-<meta property="og:url" content="http://yoursite.com/2017/09/05/0904-ml-03/index.html">
+<meta property="og:title" content="机器学习系列(10)——EM算法详解">
+<meta property="og:url" content="http://yoursite.com/2017/10/10/1010-ml-11/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="1. 广义线性模型​    我们前面已经学习了回归和分类。在回归例子中，我们有\(y|x;\theta\sim N(\mu ,\delta ^{2})\)(高斯分布)，在分类例子中，我们有\(y|x;\theta\sim Bernoulli(\phi )\)(伯努利分布)。在这里，\(\mu\)和\(\phi\)为x和θ得函数。在本节中，我们将学习到两种算法模型都属于这一种广义的模型族，被称为广义">
+<meta property="og:description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/image/20170905/001.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/002.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/003.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/004.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/005.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/006.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/007.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/008.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/009.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/010.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/011.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/012.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/013.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/014.png">
-<meta property="og:image" content="http://yoursite.com/image/20170905/015.png">
-<meta property="og:updated_time" content="2017-10-03T01:43:54.552Z">
+<meta property="og:image" content="http://yoursite.com/image/20171010/01.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/02.png">
+<meta property="og:updated_time" content="2017-10-10T00:58:37.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系列(3)——广义线性模型">
-<meta name="twitter:description" content="1. 广义线性模型​    我们前面已经学习了回归和分类。在回归例子中，我们有\(y|x;\theta\sim N(\mu ,\delta ^{2})\)(高斯分布)，在分类例子中，我们有\(y|x;\theta\sim Bernoulli(\phi )\)(伯努利分布)。在这里，\(\mu\)和\(\phi\)为x和θ得函数。在本节中，我们将学习到两种算法模型都属于这一种广义的模型族，被称为广义">
-<meta name="twitter:image" content="http://yoursite.com/image/20170905/001.png">
+<meta name="twitter:title" content="机器学习系列(10)——EM算法详解">
+<meta name="twitter:description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
+<meta name="twitter:image" content="http://yoursite.com/image/20171010/01.png">
 
 
 
@@ -150,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/05/0904-ml-03/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/10/1010-ml-11/"/>
 
 
 
 
 
-  <title>机器学习系列(3)——广义线性模型 | Lizemin's Blog</title>
+  <title>机器学习系列(10)——EM算法详解 | Lizemin's Blog</title>
   
 
 
@@ -283,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/0904-ml-03/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/1010-ml-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lizemin">
@@ -300,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习系列(3)——广义线性模型</h1>
+          <h1 class="post-title" itemprop="name headline">机器学习系列(10)——EM算法详解</h1>
         
 
         <div class="post-meta">
@@ -312,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T07:56:13+08:00">
-                2017-09-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-10T08:00:16+08:00">
+                2017-10-10
               </time>
             
 
@@ -347,10 +334,23 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/10/1010-ml-11/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/10/1010-ml-11/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
           
           
-             <span id="/2017/09/05/0904-ml-03/" class="leancloud_visitors" data-flag-title="机器学习系列(3)——广义线性模型">
+             <span id="/2017/10/10/1010-ml-11/" class="leancloud_visitors" data-flag-title="机器学习系列(10)——EM算法详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -381,35 +381,17 @@
       
 
       
-        <h2 id="1-广义线性模型"><a href="#1-广义线性模型" class="headerlink" title="1. 广义线性模型"></a>1. 广义线性模型</h2><p>​    我们前面已经学习了回归和分类。在回归例子中，我们有\(y|x;\theta\sim N(\mu ,\delta ^{2})\)(高斯分布)，在分类例子中，我们有\(y|x;\theta\sim Bernoulli(\phi )\)(伯努利分布)。在这里，\(\mu\)和\(\phi\)为x和θ得函数。在本节中，我们将学习到两种算法模型都属于这一种广义的模型族，被称为<strong>广义线性模型(Generalized Linear Models, GLMs)</strong>。同时，我们也可以GLM模型族中的其他模型应用到其他的回归和分类问题中。<br><a id="more"></a></p>
-<h2 id="2-指数族"><a href="#2-指数族" class="headerlink" title="2. 指数族"></a>2. 指数族</h2><p>​    为了引出广义线性模型，我们先定义一种指数族分布。指数族分布可以写为如下形式：<br><img src="/image/20170905/001.png" alt="001"><br>​    该式中，η为分布得<strong>自然参数</strong>（也被称为<strong>典范参数</strong>）；T(y)为充分统计量（在我们考虑得分布中，一般情况下T(y)=y）；a(η)为对数分割函数。\(e ^{-a(\eta)}\)在式子中，使分布的和（积分）为1。</p>
-<p>​    当参数a、b、T都固定时，就定义了一个以η为参数的函数族。η变化时，我们就可以得到这个分布族中的不同分布。</p>
-<p>​    伯努利分布属于指数族分布中的一种，我们可以将伯努利分布写为：<br>​    <img src="/image/20170905/002.png" alt="002"><br>​    该式中，b(y)=1，η=log(Φ/(i-Φ))。同时，我们可以得到\(\phi=1/(1+e^{-\eta})\)。这与Sigmond函数有极高的相似性！这再一次证明了我们<strong>从广义线性模型中得到了逻辑斯特回归</strong>。在伯努利分布中，对应参数为：<br><img src="/image/20170905/003.png" alt="003"><br>​    这说明了，取合适的参数，伯努利分布就可以写为(6)式的形式。</p>
-<p>​    我们再看一下高斯分布。当我们推导线性回归式，\(\delta ^{2}\)对θ的选择以及假设公式的确定没有影响。因此，饿哦没问你可以设\(\delta ^{2}=1\)，我们可以得到：<br>​    <img src="/image/20170905/004.png" alt="004"><br>​    因此，在指数族中，相应参数为：<br><img src="/image/20170905/005.png" alt="005"><br>​    同时，在指数分布族中还包含其他的分布，比如多项式分布，泊松分布，伽马分布，指数分布，贝塔分布等等。下一节中，我们将学习从这些分布中得到y(给定参数x和θ)的方法。</p>
-<h2 id="3-构造广义线性模型"><a href="#3-构造广义线性模型" class="headerlink" title="3 构造广义线性模型"></a>3 构造广义线性模型</h2><p>​    假设我们要根据一个商店的特征 <em>x</em> ，例如促销，近期宣传，天气，是否周末等，建立模型预测在一段时间内到店的顾客人数。可知，泊松分布可以很好地描述到店顾客人数地分布。同时，我们如何为我们地问题建立一个模型呢？幸运的是，泊松分布是指数族分布的一种，因此我们可以利用广义线性模型。在本节中，我们将介绍为这个问题构造广义线性模型的方法。</p>
-<p>​    考虑到对于这个问题，我们要预测的随机变量y是x的函数。为了得到广义线性模型，我们做以下三个假设：</p>
+        <p>​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍<strong>詹森不等式，Jensen’s inequality</strong>。<br><a id="more"></a></p>
+<h2 id="1-詹森不等式"><a href="#1-詹森不等式" class="headerlink" title="1. 詹森不等式"></a>1. 詹森不等式</h2><p>​    设f是一个定义在实数域的函数。我们知道如果\({f}’’(x)\geq 0\)对所有的x成立，那么f是一个凸函数。如果f的输入是一组向量，可以它的Hessian矩阵H是半正定的（H≥0）。如果\({f}’’(x) &gt; 0\)，我们说f是<strong>严格</strong>凸的。（在向量输入的情况下，相应的表述应为H必须是严格半正定的，即H&gt;0）。詹森不等式也可以表述成：</p>
+<p><strong>定理.</strong>设f是一个凸函数，X是一个随机变量。那么：<br><img src="/image/20171010/01.png" alt="01"><br>​    更多的，如果f是严格凸函数，那么有且只有\(X=E[X]\)时，\(E[f(X)]=f(EX)\)成立。（就是如果X是一个常数）</p>
+<p>​    按照我们写期望的管理，在上面的定理中，\(f(EX)=f(E[X])\)。</p>
+<p>​    对于上面定理的解释，可以参照下图。<br><img src="/image/20171010/02.png" alt="02"><br>​    该图中，实线绘制的f是一个凸函数。同时，X是一个随机变量，有0.5的几率落在a点上，也有0.5的几率落在b点上（x轴上的点）。那么，X的期望就是a和b的中点。</p>
+<p>​    我们也可以看到在y轴上标示的f(a)，f(b)以及f(E[X])。E[f(X)]也是y轴上，f(a)和f(b)的中点。从我们的例子中，可以看到因为f是凸函数，所以有\(E[f(X)]\geqslant f(EX)\)。</p>
+<p>​    很多情况下，对于这幅图片的印象会对我们牢记凸函数的性质有很大的帮助。</p>
+<p><strong>注意.</strong>有且仅有-f是[严格]凸函数时，f是[严格]凹函数。詹森不等式也说明了凹函数的性质，只要改变所有的不等式方向即可。</p>
 <blockquote>
-<ol>
-<li>y | x; θ 满足一个以 η 为参数地指数分布，就可以求得 η 地表达式。</li>
-<li>给定x，我们地目的是预测T(y)的期望值。在我们描述的大多数案例中，我们设T(y)=y，所以，这意味这我们通过假设预测的输出h(x)满足h(x)=E[y|x]。（注意，这个假设在逻辑斯特回归和线性回归中都满足，例如，在逻辑斯特回归中，我们有\(h _\theta(x)=p(y=1|x;\theta)=0\cdot p(y=0|x;\theta)+1\cdot p(y=1|x;\theta)=E[y|x;\theta]\)）。</li>
-<li>自然参数 η 和输入 x 之间满足线性关系： \(\eta=\theta ^{T}x\)。</li>
-</ol>
+<p>这里需要注意的是，某些国内对于凸函数的定义与国外是相反的。我们要牢记这里的定义。</p>
 </blockquote>
-<p>​    这三个假设极大地方便可我们对不同分类的建模。</p>
-<h3 id="3-1-一般最小二乘"><a href="#3-1-一般最小二乘" class="headerlink" title="3.1 一般最小二乘"></a>3.1 一般最小二乘</h3><p>​    最小二乘是GLM模型族的特殊情况，目标变量y（在GLM中也被称为响应变量）是连续的。同时，在已知x的情况下，y满足高斯分布\(N(\mu,\delta ^{2})\)(这里，\(\mu\)可能取决于x)。所以我们使指数族分布建立在高斯分布之上。正如我们前面推导的，在作为指数族分布的高斯分布中，有\(\mu = \eta\)，所以得到：<br>​    <img src="/image/20170905/006.png" alt="006"><br>​    第一个等式有假设2得到；第二个等式由高斯分布\(y|x;\theta\sim  N(\mu,\delta ^{2})\)得出，所以期望值为\(\mu\)；第三个等式有假设1得出（目标变量满足高斯分布）；最后一个等式由假设3得出。</p>
-<h3 id="3-2-逻辑斯特回归"><a href="#3-2-逻辑斯特回归" class="headerlink" title="3.2 逻辑斯特回归"></a>3.2 逻辑斯特回归</h3><p>​    对于逻辑斯特回归，我们关注与二分类问题。如果y的取值只有两个，我们很自然会选择伯努利分布建立给定x后y的分布模型。根据伯努利分布推导的指数分布族式子中，我们得到了\(\phi=1/(1+e^{-\eta})\)。由于\(y|x;\theta \sim Bernoulli(\phi)\)，有\(E[y|x;\theta]=\phi\)。类似于最小二乘的推导，我们得到：<br><img src="/image/20170905/007.png" alt="007"><br>​    这里得到了假设函数的形式\(h _{\theta}(x)=1/(1+e ^{- \theta ^{T}x})\)。</p>
-<p>​    将自然参数\(\eta\)和期望联系起来的函数\(g(\eta)=E[T(y);\eta]\)被称为<strong>正则响应函数</strong>，\(g^ {-1}\)被称为正则关联函数。因此，高斯分布族中的正则响应函数为\(\mu = \eta\)，伯努利分布族中的正则响应函数为\(\phi=1/(1+e^ {-\eta})\)。</p>
-<h3 id="3-3-Softmax回归"><a href="#3-3-Softmax回归" class="headerlink" title="3.3 Softmax回归"></a>3.3 Softmax回归</h3><p>​    在多分类问题中，响应函数y可能有k个取值，\(k\in \left \{ 1,2,….,k \right \}\)。响应变量仍是离散的，但是不止两个取值。我们可以根据多项式分布对这种问题进行建模分析。</p>
-<p>​    为了参数化k个可能的输出，我们可以使用k个参数，\(\phi _{1}, …,\phi _{k}\)表示每个输出的概率。这些参数的取值并不是独立的。因此，我们将使用k-1个参数，\(\phi _{1}, …,\phi _{k-1}\)，\(\phi _{i}=p(y=i;\phi)\)，同时\(p(\phi _{k};\phi)=1-\sum _{i=0}^{k-1}\phi _{i}\)。同时，我们定义\(T(k)\in \mathbb{R}^{k-1}\)：<br><img src="/image/20170905/008.png" alt="008"><br>​    <em>T(y)</em> 为一个k-1维的向量，而不是一个实数。\((T(y)) _{i}\)表示\(T(y)\)的第i个元素。</p>
-<p>​    同时，引入<strong>指示函数</strong>，可以得到一种更方便的表示为：\((T(y)) _{i}=1\left \{ y=i \right \}\)，因此，\(E[(T(y)) _{i}=P(y=i)=\phi _{i}]\)。</p>
-<p>​    根据：<br><img src="/image/20170905/009.png" alt="009"><br>​    同时：<br>​    <img src="/image/20170905/010.png" alt="010"><br>​    可以得到多项式分布在指数族分布中的各变量的表示。</p>
-<p>​    关联函数（i =1, ….. , k）为：<br>​    <img src="/image/20170905/011.png" alt="011"><br>​    为了推导方便，我们定义\(\eta _{k} = log(\phi _{k}/phi _{k})=0\)。变换关联函数并且导数响应函数，我们有：<br>​    <img src="/image/20170905/012.png" alt="012"><br>​    这说明\(\phi_{k}=1/\sum_{i=1}^{k}e ^{\eta _{i}}\)，带回(7)式，可以得到响应函数：<br>$$<br>\phi_{i}=\frac{e ^{\eta _{i}}}{\sum_{j=1}^{k}e ^{\eta _{j}}}<br>$$<br>​    这个函数表示了η和φ之间的映射，被称为<strong>softmax函数</strong>。</p>
-<p>​    为了完成模型的建立，我们使用假设3，所以\(\eta _{i}=\theta _{i} ^{T}x\)（对i=1，….，k-1），\(\theta _{1}, … \theta _{k-1}\)式模型的参数。为了表示方便，我们定义\(\theta _{k}=0\)，所以\(\eta _{k}=\theta _{k} ^{T}x=0\)。因此，可以得到：<br>​    <img src="/image/20170905/013.png" alt="013"><br>​    这个可被应用于多分类预测的模型被称为<strong>softmax回归</strong>。</p>
-<p>​    我们的假设输出为：</p>
-<p>​    <img src="/image/20170905/014.png" alt="014"></p>
-<p>​    同时，\(p(y=k|x;\theta)=1-\sum_{i=1}^{k-1}\phi _{i}\)。</p>
-<p>​    最后，我们讨论一下参数选取。类似于最初对于极小二乘和逻辑斯特回归的推导，如果我们有m个训练样本，并且学习得到这个模型的参数θ，我们可能会写下这样的极大似然估计：<br>​    <img src="/image/20170905/015.png" alt="015"><br>​    为了得到式子的第二行，我们使用(8)式中的应以。因此，我们就可以使用例如梯度上升或者牛顿法来得到参数θ。</p>
-<p>​    相关的推导，可<a href="http://blog.csdn.net/google19890102/article/details/41594889" target="_blank" rel="external">参考博文</a>。</p>
 
       
     </div>
@@ -440,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/03/0903-ml-02/" rel="next" title="机器学习系列(2)——分类与逻辑斯特回归">
-                <i class="fa fa-chevron-left"></i> 机器学习系列(2)——分类与逻辑斯特回归
+              <a href="/2017/10/08/1008-ml-10/" rel="next" title="机器学习系列(10)——高斯混合模型和EM算法">
+                <i class="fa fa-chevron-left"></i> 机器学习系列(10)——高斯混合模型和EM算法
               </a>
             
           </div>
@@ -449,10 +431,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/08/0908-ml-04/" rel="prev" title="机器学习系列(4)——生成学习算法">
-                机器学习系列(4)——生成学习算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -480,6 +458,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -595,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-广义线性模型"><span class="nav-number">1.</span> <span class="nav-text">1. 广义线性模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-指数族"><span class="nav-number">2.</span> <span class="nav-text">2. 指数族</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-构造广义线性模型"><span class="nav-number">3.</span> <span class="nav-text">3 构造广义线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-一般最小二乘"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 一般最小二乘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-逻辑斯特回归"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 逻辑斯特回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Softmax回归"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Softmax回归</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-詹森不等式"><span class="nav-number">1.</span> <span class="nav-text">1. 詹森不等式</span></a></li></ol></div>
             
 
           </div>
@@ -752,6 +741,18 @@
       <script id="dsq-count-scr" src="https://lizemin.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/10/10/1010-ml-11/';
+          this.page.identifier = '2017/10/10/1010-ml-11/';
+          this.page.title = '机器学习系列(10)——EM算法详解';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lizemin.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
