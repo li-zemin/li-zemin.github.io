@@ -97,7 +97,7 @@
 <meta name="description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系列(10)——EM算法详解">
+<meta property="og:title" content="机器学习系列(11)——EM算法详解">
 <meta property="og:url" content="http://yoursite.com/2017/10/10/1010-ml-11/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
 <meta property="og:description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
@@ -111,9 +111,15 @@
 <meta property="og:image" content="http://yoursite.com/image/20171010/07.png">
 <meta property="og:image" content="http://yoursite.com/image/20171010/08.png">
 <meta property="og:image" content="http://yoursite.com/image/20171010/09.png">
-<meta property="og:updated_time" content="2017-10-11T01:06:58.921Z">
+<meta property="og:image" content="http://yoursite.com/image/20171010/10.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/11.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/12.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/13.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/14.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/15.png">
+<meta property="og:updated_time" content="2017-10-12T00:37:04.988Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系列(10)——EM算法详解">
+<meta name="twitter:title" content="机器学习系列(11)——EM算法详解">
 <meta name="twitter:description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
 <meta name="twitter:image" content="http://yoursite.com/image/20171010/01.png">
 
@@ -150,7 +156,7 @@
 
 
 
-  <title>机器学习系列(10)——EM算法详解 | Lizemin's Blog</title>
+  <title>机器学习系列(11)——EM算法详解 | Lizemin's Blog</title>
   
 
 
@@ -294,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习系列(10)——EM算法详解</h1>
+          <h1 class="post-title" itemprop="name headline">机器学习系列(11)——EM算法详解</h1>
         
 
         <div class="post-meta">
@@ -357,7 +363,7 @@
 
           
           
-             <span id="/2017/10/10/1010-ml-11/" class="leancloud_visitors" data-flag-title="机器学习系列(10)——EM算法详解">
+             <span id="/2017/10/10/1010-ml-11/" class="leancloud_visitors" data-flag-title="机器学习系列(11)——EM算法详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -403,7 +409,10 @@
 <p>​    在这种情况下，EM算法提供了一种对于极大似然估计的高效的办法。明确最大化似然函数\(l(\theta)\)是困难的，但是我们的策略在于，循环建立一个l(θ)的下界（E步），再优化这个下界（M步）。</p>
 <p>​    对于每个i，设\(Q _{i}\)表示\(z ^{(i)}\)的分布（\(\Sigma _{z}Q _{i}(z)=1,Q _{i}\geq 0\)）。对于下式：<br><img src="/image/20171010/04.png" alt="04"><br>​    最后一步应用了詹森不等式。这里，f(x) = log x是一个凸函数，因为\({f}’’(x)=-1/x ^{2}&lt;0\)在定义域\(x \in \mathbb{R} ^{+}\)上成立（即\(log(E[X])\geq E[log(x)]\)）。同时，对于<br><img src="/image/20171010/05.png" alt="05"><br>​    被求和项可以看成\(\left [ p(x  ^{(i)}, z ^{(i)};\theta)/Q _{i}(z ^{(i)}) \right ]\)的期望，同时\(z ^{(i)}\)由分布\(Q _{i}\)得到。通过詹森不等式，可以得到<br><img src="/image/20171010/06.png" alt="06"><br>​    上式中的下标“\(z ^{(i)} \sim Q _{i}\)”表示这个期望是关于从\(Q _{i}\)分布中得到的\(z ^{(i)}\)的。就可以从式子(2)得到式子(3)。</p>
 <p>​    现在，对于任意一种分布\(Q _{i}\)，式子(3)给出了l(θ)的下界。对于\(Q _{i}\)有很多选择。我们应该选择哪一种呢？如果我们对θ有一些猜测的话，很自然我们会想到尝试在这个θ值上得到下界。就是说，我们会使上面的不等式在特定的θ下，等式成立。（我们稍后会看到这可以帮助我们证明，在EM的迭代中l(θ)是单调递增的）</p>
-<p>​    为了使下界和特定值θ相联系，我们需要使上面得到的不等式(3)中的等号成立。我们知道期望值是一个常数时，等号是成立的。因此，我们要求<br><img src="/image/20171010/07.png" alt="07"><br>​    常数c并不是依赖于\(z ^{(i)}\)的。这很容易得到，通过选取<br><img src="/image/20171010/08.png" alt="08"><br>​    事实上，因为我们知道了\(\Sigma _{z}Q _{i}(z)=1\)，也可以得到<br><img src="/image/20171010/09.png" alt="09"><br>​    因此，我们简单设定\(Q _{i}\)表示，在某种参数下给定\(x ^{(i)}\)时\(z ^{(i)}\)的后验概率。</p>
+<p>​    为了使下界和特定值θ相联系，我们需要使上面得到的不等式(3)中的等号成立。我们知道期望值是一个常数时，等号是成立的。因此，我们要求<br><img src="/image/20171010/07.png" alt="07"><br>​    常数c并不是依赖于\(z ^{(i)}\)的。这很容易得到，通过选取<br><img src="/image/20171010/08.png" alt="08"><br>​    事实上，因为我们知道了\(\Sigma _{z}Q _{i}(z)=1\)，也可以得到<br><img src="/image/20171010/09.png" alt="09"><br>​    因此，我们简单设定\(Q _{i}\)表示在某种参数下给定\(x ^{(i)}\)时\(z ^{(i)}\)的后验概率。</p>
+<p>​    现在，对于\(Q _{i}\)的选取，式子(3)给出了对数似然函数l的下界。这个是E步。在算法的M步中，我们接着最大化式子(3)中的公式，以得到一个新的θ。重复执行这两个步骤，就是EM算法，<br><img src="/image/20171010/10.png" alt="10"><br>​    我们如何确定算法是收敛的呢？假设\(\theta ^{(t)}\)和\(\theta ^{(t+1)}\)是从两次连续迭代中得到的参数。我们要证明\(\theta ^{(t)}\leq \theta ^{(t+1)}\)，这就证明了EM可以单调地改进对数估计值。关键在于说明这个结果依赖于我们对于\(Q _{i}\)的选取。在EM的迭代中，参数开始于\(\theta ^{(t)}\)，我们会选择\(Q _{i} ^{(t)}(z ^{(i)}):=p(z ^{(i)}|x^{(i)};\theta ^{(t)})\).很容易发现，这样的选择可以保证詹桑不等式的成立，将其代入式子(3)，保证等号的情况下，可以得到<br><img src="/image/20171010/11.png" alt="11"><br>​     参数\(\theta ^{(t+1)}\)可以通过对等式右边进行最大化得到，因此<br><img src="/image/20171010/12.png" alt="12"><br>​    第一个不等式从下式得出，<br><img src="/image/20171010/13.png" alt="13"><br>​    对于任意一个\(Q _{i}\)和θ，并且我们使\(Q _{i}=Q _{i} ^{(t)}\)，\(\theta = \theta ^{(t+1)}\)。为了得到式子(5)，我们根据\(\theta ^{(t+1)}\)是由下式得到<br><img src="/image/20171010/14.png" alt="14"><br>​    因此可以得到在\(\theta ^{(t+1)}\)评估得到的式子一定大于等于在\(\theta ^{(t)}\)评估得到的狮子。最后，(6)式根据选择的\(Q _{i} ^{(t)}\)使得在参数\(\theta ^{(t)}\)时等号成立得到。</p>
+<p>​    因此，EM可以使得似然函数单调收敛。在EM算法的描述中，我们说过执行这些步骤直到收敛。我们也可以判断两次两次连续迭代后l(θ)的增量是否小于某一个值，来确定EM的收敛已经很慢了。</p>
+<p><strong>注意.</strong>如果我们定义<br><img src="/image/20171010/15.png" alt="15"><br>从我们之前的推导中可以得到\(l(\theta)\geq J(Q,\theta)\)。从EM算法也可以看出在J上的坐标下降，E步为关于Q最大化J，M步为关于θ最大化J。</p>
 
       
     </div>
@@ -758,7 +767,7 @@
         var disqus_config = function () {
           this.page.url = 'http://yoursite.com/2017/10/10/1010-ml-11/';
           this.page.identifier = '2017/10/10/1010-ml-11/';
-          this.page.title = '机器学习系列(10)——EM算法详解';
+          this.page.title = '机器学习系列(11)——EM算法详解';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lizemin.disqus.com/embed.js';
