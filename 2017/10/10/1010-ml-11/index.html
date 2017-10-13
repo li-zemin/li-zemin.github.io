@@ -118,7 +118,16 @@
 <meta property="og:image" content="http://yoursite.com/image/20171010/14.png">
 <meta property="og:image" content="http://yoursite.com/image/20171010/16.png">
 <meta property="og:image" content="http://yoursite.com/image/20171010/15.png">
-<meta property="og:updated_time" content="2017-10-12T01:46:29.603Z">
+<meta property="og:image" content="http://yoursite.com/image/20171010/17.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/18.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/19.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/20.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/21.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/22.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/23.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/24.png">
+<meta property="og:image" content="http://yoursite.com/image/20171010/25.png">
+<meta property="og:updated_time" content="2017-10-13T00:56:26.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系列(11)——EM算法详解">
 <meta name="twitter:description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
@@ -414,6 +423,10 @@
 <p>​    现在，对于\(Q _{i}\)的选取，式子(3)给出了对数似然函数l的下界。这个是E步。在算法的M步中，我们接着最大化式子(3)中的公式，以得到一个新的θ。重复执行这两个步骤，就是EM算法，<br><img src="/image/20171010/10.png" alt="10"><br>​    我们如何确定算法是收敛的呢？假设\(\theta ^{(t)}\)和\(\theta ^{(t+1)}\)是从两次连续迭代中得到的参数。我们要证明\(l ^{(t)}\leq l ^{(t+1)}\)，这就证明了EM可以单调地改进对数估计值。关键在于说明这个结果依赖于我们对于\(Q _{i}\)的选取。在EM的迭代中，参数开始于\(\theta ^{(t)}\)，我们会选择\(Q _{i} ^{(t)}(z ^{(i)}):=p(z ^{(i)}|x^{(i)};\theta ^{(t)})\).很容易发现，这样的选择可以保证詹桑不等式的成立，将其代入式子(3)，保证等号的情况下，可以得到<br><img src="/image/20171010/11.png" alt="11"><br>​     参数\(\theta ^{(t+1)}\)可以通过对等式右边进行最大化得到，因此<br><img src="/image/20171010/12.png" alt="12"><br>​    第一个不等式从下式得出，<br><img src="/image/20171010/13.png" alt="13"><br>​    对于任意一个\(Q _{i}\)和θ，并且我们使\(Q _{i}=Q _{i} ^{(t)}\)，\(\theta = \theta ^{(t+1)}\)。为了得到式子(5)，我们根据\(\theta ^{(t+1)}\)是由下式得到<br><img src="/image/20171010/14.png" alt="14"><br>​    因此可以得到在\(\theta ^{(t+1)}\)评估得到的式子一定大于等于在\(\theta ^{(t)}\)评估得到的式子。最后，(6)式根据选择的\(Q _{i} ^{(t)}\)使得在参数\(\theta ^{(t)}\)时等号成立得到。<br><img src="/image/20171010/16.png" alt="16"><br>​    上图所展示的内容就是EM算法的基本思想，存在一个我们不能直接求导的似然函数，给定初始参数，我们找到在初始参数下的下界。然后再对下界上求极值来更新参数。然后对更新后的参数为初始值再执行上述操作。</p>
 <p>​    因此，EM可以使得似然函数单调收敛。在EM算法的描述中，我们说过执行这些步骤直到收敛。我们也可以判断两次两次连续迭代后l(θ)的增量是否小于某一个值，来确定EM的收敛已经很慢了。</p>
 <p><strong>注意.</strong>如果我们定义<br><img src="/image/20171010/15.png" alt="15"><br>从我们之前的推导中可以得到\(l(\theta)\geq J(Q,\theta)\)。从EM算法也可以看出在J上的坐标下降，E步为关于Q最大化J，M步为关于θ最大化J。</p>
+<h2 id="3-高斯混合模型回顾"><a href="#3-高斯混合模型回顾" class="headerlink" title="3. 高斯混合模型回顾"></a>3. 高斯混合模型回顾</h2><p>​    在得到对EM算法新的理解之后，我们回看一下拟合高斯混合模型的几个参数φ，μ以及∑。我们接下来推导M步只是更新了φ和μ。对于Σ的更新留给读者完成。</p>
+<p>​    E步是很简单的。根据前面算法的推导，我们可以计算出<br><img src="/image/20171010/17.png" alt="17"><br>​    这里，“\(z ^{(i)} \sim Q _{i}\)”表示这个期望是关于从\(Q _{i}\)分布中得到的\(z ^{(i)}\)。</p>
+<p>​    接下来，在M步中，我们需要关于参数φ，μ，Σ最大化下面的式子<br>​    <img src="/image/20171010/18.png" alt="18"><br>​    先关于\(\mu _{l}\)最大化，如果我们对\(\mu _{l}\)求上式的偏导，可以得到<br><img src="/image/20171010/19.png" alt="19"><br>​    结果等于0并解出\(\mu _{l}\)，可以得到参数更新规则为<br><img src="/image/20171010/20.png" alt="20"><br>​    这与我们在之前讲义中得到的结果一致。</p>
+<p>​    我们接着在M步中对参数\(\phi _{j}\)求导。将包含\(\phi _{j}\)的项放到一起，可以得知我们需要最大化<br><img src="/image/20171010/21.png" alt="21"><br>​    然而，我们有一个约束条件是\(\phi _{j}\)的和为1，因为\(\phi _{j} = p(z ^{(i)}=j;\phi)\)。为了处理这个限制条件\(\sum _{j=1}^{k}\phi _{j}=1\)，我们构建拉格朗日公式<br><img src="/image/20171010/22.png" alt="22"><br>​    该式中，β是拉格朗日算则。对该式求导，可以得到<br><img src="/image/20171010/23.png" alt="23"><br>​    将等式等于0，并求解，可以得到<br><img src="/image/20171010/24.png" alt="24"><br>​    也就是说\(\phi _{j}\propto \sum _{i=1}^{m}\)。根据约束条件\(\sum _{j}\phi _{j}=1\)，我们可以很容易得到\(- \beta = \sum _{i=1}^{m}\sum _{j=1}^{k}\omega _{j} ^{(i)}=\sum _{i=1}^{m}1=m\)。（\(\omega _{j} ^{(i)}=Q _{i}(z ^{(i)}=j)\)，同时\(\sum _{j}\omega _{j} ^{(i)}=1\)），因此可以得到在M步中参数\(\phi _{j}\)的更新规则<br><img src="/image/20171010/25.png" alt="25"><br>​    对于M步中Σ的更新也很简单的。</p>
 
       
     </div>
@@ -606,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-詹森不等式"><span class="nav-number">1.</span> <span class="nav-text">1. 詹森不等式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-EM算法"><span class="nav-number">2.</span> <span class="nav-text">2. EM算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-詹森不等式"><span class="nav-number">1.</span> <span class="nav-text">1. 詹森不等式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-EM算法"><span class="nav-number">2.</span> <span class="nav-text">2. EM算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高斯混合模型回顾"><span class="nav-number">3.</span> <span class="nav-text">3. 高斯混合模型回顾</span></a></li></ol></div>
             
 
           </div>
