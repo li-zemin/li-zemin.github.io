@@ -127,7 +127,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20171010/23.png">
 <meta property="og:image" content="http://yoursite.com/image/20171010/24.png">
 <meta property="og:image" content="http://yoursite.com/image/20171010/25.png">
-<meta property="og:updated_time" content="2017-10-13T00:56:26.630Z">
+<meta property="og:updated_time" content="2017-10-16T00:30:02.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系列(11)——EM算法详解">
 <meta name="twitter:description" content="​    在上节内容中，我们讨论了EM算法与高斯混合模型。在本节，我们将更详细地了解EM算法，并且将其应用到更多具有隐含变量的估计问题中。首先我们介绍詹森不等式，Jensen’s inequality。">
@@ -413,7 +413,7 @@
 <p>​    很多情况下，对于这幅图片的印象会对我们牢记凸函数的性质有很大的帮助。</p>
 <p><strong>注意.</strong>有且仅有-f是[严格]凸函数时，f是[严格]凹函数。詹森不等式也说明了凹函数的性质，只要改变所有的不等式方向即可。</p>
 <blockquote>
-<p>这里需要注意的是，某些国内对于凸函数的定义与国外是相反的。我们要牢记这里的定义。</p>
+<p>这里需要注意的是，某些国内教材对于凸函数的定义与国外是相反的。我们以这里的定义为准。</p>
 </blockquote>
 <h2 id="2-EM算法"><a href="#2-EM算法" class="headerlink" title="2. EM算法"></a>2. EM算法</h2><p>​    假设对一个包含m个独立样本\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)的数据集进行估计。希望找到一个模型p(x, z)拟合这些数据，那么模型参数的似然估计为，<br><img src="/image/20171010/03.png" alt="03"><br>​    但是，明确找到对参数θ的极大似然估计是比较困难的。这里，\(z ^{(i)}\)是一个隐含随机变量；但是，如果\(z ^{(i)}\)是可被观察的，那么极大似然估计就会变得容易许多。</p>
 <p>​    在这种情况下，EM算法提供了一种对于极大似然估计的高效的办法。明确最大化似然函数\(l(\theta)\)是困难的，但是我们的策略在于，循环确定l(θ)的下界（E步），再优化这个下界（M步）。</p>
