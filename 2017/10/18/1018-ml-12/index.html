@@ -94,18 +94,20 @@
 
 
 
-<meta name="description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构。">
+<meta name="description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习系列(12)——因子分析">
 <meta property="og:url" content="http://yoursite.com/2017/10/18/1018-ml-12/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构。">
+<meta property="og:description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-18T00:41:27.297Z">
+<meta property="og:image" content="http://yoursite.com/image/20171018/01.png">
+<meta property="og:updated_time" content="2017-10-18T01:47:59.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系列(12)——因子分析">
-<meta name="twitter:description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构。">
+<meta name="twitter:description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。">
+<meta name="twitter:image" content="http://yoursite.com/image/20171018/01.png">
 
 
 
@@ -378,7 +380,9 @@
       
 
       
-        <p>​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构。</p>
+        <p>​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。<br><a id="more"></a><br>​    现在，考虑n&gt;&gt;m的情况。对于这个问题，通过单个高斯分布进行建模是困难的，通过混合高斯分布进行建模更是难上加难。特别地，既然m个数据点散步在一个较低维度的子空间\(\mathbb{R}^{n}\)，如果我们利用高斯分布对数据建模，并且使用极大似然评估对平均值和方差进行估计，<br><img src="/image/20171018/01.png" alt="01"><br>​    我们发现矩阵Σ是奇异阵（行列式为0），以及其逆矩阵是不存在的，同时\(1/\left | \Sigma \right | ^{1/2}=1/0\)。但是这些项都是在多维高斯分布的密度计算中需要用到的。</p>
+<p>​    更普遍地，除非m比n大很多，对于平均值和方差的估计是很困难的。尽管这样，我们仍然要对这些数据进行高斯模型拟合，并且或许可以得到数据的方差。我们怎么做呢？</p>
+<p>​    在下一部分，我们先回顾对于Σ的两个约束，一个可以使是我们拟合小量的数据，但是都不能对我们的问题提供满意的解决方案。接下来，讨论高斯分布的特性，特别是如何找到高斯分布的条件分布和边缘分布。最后，我们说明银子分析模型，以及相应的EM算法。</p>
 
       
     </div>
