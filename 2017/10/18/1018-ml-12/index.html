@@ -103,7 +103,11 @@
 <meta property="og:description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/image/20171018/01.png">
-<meta property="og:updated_time" content="2017-10-18T01:47:59.315Z">
+<meta property="og:image" content="http://yoursite.com/image/20171018/02.png">
+<meta property="og:image" content="http://yoursite.com/image/20171018/03.png">
+<meta property="og:image" content="http://yoursite.com/image/20171018/04.png">
+<meta property="og:image" content="http://yoursite.com/image/20171018/05.png">
+<meta property="og:updated_time" content="2017-10-20T01:05:01.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系列(12)——因子分析">
 <meta name="twitter:description" content="​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。">
@@ -382,7 +386,15 @@
       
         <p>​    如果数据\(x ^{(i)}\in\mathbb{R}^{n}\)来源于多个混合的高斯，那么EM算法被应用于拟合这种混合模型。在这种情况下，我们通常想象我们有大量的数据以得到数据的多维高斯结构，例如训练集的数目m要远大于数据的维度n。<br><a id="more"></a><br>​    现在，考虑n&gt;&gt;m的情况。对于这个问题，通过单个高斯分布进行建模是困难的，通过混合高斯分布进行建模更是难上加难。特别地，既然m个数据点散步在一个较低维度的子空间\(\mathbb{R}^{n}\)，如果我们利用高斯分布对数据建模，并且使用极大似然评估对平均值和方差进行估计，<br><img src="/image/20171018/01.png" alt="01"><br>​    我们发现矩阵Σ是奇异阵（行列式为0），以及其逆矩阵是不存在的，同时\(1/\left | \Sigma \right | ^{1/2}=1/0\)。但是这些项都是在多维高斯分布的密度计算中需要用到的。</p>
 <p>​    更普遍地，除非m比n大很多，对于平均值和方差的估计是很困难的。尽管这样，我们仍然要对这些数据进行高斯模型拟合，并且或许可以得到数据的方差。我们怎么做呢？</p>
-<p>​    在下一部分，我们先回顾对于Σ的两个约束，一个可以使是我们拟合小量的数据，但是都不能对我们的问题提供满意的解决方案。接下来，讨论高斯分布的特性，特别是如何找到高斯分布的条件分布和边缘分布。最后，我们说明银子分析模型，以及相应的EM算法。</p>
+<p>​    在下一部分，我们先回顾对于Σ的两个约束，一个可以使是我们拟合小量的数据，但是都不能对我们的问题提供满意的解决方案。接下来，讨论高斯分布的特性，特别是如何找到高斯分布的条件分布和边缘分布。最后，我们说明因子分析模型，以及相应的EM算法。</p>
+<h2 id="1-Σ的约束"><a href="#1-Σ的约束" class="headerlink" title="1. Σ的约束"></a>1. Σ的约束</h2><p>​    如果没有足够丰富的数据拟合拟合出一个完整的协方差矩阵，我们获取会对我们要考虑的矩阵Σ的空间进行一些约束。例如，我们可以选择拟合出的Σ是一个对角阵。在这种情况下，读者很容易验证通过对角矩阵给出的协方差矩阵的极大似然估计满足<br><img src="/image/20171018/02.png" alt="02"><br>​    这样，\(\Sigma _{jj}\)只是输入向量第j个维度上的方差的经验估计。</p>
+<p>​    我们知道高斯密度图的等高线是椭圆的。一个对角阵Σ对应一个椭圆轴与坐标轴平行的高斯。</p>
+<p>​    有些时候，我们或许会对协方差矩阵添加更多地约束，它不仅仅是对角阵，同时对角线元素必须是相等的。在这种情况下，有\(\Sigma = \sigma ^{2}I\)，\(\sigma ^{2}\)是由我们控制的。那么对于\(\sigma ^{2}\)的极大似然估计可以写成：<br><img src="/image/20171018/03.png" alt="03"><br>​    这个模型对应于等高线为圆的高斯（2维空间里；更高维的表现为球体/柱体）</p>
+<p>​    如果我们用一个完整的，无任何约束的协方差矩阵Σ和你数据，那么m≥n+1是必须满足的，因为这样才能保证Σ不是奇异阵。在上面两个约束下，当m≥2时，可以得到非奇异阵Σ。</p>
+<p>​    然而，Σ为对角阵时，也意味着样本不同分量之间是不相关，独立的。通常，得到数据里面的相关性结构是很好地。如果我们使用带约束的Σ拟合数据，那么就很难发现数据之间的相关性。在本节中，我们将描述因子分析模型，使用比Σ更多的参数获取数据之间的联系，同时没有必要一定用完整的协方差矩阵拟合。</p>
+<h2 id="2-高斯的边缘和条件概率"><a href="#2-高斯的边缘和条件概率" class="headerlink" title="2. 高斯的边缘和条件概率"></a>2. 高斯的边缘和条件概率</h2><p>​    在我们介绍因子分析之前，我们先讨论一下如何在多维高斯分布里面计算随机变量的条件和边缘分布。</p>
+<p>​    假设我们有一个随机向量<br><img src="/image/20171018/04.png" alt="04"><br>​    这里，\(x _{1} \in \mathbb{R}^{r},x _{2} \in \mathbb{R}^{s},x \in \mathbb{R}^{r+s}\)。假设\(x \sim N(\mu, \Sigma)\)，<br><img src="/image/20171018/05.png" alt="05"><br>​    这里，\(\mu _{1} \in \mathbb{R}^{r},\mu _{2} \in \mathbb{R}^{s},\Sigma _{11} \in \mathbb{R}^{r \times r}, \Sigma _{12} \in \mathbb{R}^{r \times s}\)。注意到协方差矩阵是对称的，\(\Sigma _{12}=\Sigma _{21} ^{T}\)。</p>
+<p>​    在我们的假设下，</p>
 
       
     </div>
@@ -480,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -556,6 +577,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Σ的约束"><span class="nav-number">1.</span> <span class="nav-text">1. Σ的约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高斯的边缘和条件概率"><span class="nav-number">2.</span> <span class="nav-text">2. 高斯的边缘和条件概率</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
