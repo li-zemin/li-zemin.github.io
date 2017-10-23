@@ -94,25 +94,21 @@
 
 
 
-<meta name="description" content="1. 高斯混合模型与EM算法​    在本节中，我们将讨论用于密度估计的EM（Expectation-Maximization）算法。">
+<meta name="description" content="​    讨论因子分析时，我们给出了一个对“大概”来源于k个子空间的数据\(x \in \mathbb{R}\)，k&amp;lt;">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系列(10)——高斯混合模型和EM算法">
-<meta property="og:url" content="http://yoursite.com/2017/10/08/1008-ml-10/index.html">
+<meta property="og:title" content="机器学习系列(13)——主成分分析">
+<meta property="og:url" content="http://yoursite.com/2017/10/23/1023-ml-13/index.html">
 <meta property="og:site_name" content="Lizemin&#39;s Blog">
-<meta property="og:description" content="1. 高斯混合模型与EM算法​    在本节中，我们将讨论用于密度估计的EM（Expectation-Maximization）算法。">
+<meta property="og:description" content="​    讨论因子分析时，我们给出了一个对“大概”来源于k个子空间的数据\(x \in \mathbb{R}\)，k&amp;lt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/image/20171008/01.png">
-<meta property="og:image" content="http://yoursite.com/image/20171008/02.png">
-<meta property="og:image" content="http://yoursite.com/image/20171008/03.png">
-<meta property="og:image" content="http://yoursite.com/image/20171008/04.png">
-<meta property="og:image" content="http://yoursite.com/image/20171008/05.png">
-<meta property="og:image" content="http://yoursite.com/image/20171008/06.png">
-<meta property="og:updated_time" content="2017-10-16T00:05:37.995Z">
+<meta property="og:image" content="http://yoursite.com/image/20171023/01.png">
+<meta property="og:image" content="http://yoursite.com/image/20171023/02.png">
+<meta property="og:updated_time" content="2017-10-23T01:12:29.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系列(10)——高斯混合模型和EM算法">
-<meta name="twitter:description" content="1. 高斯混合模型与EM算法​    在本节中，我们将讨论用于密度估计的EM（Expectation-Maximization）算法。">
-<meta name="twitter:image" content="http://yoursite.com/image/20171008/01.png">
+<meta name="twitter:title" content="机器学习系列(13)——主成分分析">
+<meta name="twitter:description" content="​    讨论因子分析时，我们给出了一个对“大概”来源于k个子空间的数据\(x \in \mathbb{R}\)，k&amp;lt;">
+<meta name="twitter:image" content="http://yoursite.com/image/20171023/01.png">
 
 
 
@@ -141,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/08/1008-ml-10/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/23/1023-ml-13/"/>
 
 
 
 
 
-  <title>机器学习系列(10)——高斯混合模型和EM算法 | Lizemin's Blog</title>
+  <title>机器学习系列(13)——主成分分析 | Lizemin's Blog</title>
   
 
 
@@ -274,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/08/1008-ml-10/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/1023-ml-13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lizemin">
@@ -291,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习系列(10)——高斯混合模型和EM算法</h1>
+          <h1 class="post-title" itemprop="name headline">机器学习系列(13)——主成分分析</h1>
         
 
         <div class="post-meta">
@@ -303,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T07:54:18+08:00">
-                2017-10-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T07:44:37+08:00">
+                2017-10-23
               </time>
             
 
@@ -344,9 +340,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/08/1008-ml-10/#comments" itemprop="discussionUrl">
+                <a href="/2017/10/23/1023-ml-13/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/08/1008-ml-10/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/10/23/1023-ml-13/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -354,7 +350,7 @@
 
           
           
-             <span id="/2017/10/08/1008-ml-10/" class="leancloud_visitors" data-flag-title="机器学习系列(10)——高斯混合模型和EM算法">
+             <span id="/2017/10/23/1023-ml-13/" class="leancloud_visitors" data-flag-title="机器学习系列(13)——主成分分析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -385,17 +381,10 @@
       
 
       
-        <h2 id="1-高斯混合模型与EM算法"><a href="#1-高斯混合模型与EM算法" class="headerlink" title="1. 高斯混合模型与EM算法"></a>1. 高斯混合模型与EM算法</h2><p>​    在本节中，我们将讨论用于密度估计的EM（Expectation-Maximization）算法。<br><a id="more"></a><br>​    假设我们有一个给定的数据集\(\left \{ x ^{(1)},…,x ^{(m)} \right \}\)，在非监督学习算法中，这些点并没有相应的标签。</p>
-<p>​    我们希望通过一个特定的联合分布\(p(x ^{(i)}, z ^{(i)})=p(x ^{(i)}|z ^{(i)})p(z ^{(i)})\)建立这些数据的分布模型。这里，\(z ^{(i)} \sim Multinomial(\phi)\)（\(\phi _{j} \geq 0,\sum _{j=1}^{k}\phi _{j}=1\)，参数\(\phi _{j}\)表示\(p(z ^{i}=j)\)），同时\(x ^{(i)}|z ^{(i)}=j \sim N(\mu _{j},\Sigma _{j})\)。用k表示\(z ^{(i)}\)可能取值的个数。因此，我们的模型假设每个\(x ^{(i)}\)都是来源于从{1, . . . , k}中随机选择的\(z ^{(i)}\)，并且\(x ^{(i)}\)满足k个\(z ^{(i)}\)中某一个\(z ^{(i)}\)的高斯分布。这被称为<strong>高斯混合模型</strong>。并且，注意到\(z ^{(i)}\)是隐含的随机变量，意味着它们是隐藏的/无法观测的。这会使我们的估计问题变得比较困难。</p>
-<p>​    我们模型的参数是φ，μ以及Σ。为了估计这些参数，对这些数据的似然估计：<br><img src="/image/20171008/01.png" alt="01"><br>​    然而，如果我们对参数求导并使导数为0，并不能求得相应的值以找到参数的极大似然估计。</p>
-<p>​    随机变量\(z ^{(i)}\)表示\(x ^{(i)}\)来自于k个高斯分布中的哪一个分布。注意到如果我们知道\(z ^{(i)}\)是什么，极大似然问题也会变得好解很多。在这种情况下，我们可以将似然估计写成<br><img src="/image/20171008/02.png" alt="02"><br>​    求关于这些参数的函数最大值，可以得到对应的参数为：<br><img src="/image/20171008/03.png" alt="03"><br>​    对于上式推导的理解，可以<a href="https://li-zemin.github.io/2017/09/08/0908-ml-04/" target="_blank" rel="external">参考博文</a>中“高斯判别分析”部分中的解释。</p>
-<p>​    确实，我们看到如果\(z ^{(i)}\)是已知的，那么极大似然估计与我们之前在高斯判别评估模型中的推导是一样的，只不过\(z ^{(i)}\)在被看成了类别标签。（即不同的z表示不同的类别，x满足某一类的高斯分布）</p>
-<p>​    然而，在我们的实际评估问题中，\(z ^{(i)}\)是未知的，这又该如何处理呢？</p>
-<p>​    <strong>EM算法</strong>是一个包含有两个主要步骤的迭代算法。对于上述问题，在E步中，它尝试“猜测”\(z ^{(i)}\)的值。在M步中，它基于我们的猜测，更新参数的值。因为在M步中，我们假设了之前的对于\(z ^{(i)}\)的猜测是正确的，所以最大化变得容易很多（假设z是已知的）。算法步骤如下：<br><img src="/image/20171008/04.png" alt="04"><br><img src="/image/20171008/05.png" alt="05"></p>
-<p>​    在E步中，我们计算在目前参数情况下，给定\(x ^{(i)}\)的\(z ^{(i)}\)的后验概率，应用贝叶斯法则，可以得到：<br><img src="/image/20171008/06.png" alt="06"><br>​    该式中，\(p(x ^{(i)}|z ^{(i)}=j;\mu ,\Sigma)\)通过均值为\(\mu _{j}\)，方差为\(\sigma _{j}\)的高斯密度分布进行估计（可<a href="https://li-zemin.github.io/2017/09/08/0908-ml-04/#more" target="_blank" rel="external">参考博客</a>中的“高斯判别分析”部分）；\(p(z ^{(i)}=j;\phi)\)通过\(\phi _{j}\)得到。E步中计算得到的\(\omega _{j} ^{(i)}\)表示对于\(z ^{(i)}\)的“软”猜测。</p>
-<p>​    同时，我们对比M步中对于参数的更新与确定\(z ^{(i)}\)值时对参数的更新。它们基本是相同的，除了用\(\omega _{j} ^{(i)}\)代替了指示函数“\(1\left \{ z ^{(i)}=j \right \}\)”，表示数据点来自于哪个高斯分布。这不是硬性地确定一个样本点属于哪个高斯分布，而是以概率的形式表示样本与来源于哪个高斯分布的关系。</p>
-<p>​    EM算法的思想也可以在K-means算法中加以应用，我们不是硬性地确定样本点属于哪个簇c(i)，而是用一种软的分配\(\omega _{j} ^{(i)}\)。</p>
-<p>​    我们也可以想到要多次对不确定的\(z ^{(i)}\)进行假设猜测，但为什么要这么做？我们可以保证最后的结果是收敛的吗？在下节中，我们将描述更多关于EM的细节，这可以帮助我们将EM算法更好地应用于解决包含隐含变量的问题。</p>
+        <p>​    讨论因子分析时，我们给出了一个对“大概”来源于k个子空间的数据\(x \in \mathbb{R}\)，k&lt;<n。特别地，我们设想每个数据点\\(x ^{(i)}\\)首先由k维的放射空间\\(\left="" \{="" \lambda="" z="" +="" \mu;="" \in="" \mathbb{r}="" ^{k}="" \right="" \}\\)生成，再加上一些方差为ψ的噪声。因子分析基于一个概率模型，同时参数估计使用了迭代的em算法。="" <!--="" more="" --=""><br>​    在本节内容里，我们将研究一种新方法，<strong>主成分分析，Principla Components Analysis</strong>。这种方法试图识别这些数据来源的子空间。只需要一个特征向量计算而不需要借助EM算法，PCA可以很直接地完成这样的工作。</n。特别地，我们设想每个数据点\\(x></p>
+<p>​    假设我们给定一个数据集\(\left \{ x ^{(i)};i=1,…,m \right \}\)是m个不同种类的汽车，它们的最大速度，回转半径等参数有所差异。对于每个i，设\(x ^{(i)} \in \mathbb{R}\)（n&lt;&lt;m）。但是有些我们是不知道的，比如两个不同的属性\(x _i\)和\(x _j\)可能满足一种依赖的线性关系，比如一辆汽车每小时跑多少英里，与每小时跑多少千米，因此，这两个属性其实表达了一种信息。那么，这些数据就可以说是来源于n-1维的子空间。我们如何能够自动检测，同时去掉一些冗余的属性特征呢?</p>
+<p>​    介绍一个实际的例子，考虑一个关于遥控直升机操作手的数据集，\(x _1 ^{(i)}\)表示操作手i的操作技能，\(x _2 ^{(i)}\)表示操作手i对飞行的喜爱程度。因为操作遥控直升机飞行是很困难的，只有经常投入的，真正喜爱飞行的，可以称为好的操作手。因此，这两个属性\(x _1\)和\(x _2\)之间具有很强的联系。我们可以假设这些数据沿着二维坐标的对角线分布，\(\mu _{1}\)方向表示了一个人的飞行潜质，有很少的噪声点不在这个轴上。那么，我们 如何自动计算得到\(\mu _{1}\)的方向呢？<br><img src="/image/20171023/01.png" alt="01"><br>​        我们将简要推导PCA算法。但是在运行PCA之前，首要地，我们要对这些数据进行处理，将它们的均值和方差均一化，操作如下：<br><img src="/image/20171023/02.png" alt="02"><br>​    步骤(1-2)将数据的均值都归为0，当数据的均值本来就为0时，这个步骤可以省略（例如，对应于声音的时间序列）。步骤(3-4)调节每个坐标都有单位方法，保证每个特征都有相同的“数值范围”。例如，如果\(x _{1}\)表示汽车的最大速度（变化范围为几千到几百），\(x _{2}\)表示座位的数目（范围为2-4），那么归一化使不同的特征的数值可比。步骤(3-4)可以省略，如果我们已经知道不同的参数在同一个数值范围上。</p>
+<p>​    </p>
 
       
     </div>
@@ -426,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/07/1007-ml-09/" rel="next" title="机器学习系列(9)——K-means聚类算法">
-                <i class="fa fa-chevron-left"></i> 机器学习系列(9)——K-means聚类算法
+              <a href="/2017/10/18/1018-ml-12/" rel="next" title="机器学习系列(12)——因子分析">
+                <i class="fa fa-chevron-left"></i> 机器学习系列(12)——因子分析
               </a>
             
           </div>
@@ -435,10 +424,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/10/1010-ml-11/" rel="prev" title="机器学习系列(11)——EM算法详解">
-                机器学习系列(11)——EM算法详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -497,17 +482,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -582,22 +558,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-高斯混合模型与EM算法"><span class="nav-number">1.</span> <span class="nav-text">1. 高斯混合模型与EM算法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -752,9 +712,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/10/08/1008-ml-10/';
-          this.page.identifier = '2017/10/08/1008-ml-10/';
-          this.page.title = '机器学习系列(10)——高斯混合模型和EM算法';
+          this.page.url = 'http://yoursite.com/2017/10/23/1023-ml-13/';
+          this.page.identifier = '2017/10/23/1023-ml-13/';
+          this.page.title = '机器学习系列(13)——主成分分析';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lizemin.disqus.com/embed.js';

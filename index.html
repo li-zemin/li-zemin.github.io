@@ -267,6 +267,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/23/1023-ml-13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lizemin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lizemin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/23/1023-ml-13/" itemprop="url">机器学习系列(13)——主成分分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T07:44:37+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/23/1023-ml-13/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/23/1023-ml-13/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/23/1023-ml-13/" class="leancloud_visitors" data-flag-title="机器学习系列(13)——主成分分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>​    讨论因子分析时，我们给出了一个对“大概”来源于k个子空间的数据\(x \in \mathbb{R}\)，k&lt;<n。特别地，我们设想每个数据点\\(x ^{(i)}\\)首先由k维的放射空间\\(\left="" \{="" \lambda="" z="" +="" \mu;="" \in="" \mathbb{r}="" ^{k}="" \right="" \}\\)生成，再加上一些方差为ψ的噪声。因子分析基于一个概率模型，同时参数估计使用了迭代的em算法。="" <!--="" more="" --=""><br>​    在本节内容里，我们将研究一种新方法，<strong>主成分分析，Principla Components Analysis</strong>。这种方法试图识别这些数据来源的子空间。只需要一个特征向量计算而不需要借助EM算法，PCA可以很直接地完成这样的工作。</n。特别地，我们设想每个数据点\\(x></p>
+<p>​    假设我们给定一个数据集\(\left \{ x ^{(i)};i=1,…,m \right \}\)是m个不同种类的汽车，它们的最大速度，回转半径等参数有所差异。对于每个i，设\(x ^{(i)} \in \mathbb{R}\)（n&lt;&lt;m）。但是有些我们是不知道的，比如两个不同的属性\(x _i\)和\(x _j\)可能满足一种依赖的线性关系，比如一辆汽车每小时跑多少英里，与每小时跑多少千米，因此，这两个属性其实表达了一种信息。那么，这些数据就可以说是来源于n-1维的子空间。我们如何能够自动检测，同时去掉一些冗余的属性特征呢?</p>
+<p>​    介绍一个实际的例子，考虑一个关于遥控直升机操作手的数据集，\(x _1 ^{(i)}\)表示操作手i的操作技能，\(x _2 ^{(i)}\)表示操作手i对飞行的喜爱程度。因为操作遥控直升机飞行是很困难的，只有经常投入的，真正喜爱飞行的，可以称为好的操作手。因此，这两个属性\(x _1\)和\(x _2\)之间具有很强的联系。我们可以假设这些数据沿着二维坐标的对角线分布，\(\mu _{1}\)方向表示了一个人的飞行潜质，有很少的噪声点不在这个轴上。那么，我们 如何自动计算得到\(\mu _{1}\)的方向呢？<br><img src="/image/20171023/01.png" alt="01"><br>​        我们将简要推导PCA算法。但是在运行PCA之前，首要地，我们要对这些数据进行处理，将它们的均值和方差均一化，操作如下：<br><img src="/image/20171023/02.png" alt="02"><br>​    步骤(1-2)将数据的均值都归为0，当数据的均值本来就为0时，这个步骤可以省略（例如，对应于声音的时间序列）。步骤(3-4)调节每个坐标都有单位方法，保证每个特征都有相同的“数值范围”。例如，如果\(x _{1}\)表示汽车的最大速度（变化范围为几千到几百），\(x _{2}\)表示座位的数目（范围为2-4），那么归一化使不同的特征的数值可比。步骤(3-4)可以省略，如果我们已经知道不同的参数在同一个数值范围上。</p>
+<p>​    </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/18/1018-ml-12/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1742,161 +1909,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/0904-ml-03/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lizemin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizemin's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/0904-ml-03/" itemprop="url">机器学习系列(3)——广义线性模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T07:56:13+08:00">
-                2017-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-             <span id="/2017/09/05/0904-ml-03/" class="leancloud_visitors" data-flag-title="机器学习系列(3)——广义线性模型">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-广义线性模型"><a href="#1-广义线性模型" class="headerlink" title="1. 广义线性模型"></a>1. 广义线性模型</h2><p>​    我们前面已经学习了回归和分类。在回归例子中，我们有\(y|x;\theta\sim N(\mu ,\delta ^{2})\)(高斯分布)，在分类例子中，我们有\(y|x;\theta\sim Bernoulli(\phi )\)(伯努利分布)。在这里，\(\mu\)和\(\phi\)为x和θ的函数。在本节中，我们将学习到两种算法模型都属于这一种广义的模型族，被称为<strong>广义线性模型(Generalized Linear Models, GLMs)</strong>。同时，我们也可以GLM模型族中的其他模型应用到别的回归和分类问题中。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/05/0904-ml-03/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1947,7 +1959,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
