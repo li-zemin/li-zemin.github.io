@@ -105,7 +105,12 @@
 <meta property="og:image" content="http://yoursite.com/image/20171025/01.png">
 <meta property="og:image" content="http://yoursite.com/image/20171025/02.png">
 <meta property="og:image" content="http://yoursite.com/image/20171025/03.png">
-<meta property="og:updated_time" content="2017-10-25T01:10:33.083Z">
+<meta property="og:image" content="http://yoursite.com/image/20171025/04.png">
+<meta property="og:image" content="http://yoursite.com/image/20171025/05.png">
+<meta property="og:image" content="http://yoursite.com/image/20171025/06.png">
+<meta property="og:image" content="http://yoursite.com/image/20171025/07.png">
+<meta property="og:image" content="http://yoursite.com/image/20171025/08.png">
+<meta property="og:updated_time" content="2017-10-27T01:10:05.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系列(14)——独立成分分析">
 <meta name="twitter:description" content="​    本节的主题是独立成分分析（Independent Components Analysis, ICA）。类似PCA，ICA也将给出一种数据表示方法。然而，它们的目标是不同的。">
@@ -385,9 +390,24 @@
         <p>​    本节的主题是<strong>独立成分分析（Independent Components Analysis, ICA）</strong>。类似PCA，ICA也将给出一种数据表示方法。然而，它们的目标是不同的。<br><a id="more"></a><br>​    首先，我们介绍一个“鸡尾酒宴会问题”。这里，n个演讲者在宴会上同时讲话，放置在房间里面的任意一个话筒记录了互相叠加的n个演讲者的声音信号。假设我们在房间的不同位置放置了n个话筒，因为每个的话筒距离不同演讲者的距离都是不一样的。通过n个话筒记录的声音信息，我们能否分离出n个不同演讲者的声音信号呢？</p>
 <p>​    为了更好地描述这个问题，我们假设(s \in \mathbb{R}^{n}\)来自于n个独立源。我们所观察到的是<br><img src="/image/20171025/01.png" alt="01"><br>​    A是一个未知的方块矩阵，称为<strong>混合矩阵</strong>。重复观察后，我们可以得到数据集\(\left \{ x ^{(i)};i=1,…,m \right \}\)，同时我们的目标是从数据集中观察得到\(s ^{(i)}\)。</p>
 <p>​    在鸡尾酒晚宴问题中，\(s ^{(i)}\)是一个n维向量，同时\(s _{j} ^{(i)}\)表示演讲者j在时间i发出的声音。\(x ^{(i)}\)是一个n维向量，\(x _{j} ^{(i)}\)为话筒j在时间i时记录的声音信号。</p>
-<p>​    设\(W = A ^{-1}\)为<strong>分离矩阵</strong>。我们的目标是找到W，这样就可以根据话筒记录的声音信息\(x ^{(i)}\)，通过计算\(s ^{(i)}=W x ^{(i)}\)得到源信号。为了便于表示，我们设\(w _{i} ^{T}\)表示W的第i行，因此<br><img src="/image/20171025/02.png" alt="02"><br>​    因此，\(w _{i} \in \mathbb{R} ^{n}\)，同时第j个声音源可以通过计算\(s _{j} ^{(i)} = w _{i} ^{T} x ^{(i)}\)得到第j个源信号。</p>
-<h2 id="1-ICA的不确定性"><a href="#1-ICA的不确定性" class="headerlink" title="1. ICA的不确定性"></a>1. ICA的不确定性</h2><pre><code>那么有多大程度可以得到W呢？如果我们没有关于源信号和混合矩阵的先验知识，只给出\\(x ^{(i)}\\)时，A有其固有的不确定性。
-</code></pre><p>​    特别地，设P是任意一个n * n 的置换矩阵，意味这P的任意一行或任意一列都有一个”1”。下面是一些置换矩阵的例子：<br><img src="/image/20171025/03.png" alt="03"><br>​    如果z是一个向量，那么Pz是另一个置换了z的坐标的向量。只给定\(x ^{(i)}\)，无法区分W 和 WP。特别地，源信号的置换也是不确定的。有幸的是，在大多数应用中是没有关系的。</p>
+<p>​    设\(W = A ^{-1}\)为<strong>分离矩阵</strong>。我们的目标是找到W，这样就可以根据话筒记录的声音信息\(x ^{(i)}\)，通过计算\(s ^{(i)}=W x ^{(i)}\)得到源信号。为了便于表示，我们设\(w _{i} ^{T}\)表示W的第i行，因此<br><img src="/image/20171025/02.png" alt="02"><br>​    因此，\(w _{i} \in \mathbb{R} ^{n}\)，同时第j个声音源可以通过计算\(s _{j} ^{(i)} = w _{j} ^{T} x ^{(i)}\)得到第j个源信号。</p>
+<h2 id="1-ICA的不确定性"><a href="#1-ICA的不确定性" class="headerlink" title="1. ICA的不确定性"></a>1. ICA的不确定性</h2><p>那么有多大程度可以得到W呢？如果我们没有关于源信号和混合矩阵的先验知识，只给出\(x ^{(i)}\)时，A有其固有的不确定性。</p>
+<p>​    特别地，设P是任意一个n * n 的置换矩阵，意味这P的任意一行或任意一列都有一个”1”。下面是一些置换矩阵的例子：<br><img src="/image/20171025/03.png" alt="03"><br>​    如果z是一个向量，那么Pz是另一个置换了z的坐标的向量。只给定\(x ^{(i)}\)，无法区分W 和 WP。特别地，源信号的置换也是不确定的。幸运的是，在大多数应用中是没有关系的。</p>
+<p>​    更多地，没有办法将\(w _{i}\)恢复到正确的长度。例如，如果用2A替代A，同时每个\(s ^{(i)}\)用\(0.5(s ^{}(i))\)代替，然后我们观察到的\(x ^{(i)} = 2A \cdot (0.5)s ^{(i)}\)也是一样的。更广泛地，如果A的一列的长度由α衡量，同时对应的源信号的长度由1/α衡量，那么在有\(x ^{(i)}\)时，也无法确定发生了什么。因此，我们无法复原源信号的正确的长度。然而，对于我们所关注的应用，包括鸡尾酒宴会问题在内，这种不确定性是无关紧要的。在该场景下，通过一些正的因子α度量讲话者的声音信号只与他们讲话的声音高低有关。同时，符号变化也是没有关系的，\(s _{j} ^{(i)}\)与\(-s _{j} ^{(i)}\)听起来是完全相同的。因此，如果通过算法得到的\(w _{i}\)的长度是任一一个非零的实数，那么对应得到复原的源信号\(s _{i} = w _{i} ^{T} x\)也可以通过同样的因子衡量长度，这是无关紧要的。</p>
+<p>​    那这只是ICA不确定性的唯一来源吗？证明得到只要源信号是非高斯分布的，那么ICA的不确定性来源就只有我们上面所描述的。为了说明，对于应用于高斯数据的困难性，考虑一个例子，n=2，\(s \sim n(0, I)\)。这里，I是一个2*2的单位矩阵。注意到标准正太分布N(0, I)密度的等高线是一个中心在圆点的圆，同时，密度是旋转对称的。</p>
+<p>​    现在，假设我们观察到 x = As，A是我们的混合矩阵。x的分布就会是均值为0，方差为\(E[xx ^{T}]=E[Ass^{T}A^{T}]=AA^{T}\)的高斯分布。现在，设R是一个任意正交（非正式地，一个旋转/映射）矩阵，因此\(RR^{T} = R ^{T}R=I\)，同时设\({A}’ = AR\)。那么如果数据由矩阵A’而不是A混合得到，我们就会观测到\({x}’ = {A}’s\)。那么x’的分布也是高斯分布，均值为0，方差为\(E[x’(x’) ^{T}]=E[A’ss^{T}(A’)^{T}]=E[ARss ^{T}(AR) ^{T}]= ARR ^{T}A = AA^{T}\)。因此，不管混合矩阵是A还是A’，我们都会观测得到满足\(N (0, AA ^{T})\)的数据分布。因此，我们办法区分源信号是被A还是被A’混合。因此，有一个任意旋转的成分在混合矩阵中，而无法通过观测到的数据确定，我们也无法复原初始信号源。</p>
+<p>​    我们上面的结论是基于多维标准正太分布是旋转对称得来的。除了高斯分布的数据，只要数据是非高斯的，就有可能通过足够的数据，复原n个独立的信号源。</p>
+<h2 id="2-概率密度和线性变换"><a href="#2-概率密度和线性变换" class="headerlink" title="2. 概率密度和线性变换"></a>2. 概率密度和线性变换</h2><p>​    在我们正式讨论ICA算法之前，先简单讨论一下线性变换对于密度的影响。</p>
+<p>​    假设我们有一个随机变量s，对应的概率密度为\(p _{s} (s)\)。简化表示，我们设\(s \in \mathbb{R}\)是一个实数，随机变量根据x=As定义（\(x \in \mathbb{R}, A \in \mathbb{R}\)）。\(p _{x}\)表示x的密度，\(p _{x}\)是多少呢？</p>
+<p>​    设\(W = A ^{-1}\)。为了计算一个特定值x的概率，我们很容易想到计算s=Wx，接着估计在该点的\(p _{s})，就可以得到\(p _{x}(x) = p _{s}(Wx)\)。然后，这是错误的。例如，我们设\(s \sim Uniform[0,1]\)，因此s的密度\(p _{s}(s)=1\left \{ 0\leq s\leq 1 \right \}\)。现在，设A=2，因此x=2s。可以看到，x在[0, 2]区间内也满足一致分布。因此，\(p _{x}(x)=(0.5)1\left \{ 0\leq x\leq 2 \right \}\)，这并不等于\(p _{s}(Wx)\)，W = 0.5。反而，正确的公式是\(p _{x}(x) = p _{s}(Wx)\left | W \right |\)。</p>
+<p>​    更普遍地，如果s是一个向量，并且分布的密度是\(p _{s}\)，A是一个正交的方块矩阵，那么x=As，x的密度为<br><img src="/image/20171025/04.png" alt="04"><br>​    其中，\(W = A ^{-1}\)。</p>
+<h2 id="3-ICA算法"><a href="#3-ICA算法" class="headerlink" title="3. ICA算法"></a>3. ICA算法</h2><p>​    我们现在推导ICA算法。我们对于算法的描述来源于Bell和Sejnowski。</p>
+<p>​    假设每个源信号\(s _{i}\)的分布密度为\(p _{s}\)，那么这些源信号的联合分布就是<br><img src="/image/20171025/05.png" alt="05"><br>​    注意到，这里我们假设信号源是独立的。使用我们前面的式子，(x = As = W ^{-1}s\)的密度为：<br><img src="/image/20171025/06.png" alt="06"><br>​    剩下的，就是制定单个源信号的密度\(p _s\)。</p>
+<p>​    回顾一下，给定一个实数随机变量z，它的累计分布函数（cdf）F的定义为\(F{z _{0}}=P(z \leq z _{0})=\int _{-\infty }^{z _{0}}p _{z}(z)dz\)。同时，z的密度也可以通过对cdf求导得到：\(p _{z}(z)=F’(z)\)。</p>
+<p>​    因此，为了确定\(s _{i}\)的密度，我们需要去做的就是确定它的cdf函数。一个cdf函数一定是一个从0到1的单调函数。根据我们之前的讨论，我们不能选择一个满足高斯分布的cdf函数，因为ICA对于高斯函数是无效的。我们要选择一个从0到1缓慢增长的函数作为cdf，sigmoid函数是一个选择\(g(s) = 1/ (1+e ^{-s})\)。那么，\(p _{s}(s) = g’(s)\)。</p>
+<p>​    方阵W是模型的参数，给定一个训练集\(\left \{ x ^{(i)};i=1,…,m \right \}\)，参数的似然估计为<br><img src="/image/20171025/07.png" alt="07"><br>​    我们要关于W最大化该函数。通过求导并根据（前面推导的）\(\bigtriangledown _{W}\left | W \right |=\left | W \right |(W ^{-1}) ^{T}\)，我们很容易导出随机梯度下降学习规则。对于一个训练样本\(x ^{(i)}\)，更新规则是：<br><img src="/image/20171025/08.png" alt="08"><br>​    α表示学习率。</p>
+<p>​    在算法收敛之后，我们可以通过计算\(s ^{(i)}=W x ^{(i)}\)复原原始信号。</p>
+<p><strong>讨论。</strong>我们对这些数据的似然估计，假设了\(x ^{(i)}\)是彼此独立的，因此训练集的似然估计为\(\prod _{i}p(x ^{(i)};W)\)。这个假设对于\(x ^{(i)}\)是彼此相关的情况是不适用的，但是如果我们有足够多的数据，有一些相关的数据也不会影响算法的性能。但是，对于一种连续训练数据都是相关的情况，当实现随机梯度下降时，如果我们将训练数据随机排列，可以有效地促进收敛。</p>
 
       
     </div>
@@ -580,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ICA的不确定性"><span class="nav-number">1.</span> <span class="nav-text">1. ICA的不确定性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ICA的不确定性"><span class="nav-number">1.</span> <span class="nav-text">1. ICA的不确定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-概率密度和线性变换"><span class="nav-number">2.</span> <span class="nav-text">2. 概率密度和线性变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ICA算法"><span class="nav-number">3.</span> <span class="nav-text">3. ICA算法</span></a></li></ol></div>
             
 
           </div>
