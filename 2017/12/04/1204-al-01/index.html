@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://yoursite.com/image/20171204/002.png">
 <meta property="og:image" content="http://yoursite.com/image/20171204/003.png">
 <meta property="og:image" content="http://yoursite.com/image/20171204/004.png">
-<meta property="og:updated_time" content="2017-12-04T09:09:21.849Z">
+<meta property="og:updated_time" content="2017-12-04T14:42:09.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法小记-剑指offer">
 <meta name="twitter:description" content="本博客的题目来源于《剑指Offer》一书，也可在牛客网上找到答题链接。持续更新中……">
@@ -324,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -412,6 +412,13 @@
 <p>该程序也可满足牛客网上对于程序执行时间以及占用内存空间的要求。</p>
 <p>《剑指Offer》一书中，对该题的解答比较偏底层：</p>
 <p><img src="/image/20171204/001.png" alt="001"><br><img src="/image/20171204/002.png" alt="002"><br><img src="/image/20171204/003.png" alt="003"><br><img src="/image/20171204/004.png" alt="004"></p>
+<p>书中底层的操作是通过指针完成的，并且考虑到了内存占用的问题，这是面试官考察的重点。从后往前复制元素给我们提供了一种很好的思路，适用于合并数组（包括字符串）等问题中，这样能减少移动的次数，从而提高效率。</p>
+<p>下面提供一个例题：</p>
+<blockquote>
+<p>有两个排序的数组A1和A2，内存在A1的末尾有足够多的空余空间容纳A2。请实现一个函数，把A2中的所有的数字插入到A1中并且所有的数字是排序的。</p>
+</blockquote>
+<p>假设A1和A2中的元素都是按照从小到大的顺序排列的。要将A2的元素插入到A1的元素中间，会涉及到A1中的元素移动的问题。为了提高效率，我们可以考虑从内存空间末尾填充元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] arrayCopy(<span class="keyword">int</span>[] a1, <span class="keyword">int</span>[] a2)&#123;</div><div class="line">    <span class="keyword">int</span> newArray[] = <span class="keyword">new</span> <span class="keyword">int</span>[a1.length + a2.length];</div><div class="line">    <span class="keyword">int</span> indexOfA1 = a1.length - <span class="number">1</span>;  <span class="comment">//数组A1索引</span></div><div class="line">    <span class="keyword">int</span> indexOfA2 = a2.length - <span class="number">1</span>;  <span class="comment">//数组A2索引</span></div><div class="line">    <span class="keyword">int</span> indexOfNew = a1.length + a2.length -<span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span> (indexOfNew &gt;= <span class="number">0</span>)&#123;</div><div class="line">        <span class="keyword">if</span>(a1[indexOfA1] &gt; a2[indexOfA2])&#123;  <span class="comment">//A1中的元素大于A2中的元素</span></div><div class="line">            newArray[indexOfNew] = a1[indexOfA1];  <span class="comment">//在新数组中填充A1中的元素</span></div><div class="line">            --indexOfA1;  <span class="comment">//更新A1的指针</span></div><div class="line">        &#125;<span class="keyword">else</span> &#123;</div><div class="line">            newArray[indexOfNew] = a2[indexOfA2];</div><div class="line">            --indexOfA2;</div><div class="line">        &#125;</div><div class="line">        indexOfNew --;  <span class="comment">//新数组中的索引值更新</span></div><div class="line">        <span class="keyword">if</span>(indexOfA1 &lt; <span class="number">0</span>)&#123;</div><div class="line">            System.arraycopy(a2, <span class="number">0</span>, newArray, <span class="number">0</span>, indexOfA2 + <span class="number">1</span>); <span class="comment">//若A1中的元素已全部复制到新数组中，则将A2中的剩余元素复制到新数组中</span></div><div class="line">            <span class="keyword">return</span> newArray;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(indexOfA2 &lt; <span class="number">0</span>)&#123;</div><div class="line">            System.arraycopy(a1, <span class="number">0</span>, newArray, <span class="number">0</span>, indexOfA1 + <span class="number">1</span>);</div><div class="line">            <span class="keyword">return</span> newArray;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> newArray;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -545,7 +552,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
